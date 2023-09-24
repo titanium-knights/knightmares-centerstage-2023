@@ -4,30 +4,34 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Claw {
-    Servo clawServo_right;
-    Servo clawServo_left;
-    //right + = close, left - = close
+    Servo clawOpener;
+    Servo clawRotator;
+    boolean isOpen = false;
 
     public Claw(HardwareMap hmap){
-        this.clawServo_left = hmap.servo.get(CONFIG.clawServoLeft);
-        this.clawServo_right = hmap.servo.get(CONFIG.clawServoRight);
+        this.clawOpener = hmap.servo.get(CONFIG.clawServo);
+        this.clawRotator = hmap.servo.get(CONFIG.clawSpin);
     }
 
-
-    public double getLeftPosition() {return clawServo_left.getPosition();}
-    public double getRightPosition() {return clawServo_right.getPosition();}
-
-    public void open(){
-        clawServo_left.setPosition(0);
+    public boolean isOpen() {
+        return isOpen;
     }
+
+    //return the servo position
+    public int getPosition() {
+        //TODO
+        return -1;
+    }
+
+    public void open() {
+        //TODO: move servo to open position
+    }
+
     public void close(){
-        clawServo_left.setPosition(0.5);
+        //TODO: move servo to close position
     }
 
-    public void test1(){
-        clawServo_left.setPosition(1);
-    }
-    public void test0(){
-        clawServo_left.setPosition(0);
+    public void turnClaw(double radians) {
+        //TODO: turn claw to a certain position
     }
 }
