@@ -17,21 +17,25 @@ public class Claw {
         return isOpen;
     }
 
-    //return the servo position
-    public int getPosition() {
-        //TODO
-        return -1;
+    // return the servo position
+    public double getPosition() {
+        return clawOpener.getPosition();
     }
 
+    // moves servo to open position
     public void open() {
-        //TODO: move servo to open position
+        isOpen = true;
+        clawOpener.setPosition(1); // i put a random number idk
     }
 
+    // moves servo to closed position
     public void close(){
-        //TODO: move servo to close position
+        isOpen = false;
+        clawOpener.setPosition(0); // random number
     }
 
+    // turns claw to a certain position
     public void turnClaw(double radians) {
-        //TODO: turn claw to a certain position
+        clawRotator.setPosition(radians);
     }
 }
