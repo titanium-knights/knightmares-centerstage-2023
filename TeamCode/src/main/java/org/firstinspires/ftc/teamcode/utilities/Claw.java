@@ -37,7 +37,7 @@ public class Claw {
 
     // turns claw to a certain position
     public void turnClaw(double radians) { //where radians is the amount the arm is turning
-        double degrees = (180*radians)/Math.PI; // how much the claw is turning in degrees
+        double degrees = (180*radians)/Math.PI; // how much the arm is turning in degrees
         clawRotator.setPosition(240-degrees);
     }
 }
