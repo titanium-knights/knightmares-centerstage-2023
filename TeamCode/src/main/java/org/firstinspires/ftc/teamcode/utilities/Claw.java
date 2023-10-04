@@ -8,6 +8,7 @@ public class Claw {
     Servo clawRotator;
 
     boolean isOpen = false;
+    double angle = 0;
 
     public Claw(HardwareMap hmap){
         this.clawOpener = hmap.servo.get(CONFIG.clawServo);
@@ -26,18 +27,28 @@ public class Claw {
     // moves servo to open position
     public void open() {
         isOpen = true;
-        clawOpener.setPosition(1); // i put a random number idk
+        clawOpener.setPosition(0.5); //TODO update
     }
 
     // moves servo to closed position
     public void close(){
         isOpen = false;
-        clawOpener.setPosition(0); // random number
+        clawOpener.setPosition(0); // TODO update
     }
 
-    // turns claw to a certain position
-    public void turnClaw(double radians) { //where radians is the amount the arm is turning
-        double degrees = (180*radians)/Math.PI; // how much the arm is turning in degrees
-        clawRotator.setPosition(240-degrees);
+    //how many radians the claw should turn
+    public void turnClaw(double radians) {
+        double degrees = Math.toDegrees(radians);
+        clawRotator.setPosition(degrees);
+    }
+
+    //TODO: documentation / prove math
+    public void maintain(double liftAngle) {
+        double theta = 180 - Math.toDegrees(liftAngle);
+        double phi = 180 - angle; // math check?
+        while (Math.abs(theta + phi - 240.0) > 2.0) {// maybe do some more accurate stuff
+            double delta = (240.0 - theta - 180.0) * -1.0;
+            turnClaw(delta);
+        }
     }
 }
