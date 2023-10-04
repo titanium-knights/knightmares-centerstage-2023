@@ -26,13 +26,12 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     ArrayList<Point> rect_points = new ArrayList<>();
 
     // the three places we might end up
-    //TODO: figure out corresponding rr coordinates
-    public enum locations {
+    public enum Locations {
         ONE, TWO, THREE
     }
 
     // the location we actually want to go to
-    public locations location;
+    public Locations location;
 
 
     /**
@@ -55,7 +54,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
      * @param input the input image
      * @return the input image in the appropriate color channel
      */
-    Mat getColor(Mat input) {
+    private Mat getColor(Mat input) {
         Mat coloredSection = new Mat();
 
         // convert a Scalar into a RGB channel number
@@ -68,31 +67,62 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     }
 
     //return the likelihood that the section is the team color
-    //TODO
-    public int processSection(Mat input, Point A, Point B) {
+    private int processSection(Mat input, Point A, Point B) {
         // get the cropped section in the appropriate color channel
         Mat croppedSection = getColor(input).submat(new Rect(A, B));
+        telemetry.addLine("cropped section: " + croppedSection.toString());
+
+        final int MARGIN = 10;
 
         // loop over croppedSection in bigger chunks (not single px)
         // if average redness/blueness is above a margin, return the red/blue value
         // otherwise, return 0
-        return 0;
+
+        int colorSum = 0;
+        int count = 0; // I could probably calculate this from Point values but am lazy
+        for (double x = A.x; x < B.x; x += 10) {
+            for (double y = A.y; y < B.y; y += 10) {
+                ++count;
+                int sum = 0;
+                for (int i=0;i<10;i++) {
+                    for (int j=0;j<10;j++) {
+                        sum += croppedSection.get((int) x + i, (int) y + j)[0];
+                    }
+                }
+                if (sum > MARGIN) colorSum += sum;
+            }
+        }
+
+        // avoid divide by zero
+        if (count == 0) return 0;
+
+        return colorSum/count; //mean
+    }
+
+    public Locations getLocation() {
+        return location;
     }
 
     @Override
     public Mat processFrame(Mat input) {
+        int max = 0;
         for (int i = 0; i < rect_points.size(); i += 2) {
             Point A = rect_points.get(i);
             Point B = rect_points.get(i + 1);
 
             int colorValue = processSection(input, A, B);
 
-            if (colorValue != 0) {
+            if (colorValue > 0) {
                 telemetry.addData("Color", colorValue);
                 telemetry.update();
+
+                if (colorValue > max) {
+                    max = colorValue;
+                    location = Locations.values()[i / 2];
+                }
             }
         }
-        return new Mat();
+        return input;
     }
 
     @Override
@@ -109,7 +139,5 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
         rect_points.add(new Point(2*input.rows()/3.0, input.cols()));
         rect_points.add(new Point(2*input.rows()/3.0, 0));
         rect_points.add(new Point(input.rows(), input.cols()));
-
-//        Mat coloredChannel = getColor(input);
     }
 }
