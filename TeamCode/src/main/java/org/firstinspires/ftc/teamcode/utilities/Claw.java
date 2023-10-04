@@ -39,7 +39,7 @@ public class Claw {
     //how many radians the claw should turn
     public void turnClaw(double radians) {
         double degrees = Math.toDegrees(radians);
-        clawRotator.setPosition(degrees);
+        clawRotator.setPosition(degrees/360);
     }
 
     //TODO: documentation / prove math
