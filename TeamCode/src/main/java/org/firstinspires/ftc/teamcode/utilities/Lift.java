@@ -6,32 +6,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Lift {
     public DcMotor liftMotor;
 
-    public static double LIFT_POWER = .6;
-    public static double LIFT_POWER_MULTIPLYER = .9;
+    public static double LIFT_POWER_MULTIPLIER = .9;
 
-    // will need to adjust based on how much the motor rotates
-    public static double OVER_MID_POSITION = 0.6;
-    public static double OVER_HIGH_POSITION = 0.5;
-    public static double HIGH_POSITION = 0.4;
-    public static double MID_POSITION = 0.3;
-    public static double LOW_POSITION = 0.2;
-    public static double GROUND_POSITION = 0.1;
-
-    // to prevent bad things from happening
+    // TODO check limit values based on degrees,
+    // should be between ~ -45 & 135 degrees
     public static double MAX_LIMIT = 0.65;
     public static double MIN_LIMIT = 0.01;
 
-    // i have no clue what this is supposed to do
-    public static double Y = 0;
-
-
-    // change based on driver's preference
-    public double LEFT_JOYSTICK_Y_Positive = 0;
-    public double LEFT_JOYSTICK_Y_Negative = 0;
-
-    // stuff that changes sensitivity of the controls
-    public static double SENSITIVITY = 0.05;
-    public static double TOLERANCE = 20;
+    //these might end up being the same as min and max limit
+    public static double PICKUP_POINT = 0.1;
+    public static double DROP_POINT = 0.60;
 
     // higher power lift going up vs going down cause power + gravity = more power
     public static double POWER_UP = 0.4;
@@ -43,7 +27,7 @@ public class Lift {
     }
 
     public void setPower(double power) {
-        liftMotor.setPower(-power * LIFT_POWER_MULTIPLYER);
+        liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
     }
 
     public void setPosition(int pos, double power) {
@@ -57,25 +41,24 @@ public class Lift {
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public int getPositionR() {
+    public int getPosition() {
         return liftMotor.getCurrentPosition();
+    }
+
+    public void runToPosition(int pos) {
+        runToPosition(pos, LIFT_POWER_MULTIPLIER);
     }
 
     public void runToPosition(int pos, double multiplier){
         int currentPos = liftMotor.getCurrentPosition();
-        //double multiplier = Math.min(1, Math.max(0, Math.abs(pos - currentPos) / 150.0));
+
+        //consider creating a more fine grained control loop
         if(pos - currentPos > 30){
             setPower(-1 * multiplier);
-        }
-        else if(pos - currentPos < -30){
-            setPower(1 * multiplier);
-        }
-        else if (pos == 0) {
-            setPower(0);
+        } else if(pos - currentPos < -30){
+            setPower(multiplier);
         } else {
             setPower(0);
         }
     }
-
-
 }
