@@ -119,7 +119,7 @@ public class TeleOpN extends OpMode {
         if(gamepad1.y) {
             claw.open();
         }
-
+//
 
         //Code for spinning claw
         if(gamepad2.right_stick_x>0.1){
