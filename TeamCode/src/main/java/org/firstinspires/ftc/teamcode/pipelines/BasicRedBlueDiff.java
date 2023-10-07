@@ -20,7 +20,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     private static final Scalar RED = new Scalar(255, 0, 0);
     private static final Scalar BLUE = new Scalar(0, 0, 255);
 
-    // store the color we're looking for (i.e. team color)
+    // store the color we're looking for (i.e. team color) and its index
     private final Scalar color;
     private final int colorNum;
 
@@ -36,16 +36,15 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     // the location we actually want to go to
     public volatile Locations location;
 
-    // working variables
+    // working variables for the 3 sections and the colored channel extraction
     private final Mat[] croppedSections = new Mat[3];
-    private final Mat[] frames = new Mat[3];
     private final Mat colored = new Mat();
 
     /**
      * instantiate the object with telemetry and a color, which defaults to RED
      */
     public BasicRedBlueDiff(Telemetry telemetry) {
-        this(telemetry, "red");
+        this(telemetry, "blue");
     }
 
     public BasicRedBlueDiff(Telemetry telemetry, String color) {
@@ -60,33 +59,32 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
 
     //return the likelihood that the section is the team color
     private int processSection(Mat input) {
-        final int MARGIN = 10;
+        final int MARGIN = 70;
 
         // loop over croppedSection in bigger chunks (not single px)
         // if average redness/blueness is above a margin, return the red/blue value
         // otherwise, return 0
 
         int colorSum = 0;
-        int count = 0; // I could probably calculate this from Point values and resolution but am lazy
-        for (double x = 0; x < input.rows(); x += 10) {
-            for (double y = 0; y < input.cols(); y += 10) {
+        int count = 0;
+        for (double x = 0; x < input.rows()-10; x += 10) {
+            for (double y = 0; y < input.cols()-10; y += 10) {
                 ++count;
-                int sum = 0;
+                double sum = 0;
                 for (int i=0;i<10;i++) {
                     for (int j=0;j<10;j++) {
-                        sum += input.get((int) x + i, (int) y + j)[0]; //TODO error
+                        double s = input.get((int) x + i, (int) y + j)[0];
+                        if (s > MARGIN) sum += s;
                     }
                 }
                 if (sum > MARGIN) colorSum += sum;
             }
         }
 
-        Imgproc.cvtColor(input, input, Imgproc.COLOR_RGB2GRAY);
-
         // avoid divide by zero
         if (count == 0) return 0;
 
-        return colorSum/count; // mean
+        return colorSum/count;
     }
 
     public Locations getLocation() {
@@ -114,7 +112,15 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
                 maxindex = i;
             }
         }
-        if (max != 0) return frames[maxindex];
+
+        // draw a rectangle around the section with the highest color value
+        final int THICKNESS = 25;
+        Imgproc.rectangle(
+                input,
+                rect_points.get(maxindex*2),
+                rect_points.get(2*maxindex+1),
+                new Scalar(125, 182, 73),
+                THICKNESS);
 
         return input;
     }
@@ -123,9 +129,6 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     public void init(Mat input) {
 
         // Rectangle coordinates (upper left [A] and bottom right [B]) for the three cropped sections
-        // R1 is the leftmost section, R2 is the middle, and R3 is the rightmost
-        //TODO: may require update based on camera resolution/positioning
-        //TODO: if using constants, move declaration to global scope
         //this code just currently splits into three equal sections
         rect_points.add(new Point(0, 0));
         rect_points.add(new Point(input.cols()/3.0, input.rows()));
