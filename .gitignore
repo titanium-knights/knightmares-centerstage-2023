@@ -45,6 +45,7 @@ captures/
 
 # For Mac users
 .DS_Store
+**/.DS_Store
 
 # Keystore files
 # Uncomment the following lines if you do not want to check your keystore files in.
@@ -79,3 +80,4 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+eocvsim_workspace.json
