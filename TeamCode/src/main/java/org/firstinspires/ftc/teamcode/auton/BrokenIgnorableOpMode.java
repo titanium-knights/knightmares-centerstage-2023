@@ -7,32 +7,37 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 
-// confused
 @Autonomous(name="MudasirCantCode", group="Linear OpMode")
 @Config
-public class BasicMovingOpMode extends LinearOpMode {
+public class BrokenIgnorableOpMode extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry.addData("Initialized: ", "Hopefully");
         telemetry.update();
 
+        final double POWER = 0.85;
         ElapsedTime runtime = new ElapsedTime();
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap);
 
         waitForStart();
         runtime.reset();
 
-        drivetrain.move(10, 10, 0);
+        drivetrain.move(POWER, POWER, 0);
 
         telemetry.addLine("I think I should have moved");
         telemetry.update();
 
         sleep(2000);
 
-        drivetrain.move(20, -10, 6);
+        drivetrain.move(POWER, -POWER, 0);
 
+        sleep(2000);
         telemetry.addLine("moved more");
+        telemetry.update();
+
+
+        drivetrain.move(0, 0, 0);
         telemetry.addData("Status", "Run Time: " + runtime);
         telemetry.update();
 

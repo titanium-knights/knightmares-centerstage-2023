@@ -22,4 +22,5 @@ public class CONFIG {
     //move arm up and down
     public static String liftMotor = "lift"; //exp 2
 
+
 }
