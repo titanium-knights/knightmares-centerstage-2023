@@ -23,17 +23,10 @@ public class CONFIG {
 
     public static String encServo = "encServo"; //ch 2
 
-
-    // so I'm pretty sure we are only using one motor for this year's robot so I will choose
-    // the right motor.
-    public static String liftMotorRight = "lmr"; //exp 1
-    public static String liftMotorLeft = "lml";  //exp 0
+    public static String liftMotor = "lm"; //exp 1
 
     public static String O_C = "fr"; //center odo, ch 2
     public static String O_L = "fl"; //left odo, ch 0
     public static String O_R = "br"; //right odo, ch 1
-
-    //OLD
-    public static String liftMotor = "lm"; //
 
 }
