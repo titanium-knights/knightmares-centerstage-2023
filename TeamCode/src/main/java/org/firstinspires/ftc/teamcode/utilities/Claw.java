@@ -19,36 +19,32 @@ public class Claw {
         return isOpen;
     }
 
-    // return the servo position
     public double getPosition() {
         return clawOpener.getPosition();
     }
 
-    // moves servo to open position
     public void open() {
         isOpen = true;
-        clawOpener.setPosition(0.5); //TODO update
+        clawOpener.setPosition(1.0);
     }
 
-    // moves servo to closed position
-    public void close(){
+    public void close() {
         isOpen = false;
-        clawOpener.setPosition(0); // TODO update
+        clawOpener.setPosition(0.0);
     }
 
-    //how many radians the claw should turn
     public void turnClaw(double radians) {
         double degrees = Math.toDegrees(radians);
         clawRotator.setPosition(degrees/360);
     }
 
-    //TODO: documentation / prove math
     public void maintain(double liftAngle) {
+        final double MAX_BUFFER = 2.0;
         double theta = 180 - Math.toDegrees(liftAngle);
-        double phi = 180 - angle; // math check?
-        while (Math.abs(theta + phi - 240.0) > 2.0) {// maybe do some more accurate stuff
+        double phi = 180 - angle;
+        while (Math.abs(theta + phi - 240.0) > MAX_BUFFER) {
             double delta = (240.0 - theta - 180.0) * -1.0;
-            turnClaw(delta);
+            turnClaw(Math.toRadians(delta));
         }
     }
 }
