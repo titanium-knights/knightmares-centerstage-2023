@@ -19,8 +19,10 @@ public class CONFIG {
     //rotate claw
     public static String clawSpin = "clawSpin"; //ch 0
 
+
     //move arm up and down
     public static String liftMotor = "lift"; //exp 2
+
 
 
 }
