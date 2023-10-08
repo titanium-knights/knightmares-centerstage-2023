@@ -24,7 +24,6 @@ public class CONFIG {
     public static String encServo = "encServo"; //ch 2
 
     public static String liftMotor = "lm"; //exp 1
-    // public static String liftMotorLeft = "lml";  //exp 0
 
     public static String O_C = "fr"; //center odo, ch 2
     public static String O_L = "fl"; //left odo, ch 0
