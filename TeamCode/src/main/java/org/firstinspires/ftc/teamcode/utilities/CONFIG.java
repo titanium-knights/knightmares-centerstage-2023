@@ -15,9 +15,9 @@ public class CONFIG {
     public static String webcam = "Webcam 1";
 
     //subsystems
-    public static String clawServoLeft = "claw"; //ch 1
+    public static String clawServo = "claw"; //ch 1
 
-    public static String clawServoRight = "clawLift"; //exp 2
+    public static String liftServo = "clawLift"; //exp 2
 
     public static String clawSpin = "clawSpin"; //ch 0
 
