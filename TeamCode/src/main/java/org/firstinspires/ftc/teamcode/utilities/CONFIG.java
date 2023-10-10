@@ -5,7 +5,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class CONFIG {
-    //drivetrain wheels :OOO
+    //drivetrain wheels
     public static String FRONT_LEFT = "fl"; //ch 0
     public static String FRONT_RIGHT = "fr"; //ch 2
     public static String BACK_LEFT = "bl"; //ch 3
@@ -14,19 +14,15 @@ public class CONFIG {
     //webcam
     public static String webcam = "Webcam 1";
 
-    //subsystems
-    public static String clawServoLeft = "claw"; //ch 1
-
-    public static String clawServoRight = "clawLift"; //exp 2
-
+    //claw open and close
+    public static String clawServo = "claw"; //ch 1
+    //rotate claw
     public static String clawSpin = "clawSpin"; //ch 0
 
-    public static String encServo = "encServo"; //ch 2
 
-    public static String liftMotor = "lm"; //exp 1
+    //move arm up and down
+    public static String liftMotor = "lift"; //exp 2
 
-    public static String O_C = "fr"; //center odo, ch 2
-    public static String O_L = "fl"; //left odo, ch 0
-    public static String O_R = "br"; //right odo, ch 1
+
 
 }
