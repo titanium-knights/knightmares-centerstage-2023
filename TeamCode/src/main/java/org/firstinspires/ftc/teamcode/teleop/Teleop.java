@@ -15,6 +15,7 @@ public class Teleop extends OpMode {
     MecanumDrive drive;
     Claw claw;
     Lift lift;
+    double power = 0.5;
 
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
@@ -24,7 +25,34 @@ public class Teleop extends OpMode {
 
     @Override
     public void loop() {
-        // if (button_pressed) do thing
-        // else dont do thing
+
+        // in case of joystick drift, ignore very small values
+        final float STICK_MARGIN = 0.2f;
+
+        /*
+         * driving
+         */
+        float x = gamepad1.left_stick_x;
+        float y = gamepad1.left_stick_y;
+        float turn = gamepad1.right_stick_x;
+
+        // if the stick movement is negligible, set it to 0
+        if (Math.abs(x) <= STICK_MARGIN) x = 0;
+        if (Math.abs(y) <= STICK_MARGIN) y = 0;
+        if (Math.abs(turn) <= STICK_MARGIN) turn = 0;
+
+        drive.move(x, y, turn);
+
+        /*
+         * claw
+         */
+
+        //open and close the claw
+        if (gamepad1.a) {
+            claw.open();
+        } else if (gamepad1.b) {
+            claw.close();
+        }
+
     }
 }
