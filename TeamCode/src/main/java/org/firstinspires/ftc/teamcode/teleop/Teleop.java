@@ -15,7 +15,11 @@ public class Teleop extends OpMode {
     MecanumDrive drive;
     Claw claw;
     Lift lift;
-    double power = 0.5;
+    final double normalPower = 0.6;
+    final double slowPower = 0.3;
+    
+    double power = normalPower;
+    boolean slowMode = false;
 
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
@@ -28,6 +32,14 @@ public class Teleop extends OpMode {
 
         // in case of joystick drift, ignore very small values
         final float STICK_MARGIN = 0.2f;
+
+        /*
+         * slow mode
+         */
+        if (gamepad1.start || gamepad2.start) {
+            slowMode = !slowMode;
+            power = slowMode ? slowPower : normalPower;
+        }
 
         /*
          * driving
@@ -48,11 +60,39 @@ public class Teleop extends OpMode {
          */
 
         //open and close the claw
-        if (gamepad1.a) {
+        //TODO convert to toggle
+        if (gamepad1.y || gamepad2.y) {
             claw.open();
-        } else if (gamepad1.b) {
+        } else if (gamepad1.x || gamepad2.x) {
             claw.close();
         }
 
+        //rotate the claw
+        float rotation = gamepad2.left_stick_y;
+        // if the rotation is negligible, set it to 0
+        if (!(Math.abs(rotation) <= STICK_MARGIN))
+            claw.setPosition(claw.getPosition() + (rotation * 10)); //TODO: tune that 10 value
+
+
+
+        /*
+         * lift
+         */
+
+        float liftPower = gamepad1.right_stick_y;
+        if (Math.abs(liftPower) <= STICK_MARGIN) liftPower = 0;
+        lift.setPower(liftPower>0, slowMode); //up is towards drop off
+
+        boolean liftUpPreset = gamepad2.dpad_up;
+        boolean liftDownPreset = gamepad2.dpad_down;
+
+        if (liftUpPreset) {
+            lift.toDrop();
+        } else if (liftDownPreset) {
+            lift.toPickUp();
+        }
+
+
+        
     }
 }

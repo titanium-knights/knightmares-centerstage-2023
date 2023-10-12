@@ -64,9 +64,14 @@ public class Lift {
     public boolean isBusy() {return liftMotor.isBusy();}
 
     public void setPower(boolean dir) {
+        setPower(dir, false);
+    }
+
+    public void setPower(boolean dir, boolean slowMode) {
         //false = to pick up, true = to drop
-        if (dir) liftMotor.setPower(POWER_DOWN * LIFT_POWER_MULTIPLIER);
-        else liftMotor.setPower(-POWER_DOWN * LIFT_POWER_MULTIPLIER);
+        double power = slowMode ? POWER_DOWN : POWER_UP;
+        if (dir) liftMotor.setPower(power * LIFT_POWER_MULTIPLIER);
+        else liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
     }
 
     public double getPosition(){
@@ -96,7 +101,6 @@ public class Lift {
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (checkLimits()) return;
         setPower(true);
-
     }
 
     public void toPickUp(){
