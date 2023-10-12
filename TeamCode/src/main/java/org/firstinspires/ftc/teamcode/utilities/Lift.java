@@ -16,8 +16,8 @@ public class Lift {
 
     // TODO check limit values based on degrees,
     // should be between ~ -45 & 180 degrees
-    public static double MAX_LIMIT = 240;
-    public static double MIN_LIMIT = -5;
+    public static double MAX_LIMIT = 240 - Up_Angle;
+    public static double MIN_LIMIT = -5 - Up_Angle;
 
     //these might end up being the same as min and max limit
     public static double PICKUP_POINT = 0.1;

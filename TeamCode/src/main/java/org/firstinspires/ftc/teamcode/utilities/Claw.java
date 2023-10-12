@@ -10,16 +10,12 @@ public class Claw {
     Servo clawRotator;
 
     final double MAX_BUFFER = 2.0;
-    boolean state = false;
-    // True = dropping move, False = Pickup
 
     double zeroLiftAngle = 35;
-    double zeroClawAngle = -35;
+    double zeroClawAngle = -zeroLiftAngle;
     double servoAngleModifier = (double) 360/300;
     //Angle from bottom when lift is pointing straight up
     //calibrate from motor -> fusion 360
-    double angle = 0;
-
 
     public Claw(HardwareMap hmap) {
         this.clawOpener = hmap.servo.get(CONFIG.clawServo);
@@ -39,8 +35,16 @@ public class Claw {
     }
 
     public void setPosition(double des){
-        double rawangle = des - zeroClawAngle;
-        clawRotator.setPosition(rawangle*servoAngleModifier);
+        double rawangle = des + zeroClawAngle;
+        clawRotator.setPosition(rawangle/servoAngleModifier);
+    }
+
+    public void setZero(){
+        clawRotator.setPosition(0);
+    }
+
+    public void setOne(){
+        clawRotator.setPosition(1);
     }
 
     public void maintain(double liftAngle) {
@@ -50,7 +54,7 @@ public class Claw {
     }
 
     public void maintainDrop(double trueAngle){
-        double angle = trueAngle;
+        double angle = 180 - trueAngle;
         double delta = 240 - angle;
         if (abs(getPosition() - delta) > MAX_BUFFER ){
             setPosition(delta);
@@ -59,7 +63,7 @@ public class Claw {
 
     public void maintainPickup(double trueAngle){
         double angle = abs(trueAngle);
-        double delta = angle;
+        double delta = -angle;
         if (abs(getPosition() - delta) > MAX_BUFFER){
             setPosition(delta);
         }
