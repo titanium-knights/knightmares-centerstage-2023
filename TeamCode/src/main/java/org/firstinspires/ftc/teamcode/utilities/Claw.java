@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.utilities;
 
+import static java.lang.Math.abs;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -7,29 +9,19 @@ public class Claw {
     Servo clawOpener;
     Servo clawRotator;
 
-    boolean state = false;
-    // True = dropping move, False = Pickup
+    final double MAX_BUFFER = 2.0;
 
+    double zeroLiftAngle = 35;
+    double zeroClawAngle = -zeroLiftAngle;
+    double servoAngleModifier = (double) 360/300;
+    //Angle from bottom when lift is pointing straight up
+    //calibrate from motor -> fusion 360
 
-    double zeroAngle = 0;
-    //Angle in degrees of bar such that claw is pointing straight down at pickup
-
-    double angle = 0;
-
-
-    public Claw(HardwareMap hmap){
+    public Claw(HardwareMap hmap) {
         this.clawOpener = hmap.servo.get(CONFIG.clawServo);
         this.clawRotator = hmap.servo.get(CONFIG.clawSpin);
     }
 
-    public double getPosition() {
-        return clawOpener.getPosition();
-    }
-
-    public void setPosition(double des){
-        angle = des;
-        clawRotator.setPosition(des/360);
-    }
     public void open() {
         clawOpener.setPosition(1.0);
     }
@@ -38,22 +30,42 @@ public class Claw {
         clawOpener.setPosition(0.0);
     }
 
+    public double getPosition() {
+        return clawOpener.getPosition()/servoAngleModifier;
+    }
+
+    public void setPosition(double des){
+        double rawangle = des + zeroClawAngle;
+        clawRotator.setPosition(rawangle/servoAngleModifier);
+    }
+
+    public void setZero(){
+        clawRotator.setPosition(0);
+    }
+
+    public void setOne(){
+        clawRotator.setPosition(1);
+    }
+
     public void maintain(double liftAngle) {
-        double trueAngle = liftAngle + zeroAngle;
-        final double MAX_BUFFER = 2.0;
-        double theta = 180 - Math.toDegrees(liftAngle);
-        double phi = 180 - angle;
-        while (Math.abs(theta + phi - 240.0) > MAX_BUFFER) {
-            double delta = (240.0 - theta - 180.0) * -1.0;
+        double trueAngle = liftAngle - zeroLiftAngle;
+        if (trueAngle > 0) maintainDrop(trueAngle);
+        else maintainPickup(trueAngle);
+    }
+
+    public void maintainDrop(double trueAngle){
+        double angle = 180 - trueAngle;
+        double delta = 240 - angle;
+        if (abs(getPosition() - delta) > MAX_BUFFER ){
             setPosition(delta);
         }
     }
 
-    public void maintainDrop(double liftAngle){
-
-    }
-
-    public void maintainPickup(double liftAngle){
-        setPosition(180 - liftAngle);
+    public void maintainPickup(double trueAngle){
+        double angle = abs(trueAngle);
+        double delta = -angle;
+        if (abs(getPosition() - delta) > MAX_BUFFER){
+            setPosition(delta);
+        }
     }
 }
