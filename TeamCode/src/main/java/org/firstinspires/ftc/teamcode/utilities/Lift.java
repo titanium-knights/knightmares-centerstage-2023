@@ -100,17 +100,25 @@ public class Lift {
         return runToPosition(45);
     }
 
-    public boolean toBottomPreset(){
+    public boolean toPickUp(){
         return runToPosition(0);
     }
 
-    public void toDrop(){ // manual drop
+    public boolean toDrop(){
+        //TODO: FIND X
+        final double x = 135;
+        return runToPosition(x);
+    }
+
+
+
+    public void toBackBoard(){ // manual drop
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (checkLimits()) return; // wont turn if its at the limit
         setPower(true);
     }
 
-    public void toPickUp(){ // manual pick up
+    public void toRobot(){ // manual pick up
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (checkLimits()) return;
         setPower(false);

@@ -15,10 +15,11 @@ public class Teleop extends OpMode {
     MecanumDrive drive;
     Claw claw;
     Lift lift;
-    final double normalPower = 0.6;
+    //Set normal power to 1, no point in slowing the robot down
+    final double normalPower = 1;
+    //Treat this as a multiplier so u could make finer adjustments in slowmode by moving the stick just a little bit
     final double slowPower = 0.3;
-    
-    double power = normalPower; // set power to normalPower at the beginning
+
     boolean slowMode = false;
 
     public void init() {
@@ -31,33 +32,27 @@ public class Teleop extends OpMode {
     public void loop() {
 
         // in case of joystick drift, ignore very small values
+        //TODO: TUNE THIS VALUE
         final float STICK_MARGIN = 0.2f;
 
-        /*
-         * slow mode
-         */
-        if (gamepad1.y || gamepad2.y) {
-            slowMode = !slowMode;
-            power = slowMode ? slowPower : normalPower; // x = condition ? valueiftrue : valueiffalse;
-        }
+        //slow mode
+        if (gamepad1.y || gamepad2.y) {slowMode = !slowMode;}
 
-        /*
-         * driving
-         */
+        //driving
         float x = gamepad1.left_stick_x;
         float y = gamepad1.left_stick_y;
         float turn = gamepad1.right_stick_x;
 
-        // if the stick movement is negligible, set it to 0
+        // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= STICK_MARGIN) x = 0;
         if (Math.abs(y) <= STICK_MARGIN) y = 0;
         if (Math.abs(turn) <= STICK_MARGIN) turn = 0;
 
-        drive.move(x, y, turn);
+        //Notation of a ? b : c means if a is true do b, if it isn't then do c.
+        double multiplier = (slowMode ? slowPower : normalPower);
+        drive.move(x * multiplier, y * multiplier, turn * multiplier);
 
-        /*
-         * claw
-         */
+        //claw
 
         //open and close the claw
         if (gamepad1.left_bumper || gamepad2.left_bumper) {
@@ -70,7 +65,7 @@ public class Teleop extends OpMode {
 //        float rotation = gamepad2.left_stick_y;
 //        // if the rotation is negligible, set it to 0
 //        if (!(Math.abs(rotation) <= STICK_MARGIN))
-//            claw.setPosition(claw.getPosition() + (rotation * 10)); //TODO: tune that 10 value
+//            claw.setPosition(claw.getPosition() + (rotation * 10));
 
         /*
          * lift
@@ -88,20 +83,26 @@ public class Teleop extends OpMode {
         float armDown = gamepad1.right_trigger;
         boolean liftDownPreset = false;
 
+        //ToDO: Add a manual section that acts on armUp and armDown using .toBackBoard and .toRobot
+
+        //You want this to react to gamepad.dpad_(up/down/left/right) as that is where preset control should be
         if (armUp > 0) {
             liftUpPreset = true;
         } else if (armDown > 0) {
             liftDownPreset = true;
         }
 
+        //You can combine this with the thing above
         if (liftUpPreset) {
             lift.toDrop();
-            claw.maintainDrop(Lift.getPosition());
+            // Can just do claw.maintain(lift.getPosition()) as it does this check for you
+            //claw.maintainDrop(lift.getPosition());
         } else if (liftDownPreset) {
             lift.toPickUp();
-            claw.maintainPickup(Lift.getPosition());
+            //Same as above
+            //claw.maintainPickup(lift.getPosition());
         }
 
-        claw.maintain(Lift.getPosition());
+        claw.maintain(lift.getPosition());
     }
 }
