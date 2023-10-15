@@ -18,7 +18,7 @@ public class Teleop extends OpMode {
     final double normalPower = 0.6;
     final double slowPower = 0.3;
     
-    double power = normalPower;
+    double power = normalPower; // set power to normalPower at the beginning
     boolean slowMode = false;
 
     public void init() {
@@ -36,9 +36,9 @@ public class Teleop extends OpMode {
         /*
          * slow mode
          */
-        if (gamepad1.start || gamepad2.start) {
+        if (gamepad1.y || gamepad2.y) {
             slowMode = !slowMode;
-            power = slowMode ? slowPower : normalPower;
+            power = slowMode ? slowPower : normalPower; // x = condition ? valueiftrue : valueiffalse;
         }
 
         /*
@@ -60,39 +60,48 @@ public class Teleop extends OpMode {
          */
 
         //open and close the claw
-        //TODO convert to toggle
-        if (gamepad1.y || gamepad2.y) {
+        if (gamepad1.left_bumper || gamepad2.left_bumper) {
             claw.open();
-        } else if (gamepad1.x || gamepad2.x) {
+        } else if (gamepad1.right_bumper || gamepad2.right_bumper) {
             claw.close();
         }
 
-        //rotate the claw
-        float rotation = gamepad2.left_stick_y;
-        // if the rotation is negligible, set it to 0
-        if (!(Math.abs(rotation) <= STICK_MARGIN))
-            claw.setPosition(claw.getPosition() + (rotation * 10)); //TODO: tune that 10 value
-
-
+//        //rotate the claw
+//        float rotation = gamepad2.left_stick_y;
+//        // if the rotation is negligible, set it to 0
+//        if (!(Math.abs(rotation) <= STICK_MARGIN))
+//            claw.setPosition(claw.getPosition() + (rotation * 10)); //TODO: tune that 10 value
 
         /*
          * lift
          */
 
-        float liftPower = gamepad1.right_stick_y;
-        if (Math.abs(liftPower) <= STICK_MARGIN) liftPower = 0;
-        lift.setPower(liftPower>0, slowMode); //up is towards drop off
+//        float liftPower = gamepad1.right_stick_y;
+//        if (Math.abs(liftPower) <= STICK_MARGIN) liftPower = 0;
+//        lift.setPower(liftPower>0, slowMode); //up is towards drop off
 
-        boolean liftUpPreset = gamepad2.dpad_up;
-        boolean liftDownPreset = gamepad2.dpad_down;
+//        boolean liftUpPreset = gamepad2.dpad_up;
+//        boolean liftDownPreset = gamepad2.dpad_down;
+
+        float armUp = gamepad1.left_trigger;
+        boolean liftUpPreset = false;
+        float armDown = gamepad1.right_trigger;
+        boolean liftDownPreset = false;
+
+        if (armUp > 0) {
+            liftUpPreset = true;
+        } else if (armDown > 0) {
+            liftDownPreset = true;
+        }
 
         if (liftUpPreset) {
             lift.toDrop();
+            claw.maintainDrop(Lift.getPosition());
         } else if (liftDownPreset) {
             lift.toPickUp();
+            claw.maintainPickup(Lift.getPosition());
         }
 
-
-        
+        claw.maintain(Lift.getPosition());
     }
 }
