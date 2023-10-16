@@ -23,7 +23,8 @@ public class CONFIG {
     //move arm up and down
     public static String liftMotor = "lift"; //exp 2
 
-    public static String pullUpMotor = "pullUp"; // TODO: check what button it is
+    public static String pullUpMotor1 = "pullUp1"; // TODO: check what button it is
+    public static String pullUpMotor2 = "pullUp2"; // TODO: check what button it is
 
 
 

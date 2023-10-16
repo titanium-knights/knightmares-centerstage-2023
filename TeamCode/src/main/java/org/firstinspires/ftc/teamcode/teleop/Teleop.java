@@ -117,7 +117,7 @@ public class Teleop extends OpMode {
         boolean pullUpDownPreset = gamepad1.x;
 
         if (pullUpUpPreset){
-            pullUp.liftUp();
+            pullup.liftUp();
         }
         else if (pullUpDownPreset) {
             pullup.liftDown();
