@@ -38,12 +38,15 @@ public class ColorDetect {
     public String readColor() {
         float[] hsv = this.readHSV();
         float hue = hsv[0];
+        String color = "";
         if(hue<=127) {
-            return "yellow";
+            color = "yellow";
         } else if(hue<=160) {
-            return "pink";
+            color = "pink";
         } else {
-            return "blue";
+            color = "blue";
         }
+        telemetry.addLine("Color detected: " + color + "(hsv: " + hsv + ")");
+        return color;
     }
 }
