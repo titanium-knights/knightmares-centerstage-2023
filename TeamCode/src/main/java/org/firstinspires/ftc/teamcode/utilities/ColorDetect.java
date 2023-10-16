@@ -20,6 +20,9 @@ public class ColorDetect {
         return new int[] {this.colorSensor.red(), this.colorSensor.green(), this.colorSensor.blue()};
     }
 
+    /**
+     * @return Float array [hue, saturation, brightness]
+     */
     public float[] readHSV() {
         int[] rgb = this.readRGB();
         float[] hsv = new float[3];
@@ -27,6 +30,9 @@ public class ColorDetect {
         return hsv;
     }
 
+    /**
+     *  @return a String "red", "white", or "blue" or something
+     */
     public String readColor() {
         float[] hsv = this.readHSV();
         float hue = hsv[0];
