@@ -30,7 +30,6 @@ public class Teleop extends OpMode {
 
     @Override
     public void loop() {
-
         // in case of joystick drift, ignore very small values
         //TODO: TUNE THIS VALUE
         final float STICK_MARGIN = 0.2f;
@@ -113,5 +112,15 @@ public class Teleop extends OpMode {
         }
 
         claw.maintain(lift.getPosition());
+
+        boolean pullUpUpPreset = gamepad1.y;
+        boolean pullUpDownPreset = gamepad1.x;
+
+        if (pullUpUpPreset){
+            pullUp.liftUp();
+        }
+        else if (pullUpDownPreset) {
+            pullup.liftDown();
+        }
     }
 }
