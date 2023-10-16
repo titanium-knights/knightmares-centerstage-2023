@@ -36,7 +36,7 @@ public class Teleop extends OpMode {
         final float STICK_MARGIN = 0.2f;
 
         //slow mode
-        if (gamepad1.y || gamepad2.y) {slowMode = !slowMode;}
+        if (gamepad1.start || gamepad2.start) {slowMode = !slowMode;}
 
         //driving
         float x = gamepad1.left_stick_x;
@@ -61,6 +61,12 @@ public class Teleop extends OpMode {
             claw.close();
         }
 
+        // claw rotate
+        if (gamepad1.dpad_left) {
+            claw.setZero(); // TODO: check if this is actually rotating back
+        } else if (gamepad1.dpad_right) {
+            claw.setOne();
+        }
 //        //rotate the claw
 //        float rotation = gamepad2.left_stick_y;
 //        // if the rotation is negligible, set it to 0
@@ -79,25 +85,28 @@ public class Teleop extends OpMode {
 //        boolean liftDownPreset = gamepad2.dpad_down;
 
         float armUp = gamepad1.left_trigger;
-        boolean liftUpPreset = false;
         float armDown = gamepad1.right_trigger;
-        boolean liftDownPreset = false;
 
-        //ToDO: Add a manual section that acts on armUp and armDown using .toBackBoard and .toRobot
+        //TODO: Add a manual section that acts on armUp and armDown using .toBackBoard and .toRobot
 
-        //You want this to react to gamepad.dpad_(up/down/left/right) as that is where preset control should be
         if (armUp > 0) {
-            liftUpPreset = true;
+            lift.toBackBoard();
         } else if (armDown > 0) {
-            liftDownPreset = true;
+            lift.toRobot();
         }
 
+        //You want this to react to gamepad.dpad_(up/down/left/right) as that is where preset control should be
+
+        boolean armUpPreset = gamepad1.b;
+        boolean armDownPreset = gamepad1.a;
+
+
         //You can combine this with the thing above
-        if (liftUpPreset) {
+        if (armUpPreset) {
             lift.toDrop();
             // Can just do claw.maintain(lift.getPosition()) as it does this check for you
             //claw.maintainDrop(lift.getPosition());
-        } else if (liftDownPreset) {
+        } else if (armDownPreset) {
             lift.toPickUp();
             //Same as above
             //claw.maintainPickup(lift.getPosition());
