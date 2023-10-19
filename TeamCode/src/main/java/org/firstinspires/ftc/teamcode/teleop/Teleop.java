@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.PullUp;
 
 @TeleOp
 public class Teleop extends OpMode {
@@ -15,6 +16,7 @@ public class Teleop extends OpMode {
     MecanumDrive drive;
     Claw claw;
     Lift lift;
+    PullUp pullup;
     //Set normal power to 1, no point in slowing the robot down
     final double normalPower = 1;
     //Treat this as a multiplier so u could make finer adjustments in slowmode by moving the stick just a little bit
@@ -26,6 +28,7 @@ public class Teleop extends OpMode {
         this.drive = new MecanumDrive(hardwareMap);
         this.claw = new Claw(hardwareMap);
         this.lift = new Lift(hardwareMap);
+        this.pullup = new PullUp(hardwareMap);
     }
 
     @Override

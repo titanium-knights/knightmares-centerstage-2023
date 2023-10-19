@@ -2,22 +2,43 @@ package org.firstinspires.ftc.teamcode.utilities;
 
 import static java.lang.Double.max;
 import static java.lang.Double.min;
+import static java.lang.Math.abs;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+// This is a simple pair class. Ignore it.
+final class Pair {
+    private double first;
+    private double second;
+    public Pair(int first, int second){
+        this.first = first;
+        this.second = second;
+    }
+    public double first(){return first;}
+    public double second(){return second;}
+}
+
 public class PullUp {
+    //DANIEL comment: For this, we don't really care about degrees so, we deal with
+    //everything in encoder ticks or number of rotations.
     public DcMotor pullUpMotor1;
     public DcMotor pullUpMotor2;
     public static double Encoder_Ticks = 537.7;
     public static double PULLUP_POWER_MULTIPLIER = .9; // so it doesnt turn too fast
-    public static double desiredHeight = 0.1;
+
+    public static double topHeight = 24*Encoder_Ticks;
+    public static double DESYNC_LIMIT = 30;
 
     // TODO: check what the actual limits are
-    public static double MAX_LIMIT = 5; // so it doesnt go too far down
+    //1 rotation = 8mm of travel. Our full extension is ~188mm, so lets set to be 0, 24
+    public static double MAX_LIMIT = 24.5*Encoder_Ticks; // so it doesnt go too far down
     public static double MIN_LIMIT = 0; // stops it from going further down if we use manual lift
 
     public PullUp(HardwareMap hmap) {
-        this.pullUpMotor = hmap.dcMotor.get(CONFIG.pullUpMotor);
+        this.pullUpMotor1 = hmap.dcMotor.get(CONFIG.pullUpMotor1);
+        this.pullUpMotor2 = hmap.dcMotor.get(CONFIG.pullUpMotor2);
+        setInit();
     }
 
     public void setInit() {
@@ -29,60 +50,63 @@ public class PullUp {
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void stop(){ // sets power to 0 everything stops
-        pullUpMotor1.setPower(0); // refers to line 13
+    public void stop(){ // sets power to 0 - everything stops
+        pullUpMotor1.setPower(0);
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        pullUpMotor2.setPower(0); // refers to line 13
+        pullUpMotor2.setPower(0);
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-
+    // true = outside of limits, false = within
     public boolean checkLimits(){
-        double desiredHeight = getPosition();
-        if (desiredHeight < MIN_LIMIT) {stop(); return true;}
-        if (desiredHeight > MAX_LIMIT) {stop(); return true;}
+        double currentHeight1 = getPosition().first();
+        if (currentHeight1 < MIN_LIMIT) {stop(); return true;}
+        if (currentHeight1 > MAX_LIMIT) {stop(); return true;}
         return false;
     }
 
-    public void setPower(boolean dir) {
-        double power = 0.4;
+    public void setPower(double power, boolean dir) {
         if (dir) pullUpMotor1.setPower(power * PULLUP_POWER_MULTIPLIER);
         else pullUpMotor1.setPower(-power * PULLUP_POWER_MULTIPLIER);
         if (dir) pullUpMotor2.setPower(power * PULLUP_POWER_MULTIPLIER);
         else pullUpMotor2.setPower(-power * PULLUP_POWER_MULTIPLIER);
     }
 
-//    public void setPower(boolean dir) {
-//        //false = to pick up, true = to drop
-//        double power = 0.4;
-//        if (dir) pullUpMotor.setPower(power * PULLUP_POWER_MULTIPLIER);
-//        else pullUpMotor.setPower(-power * PULLUP_POWER_MULTIPLIER);
-//    }
-
-    public double getPosition(){
+    public double getDegreePosition(){
         return (pullUpMotor1.getCurrentPosition()*360/Encoder_Ticks);
     } // gets the encoder position in degrees based on encoder ticks
+    //DANIEL: we dont really need this, because we don't care about degrees here
+
+    public Pair getPosition(){
+        return (new Pair(pullUpMotor1.getCurrentPosition(), pullUpMotor1.getCurrentPosition()));
+    }
+
+    //true = synced, false = desynced.
+    public boolean checkSync(){
+        if (abs(getPosition().first() - getPosition().second()) < DESYNC_LIMIT) return true;
+        else return false;
+    }
 
     public void liftUp() {
         // converts angle into encoder ticks and then runs to position
-        pullUpMotor1.setTargetPosition((int) (Encoder_Ticks*desiredHeight/360));
+        pullUpMotor1.setTargetPosition((int) (topHeight));
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pullUpMotor2.setTargetPosition((int) (Encoder_Ticks*desiredHeight/360));
+        pullUpMotor2.setTargetPosition((int) (topHeight));
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //with run to position always positive power
         // run to position is always in presets or else itll be jittery
-        setPower(true);
+        setPower(1,true);
 
     }
 
     public void liftDown() {
         // converts angle into encoder ticks and then runs to position
-        pullUpMotor1.setTargetPosition((int) (Encoder_Ticks*-desiredHeight/360));
+        pullUpMotor1.setTargetPosition((int) (Encoder_Ticks*-topHeight/360));
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pullUpMotor2.setTargetPosition((int) (Encoder_Ticks*-desiredHeight/360));
+        pullUpMotor2.setTargetPosition((int) (Encoder_Ticks*-topHeight/360));
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //with run to position always positive power
         // run to position is always in presets or else itll be jittery
-        setPower(true);
+        setPower(0.3, true);
     }
 
 
