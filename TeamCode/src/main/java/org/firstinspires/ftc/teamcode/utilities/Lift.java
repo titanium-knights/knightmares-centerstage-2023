@@ -76,7 +76,7 @@ public class Lift {
 
     public double getPosition(){
         return (liftMotor.getCurrentPosition()*360/Encoder_Ticks);
-    } // gets the encoder position in degrees based on encoder ticks
+    } // Returns degrees
 
     public boolean runToPosition(double angle) {
         // takes the angle we want it to go to and makes sure the angle is within range
