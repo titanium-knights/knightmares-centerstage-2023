@@ -23,6 +23,7 @@ public class Teleop extends OpMode {
     final double slowPower = 0.3;
 
     boolean slowMode = false;
+    boolean state = false;
 
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
@@ -89,30 +90,30 @@ public class Teleop extends OpMode {
         float armUp = gamepad1.left_trigger;
         float armDown = gamepad1.right_trigger;
 
-        //TODO: Add a manual section that acts on armUp and armDown using .toBackBoard and .toRobot
-
         if (armUp > 0) {
             lift.toBackBoard();
+            state = false;
         } else if (armDown > 0) {
             lift.toRobot();
+            state = false;
+        } else if (!state){
+            lift.stop();
         }
 
         //You want this to react to gamepad.dpad_(up/down/left/right) as that is where preset control should be
 
         boolean armUpPreset = gamepad1.b;
         boolean armDownPreset = gamepad1.a;
-
-
         //You can combine this with the thing above
         if (armUpPreset) {
             lift.toDrop();
-            // Can just do claw.maintain(lift.getPosition()) as it does this check for you
-            //claw.maintainDrop(lift.getPosition());
+            state = true;
         } else if (armDownPreset) {
             lift.toPickUp();
-            //Same as above
-            //claw.maintainPickup(lift.getPosition());
+            state = true;
         }
+
+        if (!lift.isBusy()) state = false;
 
         claw.maintain(lift.getPosition());
 
