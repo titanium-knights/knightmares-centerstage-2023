@@ -109,6 +109,20 @@ public class PullUp {
         setPower(0.3, true);
     }
 
+    public void manualUp(){
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (checkLimits()) return; // wont turn if its at the limit
+        setPower(0.3,true);
+    }
+
+    public void manualDown(){
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (checkLimits()) return; // wont turn if its at the limit
+        setPower(0.3,false);
+    }
+    // TODO: manual up and manual down power 0.3
 
 
 
