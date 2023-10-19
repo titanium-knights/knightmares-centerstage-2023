@@ -56,6 +56,7 @@ public class PullUp {
         pullUpMotor2.setPower(0);
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
     // true = outside of limits, false = within
     public boolean checkLimits(){
         double currentHeight1 = getPosition().first();
@@ -70,11 +71,6 @@ public class PullUp {
         if (dir) pullUpMotor2.setPower(power * PULLUP_POWER_MULTIPLIER);
         else pullUpMotor2.setPower(-power * PULLUP_POWER_MULTIPLIER);
     }
-
-    public double getDegreePosition(){
-        return (pullUpMotor1.getCurrentPosition()*360/Encoder_Ticks);
-    } // gets the encoder position in degrees based on encoder ticks
-    //DANIEL: we dont really need this, because we don't care about degrees here
 
     public Pair getPosition(){
         return (new Pair(pullUpMotor1.getCurrentPosition(), pullUpMotor1.getCurrentPosition()));
@@ -100,9 +96,9 @@ public class PullUp {
 
     public void liftDown() {
         // converts angle into encoder ticks and then runs to position
-        pullUpMotor1.setTargetPosition((int) (Encoder_Ticks*-topHeight/360));
+        pullUpMotor1.setTargetPosition((int) (topHeight));
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pullUpMotor2.setTargetPosition((int) (Encoder_Ticks*-topHeight/360));
+        pullUpMotor2.setTargetPosition((int) (topHeight));
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //with run to position always positive power
         // run to position is always in presets or else itll be jittery
