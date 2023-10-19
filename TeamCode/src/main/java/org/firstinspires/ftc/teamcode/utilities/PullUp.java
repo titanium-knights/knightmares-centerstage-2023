@@ -6,18 +6,8 @@ import static java.lang.Math.abs;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.teamcode.utilities.Pair;
 
-// This is a simple pair class. Ignore it.
-final class Pair {
-    private double first;
-    private double second;
-    public Pair(int first, int second){
-        this.first = first;
-        this.second = second;
-    }
-    public double first(){return first;}
-    public double second(){return second;}
-}
 
 public class PullUp {
     //DANIEL comment: For this, we don't really care about degrees so, we deal with

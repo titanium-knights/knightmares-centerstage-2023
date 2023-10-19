@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
+import org.firstinspires.ftc.teamcode.utilities.Pair;
 
 @TeleOp
 public class Teleop extends OpMode {
@@ -32,6 +33,7 @@ public class Teleop extends OpMode {
         this.claw = new Claw(hardwareMap);
         this.lift = new Lift(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
+        telemetry.setAutoClear(false);
     }
 
     @Override
@@ -69,8 +71,10 @@ public class Teleop extends OpMode {
         // claw rotate
         if (gamepad1.dpad_left) {
             claw.setZero(); // TODO: check if this is actually rotating back
+            telemetry.addData("Rotate back", claw.getPosition());
         } else if (gamepad1.dpad_right) {
             claw.setOne();
+            telemetry.addData("Rotate front", claw.getPosition());
         }
 //        //rotate the claw
 //        float rotation = gamepad2.left_stick_y;
@@ -95,12 +99,17 @@ public class Teleop extends OpMode {
         if (armUp > 0) {
             lift.toBackBoard();
             state = false;
+            telemetry.addData("Up", lift.getPosition());
         } else if (armDown > 0) {
             lift.toRobot();
             state = false;
+            telemetry.addData("Down", lift.getPosition());
         } else if (!state){
             lift.stop();
+            telemetry.addData("Stop", lift.getPosition());
         }
+
+        // TODO: arm angle, claw angle, pullup encoder value (get position calls), state
 
         //You want this to react to gamepad.dpad_(up/down/left/right) as that is where preset control should be
 
@@ -110,12 +119,16 @@ public class Teleop extends OpMode {
         if (armUpPreset) {
             lift.toDrop();
             state = true;
+            telemetry.addData("State: True", state);
         } else if (armDownPreset) {
             lift.toPickUp();
             state = true;
+            telemetry.addData("State: True", state);
         }
 
-        if (!lift.isBusy()) state = false;
+        if (!lift.isBusy()) {
+            state = false;
+        }
 
         claw.maintain(lift.getPosition());
 
@@ -124,9 +137,15 @@ public class Teleop extends OpMode {
 
         if (pullUpUpPreset){
             pullup.liftUp();
+            //telemetry.addData(String.valueOf((pullup.getPosition().first())));
         }
         else if (pullUpDownPreset) {
             pullup.liftDown();
+            //telemetry.addData(pullup.getPosition());
+        }
+
+        if (gamepad1.back) {
+            telemetry.update();
         }
     }
 }
