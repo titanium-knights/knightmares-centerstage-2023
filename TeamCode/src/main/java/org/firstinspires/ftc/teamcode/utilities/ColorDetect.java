@@ -34,6 +34,7 @@ public class ColorDetect {
 
     /**
      *  @return a String "red", "white", or "blue" or something
+     *  Telemetry prints the color detected and hsv value array
      */
     public String readColor() {
         float[] hsv = this.readHSV();
@@ -47,6 +48,7 @@ public class ColorDetect {
             color = "blue";
         }
         telemetry.addLine("Color detected: " + color + "(hsv: " + hsv + ")");
+        telemetry.update();
         return color;
     }
 }
