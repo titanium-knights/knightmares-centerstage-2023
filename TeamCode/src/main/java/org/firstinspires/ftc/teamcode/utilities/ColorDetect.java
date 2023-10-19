@@ -33,20 +33,25 @@ public class ColorDetect {
     }
 
     /**
-     *  @return a String "red", "white", or "blue" or something
+     *  @return a String "red", "blue", or "gray" (mat color)
      *  Telemetry prints the color detected and hsv value array
      */
     public String readColor() {
         float[] hsv = this.readHSV();
         float hue = hsv[0];
+        float saturation = hsv[1];
         String color = "";
-        if(hue<=127) {
-            color = "yellow";
-        } else if(hue<=160) {
-            color = "pink";
-        } else {
+
+        // This color setting can and should be adjusted with testing.
+        if (hue > 120 && hue < 300) {
             color = "blue";
+        } else {
+            color = "yellow";
         }
+        if (saturation < 25) {
+            color = "gray";
+        }
+
         telemetry.addLine("Color detected: " + color + "(hsv: " + hsv + ")");
         telemetry.update();
         return color;
