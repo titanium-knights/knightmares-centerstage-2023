@@ -63,15 +63,20 @@ public class Lift {
 
     public boolean isBusy() {return liftMotor.isBusy();} // used to make sure you dont interrupt a preset
 
-    public void setPower(boolean dir) { // sets the power based on the boolean (positive or negative)
+    public void setPower(boolean dir) {
+        setPower(dir, false);
+    }
+
+    public void setPower(boolean dir, boolean slowMode) {
         //false = to pick up, true = to drop
-        if (dir) liftMotor.setPower(POWER_DOWN * LIFT_POWER_MULTIPLIER);
-        else liftMotor.setPower(-POWER_DOWN * LIFT_POWER_MULTIPLIER);
+        double power = slowMode ? POWER_DOWN : POWER_UP;
+        if (dir) liftMotor.setPower(power * LIFT_POWER_MULTIPLIER);
+        else liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
     }
 
     public double getPosition(){
         return (liftMotor.getCurrentPosition()*360/Encoder_Ticks);
-    } // gets the encoder position in degrees based on encoder ticks
+    } // Returns degrees
 
     public boolean runToPosition(double angle) {
         // takes the angle we want it to go to and makes sure the angle is within range
@@ -95,18 +100,25 @@ public class Lift {
         return runToPosition(45);
     }
 
-    public boolean toBottomPreset(){
+    public boolean toPickUp(){
         return runToPosition(0);
     }
 
-    public void toDrop(){ // manual drop
+    public boolean toDrop(){
+        //TODO: FIND X
+        final double x = 135;
+        return runToPosition(x);
+    }
+
+
+
+    public void toBackBoard(){ // manual drop
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (checkLimits()) return; // wont turn if its at the limit
         setPower(true);
-
     }
 
-    public void toPickUp(){ // manual pick up
+    public void toRobot(){ // manual pick up
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (checkLimits()) return;
         setPower(false);
