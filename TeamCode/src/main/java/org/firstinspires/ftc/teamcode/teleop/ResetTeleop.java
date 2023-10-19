@@ -20,17 +20,23 @@ public class ResetTeleop extends OpMode {
     }
 
     public void loop(){
-        float pullupUp = gamepad1.left_trigger;
-        float pullupDown = gamepad1.right_trigger;
-
-        if (pullupUp > 0){
-            pullup.manualUp();
-        }
-        else if (pullupDown > 0) {
-            pullup.manualDown();
-        }
-        else{
-            pullup.stop();
-        }
+//        float leftPullup = gamepad1.left_stick_y;
+//        float rightPullup = gamepad1.right_stick_y;
+//
+//        if (leftPullup > 0){
+//            pullup.manualUp();
+//        }
+//        else if (leftPullup < 0) {
+//            pullup.manualDown();
+//        }
+//        else if (rightPullup > 0) {
+//            pullup.manualUp();
+//        }
+//        else if (rightPullup <0) {
+//            pullup.manualDown();
+//        }
+//        else{
+//            pullup.stop();
+//        }
     }
 }
