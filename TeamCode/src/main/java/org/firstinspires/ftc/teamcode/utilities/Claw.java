@@ -49,9 +49,9 @@ public class Claw {
 
     public void maintain(double liftAngle) {
         double trueAngle = liftAngle - zeroLiftAngle;
-        if (trueAngle > 0) maintainDrop(trueAngle);
+        if (trueAngle > -15) maintainDrop(trueAngle);
         else maintainPickup(trueAngle);
-    }
+    } //takes angle
 
     public void maintainDrop(double trueAngle){
         double angle = 180 - trueAngle;

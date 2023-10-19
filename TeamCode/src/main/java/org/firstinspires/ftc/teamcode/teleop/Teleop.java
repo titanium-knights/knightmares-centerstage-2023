@@ -16,8 +16,10 @@ public class Teleop extends OpMode {
     MecanumDrive drive;
     Claw claw;
     Lift lift;
+
     PullUp pullup;
     //Set normal power to 1, no point in slowing the robot down
+
     final double normalPower = 1;
     //Treat this as a multiplier so u could make finer adjustments in slowmode by moving the stick just a little bit
     final double slowPower = 0.3;
