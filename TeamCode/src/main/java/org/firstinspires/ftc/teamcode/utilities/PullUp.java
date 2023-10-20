@@ -6,18 +6,8 @@ import static java.lang.Math.abs;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.teamcode.utilities.Pair;
 
-// This is a simple pair class. Ignore it.
-final class Pair {
-    private double first;
-    private double second;
-    public Pair(int first, int second){
-        this.first = first;
-        this.second = second;
-    }
-    public double first(){return first;}
-    public double second(){return second;}
-}
 
 public class PullUp {
     //DANIEL comment: For this, we don't really care about degrees so, we deal with
@@ -96,29 +86,51 @@ public class PullUp {
 
     public void liftDown() {
         // converts angle into encoder ticks and then runs to position
-        pullUpMotor1.setTargetPosition((int) (topHeight));
+        pullUpMotor1.setTargetPosition((int) (topHeight - Encoder_Ticks));
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pullUpMotor2.setTargetPosition((int) (topHeight));
+        pullUpMotor2.setTargetPosition((int) (topHeight - Encoder_Ticks));
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //with run to position always positive power
         // run to position is always in presets or else itll be jittery
         setPower(0.3, true);
     }
 
-    public void manualUp(){
+    public void manualLeftUp(){
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (checkLimits()) return; // wont turn if its at the limit
         setPower(0.3,true);
     }
 
-    public void manualDown(){
+    public void manualLeftDown(){
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (checkLimits()) return; // wont turn if its at the limit
         setPower(0.3,false);
     }
-    // TODO: manual up and manual down power 0.3
+
+    public void manualRightUp(){
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (checkLimits()) return; // wont turn if its at the limit
+        setPower(0.3,true);
+    }
+
+    public void manualRightDown(){
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (checkLimits()) return; // wont turn if its at the limit
+        setPower(0.3,false);
+    }
+
+    public void stopLeft(){
+        pullUpMotor1.setPower(0);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void stopRight(){
+        pullUpMotor2.setPower(0);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 
 
 

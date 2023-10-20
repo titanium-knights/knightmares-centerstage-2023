@@ -11,7 +11,7 @@ public class Claw {
 
     final double MAX_BUFFER = 2.0;
 
-    double zeroLiftAngle = 35;
+    double zeroLiftAngle = 110;
     double zeroClawAngle = -zeroLiftAngle;
     double servoAngleModifier = (double) 360/300;
     //Angle from bottom when lift is pointing straight up
@@ -49,9 +49,9 @@ public class Claw {
 
     public void maintain(double liftAngle) {
         double trueAngle = liftAngle - zeroLiftAngle;
-        if (trueAngle > 0) maintainDrop(trueAngle);
+        if (trueAngle > -15) maintainDrop(trueAngle);
         else maintainPickup(trueAngle);
-    }
+    } //takes angle
 
     public void maintainDrop(double trueAngle){
         double angle = 180 - trueAngle;

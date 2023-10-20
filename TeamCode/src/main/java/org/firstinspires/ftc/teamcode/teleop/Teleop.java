@@ -8,27 +8,32 @@ import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
+import org.firstinspires.ftc.teamcode.utilities.Pair;
 
-@TeleOp
+@TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
 
     Telemetry telemetry;
     MecanumDrive drive;
     Claw claw;
     Lift lift;
+
     PullUp pullup;
     //Set normal power to 1, no point in slowing the robot down
+
     final double normalPower = 1;
     //Treat this as a multiplier so u could make finer adjustments in slowmode by moving the stick just a little bit
     final double slowPower = 0.3;
 
     boolean slowMode = false;
+    boolean state = false;
 
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
         this.claw = new Claw(hardwareMap);
         this.lift = new Lift(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
+        telemetry.setAutoClear(false);
     }
 
     @Override
@@ -66,8 +71,10 @@ public class Teleop extends OpMode {
         // claw rotate
         if (gamepad1.dpad_left) {
             claw.setZero(); // TODO: check if this is actually rotating back
+            telemetry.addData("Rotate back", claw.getPosition());
         } else if (gamepad1.dpad_right) {
             claw.setOne();
+            telemetry.addData("Rotate front", claw.getPosition());
         }
 //        //rotate the claw
 //        float rotation = gamepad2.left_stick_y;
@@ -89,29 +96,38 @@ public class Teleop extends OpMode {
         float armUp = gamepad1.left_trigger;
         float armDown = gamepad1.right_trigger;
 
-        //TODO: Add a manual section that acts on armUp and armDown using .toBackBoard and .toRobot
-
         if (armUp > 0) {
             lift.toBackBoard();
+            state = false;
+            telemetry.addData("Up", lift.getPosition());
         } else if (armDown > 0) {
             lift.toRobot();
+            state = false;
+            telemetry.addData("Down", lift.getPosition());
+        } else if (!state){
+            lift.stop();
+            telemetry.addData("Stop", lift.getPosition());
         }
+
+        // TODO: arm angle, claw angle, pullup encoder value (get position calls), state
 
         //You want this to react to gamepad.dpad_(up/down/left/right) as that is where preset control should be
 
         boolean armUpPreset = gamepad1.b;
         boolean armDownPreset = gamepad1.a;
-
-
         //You can combine this with the thing above
         if (armUpPreset) {
             lift.toDrop();
-            // Can just do claw.maintain(lift.getPosition()) as it does this check for you
-            //claw.maintainDrop(lift.getPosition());
+            state = true;
+            telemetry.addData("State: True", state);
         } else if (armDownPreset) {
             lift.toPickUp();
-            //Same as above
-            //claw.maintainPickup(lift.getPosition());
+            state = true;
+            telemetry.addData("State: True", state);
+        }
+
+        if (!lift.isBusy()) {
+            state = false;
         }
 
         claw.maintain(lift.getPosition());
@@ -121,9 +137,15 @@ public class Teleop extends OpMode {
 
         if (pullUpUpPreset){
             pullup.liftUp();
+            //telemetry.addData(String.valueOf((pullup.getPosition().first())));
         }
         else if (pullUpDownPreset) {
             pullup.liftDown();
+            //telemetry.addData(pullup.getPosition());
+        }
+
+        if (gamepad1.back) {
+            telemetry.update();
         }
     }
 }
