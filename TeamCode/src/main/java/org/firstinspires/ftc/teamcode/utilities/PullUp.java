@@ -86,9 +86,9 @@ public class PullUp {
 
     public void liftDown() {
         // converts angle into encoder ticks and then runs to position
-        pullUpMotor1.setTargetPosition((int) (topHeight));
+        pullUpMotor1.setTargetPosition((int) (topHeight - Encoder_Ticks));
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pullUpMotor2.setTargetPosition((int) (topHeight));
+        pullUpMotor2.setTargetPosition((int) (topHeight - Encoder_Ticks));
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //with run to position always positive power
         // run to position is always in presets or else itll be jittery
