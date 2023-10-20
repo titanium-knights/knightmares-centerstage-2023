@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 // This is a simple pair class. Ignore it.
 public class Pair {
-    private double first;
-    private double second;
+    private final double first;
+    private final double second;
     public Pair(int first, int second){
         this.first = first;
         this.second = second;

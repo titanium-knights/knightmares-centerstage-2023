@@ -95,20 +95,42 @@ public class PullUp {
         setPower(0.3, true);
     }
 
-    public void manualUp(){
+    public void manualLeftUp(){
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (checkLimits()) return; // wont turn if its at the limit
         setPower(0.3,true);
     }
 
-    public void manualDown(){
+    public void manualLeftDown(){
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if (checkLimits()) return; // wont turn if its at the limit
         setPower(0.3,false);
     }
-    // TODO: manual up and manual down power 0.3
+
+    public void manualRightUp(){
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (checkLimits()) return; // wont turn if its at the limit
+        setPower(0.3,true);
+    }
+
+    public void manualRightDown(){
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (checkLimits()) return; // wont turn if its at the limit
+        setPower(0.3,false);
+    }
+
+    public void stopLeft(){
+        pullUpMotor1.setPower(0);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void stopRight(){
+        pullUpMotor2.setPower(0);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 
 
 

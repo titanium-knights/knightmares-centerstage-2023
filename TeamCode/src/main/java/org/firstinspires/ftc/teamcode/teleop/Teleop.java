@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Pair;
 
-@TeleOp
+@TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
 
     Telemetry telemetry;

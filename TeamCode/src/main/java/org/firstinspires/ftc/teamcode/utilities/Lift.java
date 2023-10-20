@@ -11,8 +11,8 @@ public class Lift {
 
     public static double LIFT_POWER_MULTIPLIER = .9; // so it doesnt turn too fast
     public static double Encoder_Ticks = 537.7;
-    public static double Up_Angle = 55; // when the robot is turned on we want this angle to be 0
-    //Angle from initial when arm is straight up.
+    public static double Up_Angle = 135; // When robot is turned on, this angle should be when arm is straight up
+    // Angle from initial when arm is straight up.
 
     // TODO check limit values based on degrees,
     // should be between ~ -45 & 180 degrees

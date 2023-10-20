@@ -11,7 +11,7 @@ public class Claw {
 
     final double MAX_BUFFER = 2.0;
 
-    double zeroLiftAngle = 35;
+    double zeroLiftAngle = 110;
     double zeroClawAngle = -zeroLiftAngle;
     double servoAngleModifier = (double) 360/300;
     //Angle from bottom when lift is pointing straight up
