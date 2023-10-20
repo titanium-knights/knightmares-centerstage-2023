@@ -68,8 +68,7 @@ public class PullUp {
 
     //true = synced, false = desynced.
     public boolean checkSync(){
-        if (abs(getPosition().first() - getPosition().second()) < DESYNC_LIMIT) return true;
-        else return false;
+        return abs(getPosition().first() - getPosition().second()) < DESYNC_LIMIT;
     }
 
     public void liftUp() {
@@ -96,30 +95,23 @@ public class PullUp {
     }
 
     public void manualLeftUp(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if (checkLimits()) return; // wont turn if its at the limit
-        setPower(0.3,true);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// wont turn if its at the limit
+        pullUpMotor1.setPower(1);
     }
 
     public void manualLeftDown(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if (checkLimits()) return; // wont turn if its at the limit
-        setPower(0.3,false);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// wont turn if its at the limit
+        pullUpMotor1.setPower(-1);
     }
 
     public void manualRightUp(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if (checkLimits()) return; // wont turn if its at the limit
-        setPower(0.3,true);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // wont turn if its at the limit
+        pullUpMotor2.setPower(1);
     }
 
     public void manualRightDown(){
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if (checkLimits()) return; // wont turn if its at the limit
-        setPower(0.3,false);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // wont turn if its at the limit
+        pullUpMotor2.setPower(-1);
     }
 
     public void stopLeft(){
