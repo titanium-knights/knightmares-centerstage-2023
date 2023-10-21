@@ -11,8 +11,8 @@ public class Lift {
 
     public static double LIFT_POWER_MULTIPLIER = .9; // so it doesnt turn too fast
     public static double Encoder_Ticks = 537.7;
-    public static double Up_Angle = 55; // when the robot is turned on we want this angle to be 0
-    //Angle from initial when arm is straight up.
+    public static double Up_Angle = 135; // When robot is turned on, this angle should be when arm is straight up
+    // Angle from initial when arm is straight up.
 
     // TODO check limit values based on degrees,
     // should be between ~ -45 & 180 degrees
@@ -40,18 +40,18 @@ public class Lift {
     public void setInit() {
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // makes it so the motor is not like loose
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void stop(){ // sets power to 0 everything stops
         liftMotor.setPower(0); // refers to line 41
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public boolean checkLimits(){ // safeties to stop it from going too far
-        double angle = getPosition();
-        if (angle < MIN_LIMIT) {stop(); return true;}
-        if (angle > MAX_LIMIT) {stop(); return true;}
+//        double angle = getPosition();
+//        if (angle < MIN_LIMIT) {stop(); return true;}
+//        if (angle > MAX_LIMIT) {stop(); return true;}
         return false;
     }
 
@@ -113,13 +113,13 @@ public class Lift {
 
 
     public void toBackBoard(){ // manual drop
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         if (checkLimits()) return; // wont turn if its at the limit
         setPower(true);
     }
 
     public void toRobot(){ // manual pick up
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         if (checkLimits()) return;
         setPower(false);
     }

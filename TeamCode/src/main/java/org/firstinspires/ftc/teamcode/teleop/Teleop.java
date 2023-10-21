@@ -3,17 +3,16 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Pair;
 
-@TeleOp
+@TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
 
-    Telemetry telemetry;
+//    Telemetry telemetry;
     MecanumDrive drive;
     Claw claw;
     Lift lift;
@@ -33,7 +32,7 @@ public class Teleop extends OpMode {
         this.claw = new Claw(hardwareMap);
         this.lift = new Lift(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
-        telemetry.setAutoClear(false);
+//        telemetry.setAutoClear(false);
     }
 
     @Override

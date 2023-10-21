@@ -67,9 +67,8 @@ public class PullUp {
     }
 
     //true = synced, false = desynced.
-    public boolean checkSync(){
-        if (abs(getPosition().first() - getPosition().second()) < DESYNC_LIMIT) return true;
-        else return false;
+    public boolean checkSync() {
+        return abs(getPosition().first() - getPosition().second()) < DESYNC_LIMIT;
     }
 
     public void liftUp() {
@@ -86,30 +85,43 @@ public class PullUp {
 
     public void liftDown() {
         // converts angle into encoder ticks and then runs to position
-        pullUpMotor1.setTargetPosition((int) (topHeight));
+
+        pullUpMotor1.setTargetPosition((int) (topHeight - Encoder_Ticks));
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pullUpMotor2.setTargetPosition((int) (topHeight));
+        pullUpMotor2.setTargetPosition((int) (topHeight - Encoder_Ticks));
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //with run to position always positive power
         // run to position is always in presets or else itll be jittery
         setPower(0.3, true);
     }
 
-    public void manualUp(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if (checkLimits()) return; // wont turn if its at the limit
-        setPower(0.3,true);
+    public void manualLeftUp(){
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// wont turn if its at the limit
+        pullUpMotor1.setPower(1);
     }
 
-    public void manualDown(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if (checkLimits()) return; // wont turn if its at the limit
-        setPower(0.3,false);
+    public void manualLeftDown(){
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// wont turn if its at the limit
+        pullUpMotor1.setPower(-1);
     }
-    // TODO: manual up and manual down power 0.3
 
+    public void manualRightUp(){
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // wont turn if its at the limit
+        pullUpMotor2.setPower(1);
+    }
 
+    public void manualRightDown(){
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // wont turn if its at the limit
+        pullUpMotor2.setPower(-1);
+    }
 
+    public void stopLeft(){
+        pullUpMotor1.setPower(0);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    public void stopRight(){
+        pullUpMotor2.setPower(0);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
 }
