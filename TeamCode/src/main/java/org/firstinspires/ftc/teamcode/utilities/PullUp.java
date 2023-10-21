@@ -116,12 +116,12 @@ public class PullUp {
 
     public void stopLeft(){
         pullUpMotor1.setPower(0);
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void stopRight(){
         pullUpMotor2.setPower(0);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
 

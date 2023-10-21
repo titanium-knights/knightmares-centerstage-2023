@@ -17,6 +17,7 @@ public class ResetTeleop extends OpMode {
 
     final float STICK_MARGIN = 0.2f;
 
+    Telemetry telemetry;
     MecanumDrive drive;
     Claw claw;
     Lift lift;
@@ -31,7 +32,7 @@ public class ResetTeleop extends OpMode {
         this.claw = new Claw(hardwareMap);
         this.lift = new Lift(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
-//        telemetry.setAutoClear(false);
+        telemetry.setAutoClear(false);
 
     }
 

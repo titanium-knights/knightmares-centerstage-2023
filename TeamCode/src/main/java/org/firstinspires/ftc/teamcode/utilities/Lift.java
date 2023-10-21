@@ -40,12 +40,12 @@ public class Lift {
     public void setInit() {
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // makes it so the motor is not like loose
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void stop(){ // sets power to 0 everything stops
         liftMotor.setPower(0); // refers to line 41
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public boolean checkLimits(){ // safeties to stop it from going too far
@@ -113,13 +113,13 @@ public class Lift {
 
 
     public void toBackBoard(){ // manual drop
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         if (checkLimits()) return; // wont turn if its at the limit
         setPower(true);
     }
 
     public void toRobot(){ // manual pick up
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         if (checkLimits()) return;
         setPower(false);
     }
