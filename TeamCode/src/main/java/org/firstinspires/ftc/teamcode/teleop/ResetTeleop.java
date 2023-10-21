@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
@@ -17,7 +16,6 @@ public class ResetTeleop extends OpMode {
 
     final float STICK_MARGIN = 0.2f;
 
-    Telemetry telemetry;
     MecanumDrive drive;
     Claw claw;
     Lift lift;
