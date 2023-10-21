@@ -49,9 +49,9 @@ public class Lift {
     }
 
     public boolean checkLimits(){ // safeties to stop it from going too far
-        double angle = getPosition();
-        if (angle < MIN_LIMIT) {stop(); return true;}
-        if (angle > MAX_LIMIT) {stop(); return true;}
+//        double angle = getPosition();
+//        if (angle < MIN_LIMIT) {stop(); return true;}
+//        if (angle > MAX_LIMIT) {stop(); return true;}
         return false;
     }
 
