@@ -25,7 +25,4 @@ public class CONFIG {
 
     public static String pullUpMotor1 = "pl1"; // Left
     public static String pullUpMotor2 = "pl2"; // Right
-
-
-
 }

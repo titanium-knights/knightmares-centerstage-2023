@@ -67,7 +67,7 @@ public class PullUp {
     }
 
     //true = synced, false = desynced.
-    public boolean checkSync(){
+    public boolean checkSync() {
         return abs(getPosition().first() - getPosition().second()) < DESYNC_LIMIT;
     }
 
@@ -85,6 +85,7 @@ public class PullUp {
 
     public void liftDown() {
         // converts angle into encoder ticks and then runs to position
+
         pullUpMotor1.setTargetPosition((int) (topHeight - Encoder_Ticks));
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         pullUpMotor2.setTargetPosition((int) (topHeight - Encoder_Ticks));
@@ -123,7 +124,4 @@ public class PullUp {
         pullUpMotor2.setPower(0);
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-
-
-
 }
