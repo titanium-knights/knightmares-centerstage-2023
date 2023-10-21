@@ -17,13 +17,14 @@ public class CONFIG {
     //claw open and close
     public static String clawServo = "claw"; //ch 1
     //rotate claw
-    public static String clawSpin = "clawSpin"; //ch 0
+    public static String clawSpin = "clawspin"; //ch 0
 
 
     //move arm up and down
     public static String liftMotor = "lift"; //exp 2
 
-    //color sensor
     public static String colorSensor = "color"; //ch 0
 
+    public static String pullUpMotor1 = "pl1"; // Left
+    public static String pullUpMotor2 = "pl2"; // Right
 }

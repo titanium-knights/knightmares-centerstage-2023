@@ -44,7 +44,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
      * instantiate the object with telemetry and a color, which defaults to RED
      */
     public BasicRedBlueDiff(Telemetry telemetry) {
-        this(telemetry, "blue");
+        this(telemetry, "red");
     }
 
     public BasicRedBlueDiff(Telemetry telemetry, String color) {
@@ -114,7 +114,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
         }
 
         // draw a rectangle around the section with the highest color value
-        final int THICKNESS = 25;
+        final int THICKNESS = 7;
         Imgproc.rectangle(
                 input,
                 rect_points.get(maxindex*2),
