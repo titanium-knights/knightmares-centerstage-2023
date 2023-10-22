@@ -134,12 +134,13 @@ public class Teleop extends OpMode {
         boolean pullUpUpPreset = gamepad1.y;
         boolean pullUpDownPreset = gamepad1.x;
 
+        //pull up is broken, lets not use it
         if (pullUpUpPreset){
-            pullup.liftUp();
+//            pullup.liftUp();
             //telemetry.addData(String.valueOf((pullup.getPosition().first())));
         }
         else if (pullUpDownPreset) {
-            pullup.liftDown();
+//            pullup.liftDown();
             //telemetry.addData(pullup.getPosition());
         }
 

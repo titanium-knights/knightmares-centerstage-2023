@@ -23,11 +23,11 @@ public class Claw {
     }
 
     public void open() {
-        clawOpener.setPosition(1.0);
+        clawOpener.setPosition(0.0);
     }
 
     public void close() {
-        clawOpener.setPosition(0.0);
+        clawOpener.setPosition(1.0);
     }
 
     public double getPosition() {
