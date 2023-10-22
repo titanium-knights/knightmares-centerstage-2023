@@ -40,9 +40,11 @@ public class ResetTeleop extends OpMode {
         float y = gamepad1.left_stick_y;
         float turn = gamepad1.right_stick_x;
 
-        if (Math.abs(x) <= STICK_MARGIN) x = 0;
-        if (Math.abs(y) <= STICK_MARGIN) y = 0;
-        if (Math.abs(turn) <= STICK_MARGIN) turn = 0;
+        telemetry.addLine("x="+x+"y="+y+"turn="+turn);
+
+        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
+        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
+        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
 
         drive.move(x, y, turn);
 
