@@ -50,9 +50,9 @@ public class Teleop extends OpMode {
         float turn = gamepad1.right_stick_x;
 
         // if the stick movement is negligible, set STICK_MARGIN to 0
-        if (Math.abs(x) <= STICK_MARGIN) x = 0;
-        if (Math.abs(y) <= STICK_MARGIN) y = 0;
-        if (Math.abs(turn) <= STICK_MARGIN) turn = 0;
+        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
+        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
+        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
 
         //Notation of a ? b : c means if a is true do b, if it isn't then do c.
         double multiplier = (slowMode ? slowPower : normalPower);
