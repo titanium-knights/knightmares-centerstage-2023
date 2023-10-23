@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Pair;
 
@@ -16,6 +17,7 @@ public class Teleop extends OpMode {
     MecanumDrive drive;
     Claw claw;
     Lift lift;
+    PlaneLauncher plane;
 
     PullUp pullup;
     //Set normal power to 1, no point in slowing the robot down
@@ -147,5 +149,10 @@ public class Teleop extends OpMode {
         if (gamepad1.back) {
             telemetry.update();
         }
+
+        if (gamepad1.dpad_up) {
+            plane.release();
+        }
+
     }
 }

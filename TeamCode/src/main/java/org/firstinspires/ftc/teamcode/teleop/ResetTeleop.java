@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -21,6 +22,7 @@ public class ResetTeleop extends OpMode {
     Lift lift;
 
     PullUp pullup;
+    PlaneLauncher plane;
 
     boolean reset = false;
     boolean toggle = true;
@@ -98,6 +100,10 @@ public class ResetTeleop extends OpMode {
             telemetry.update();
         } else if (gamepad1.b){
             reset = true;
+        }
+
+        if (gamepad1.dpad_down) {
+            plane.reset();
         }
     }
 }
