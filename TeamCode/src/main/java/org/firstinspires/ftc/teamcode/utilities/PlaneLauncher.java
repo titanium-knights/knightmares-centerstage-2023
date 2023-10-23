@@ -10,8 +10,8 @@ public class PlaneLauncher {
 
     public PlaneLauncher(HardwareMap hmap) {
         this.launcher = hmap.servo.get(CONFIG.clawServo);
-    }
 
+    // when releasing or resetting just move the servo...
     public void release(){
         launcher.setPosition(0.2);
     }
@@ -19,5 +19,4 @@ public class PlaneLauncher {
     public void reset(){
         launcher.setPosition(0);
     }
-    //servo that goes from one position to another posiiotn (0 to 0.2)
 }
