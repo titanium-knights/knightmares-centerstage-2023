@@ -22,19 +22,23 @@ public class Claw {
         this.clawRotator = hmap.servo.get(CONFIG.clawSpin);
     }
 
+    // sets positions for open and close position of the claw
     public void open() {
         clawOpener.setPosition(0.0);
     }
-
     public void close() {
         clawOpener.setPosition(1.0);
     }
 
+    // gets position of the claw opener perhaps in the form of degrees? or radians who knows
+    // if my comments are wrong then oops
     public double getPosition() {
         return clawOpener.getPosition()/servoAngleModifier;
     }
 
+    //
     public void setPosition(double des){
+        // sets rawangle to the real angle of our destination trust it works
         double rawangle = des + zeroClawAngle;
         clawRotator.setPosition(1 - rawangle/servoAngleModifier);
     }
@@ -46,6 +50,7 @@ public class Claw {
     public void setOne(){
         clawRotator.setPosition(1);
     }
+
 
     public void maintain(double liftAngle) {
         double trueAngle = liftAngle - zeroLiftAngle;
