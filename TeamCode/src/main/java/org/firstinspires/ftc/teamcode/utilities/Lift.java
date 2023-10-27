@@ -10,12 +10,11 @@ public class Lift {
     public DcMotor liftMotor;
 
     public static double LIFT_POWER_MULTIPLIER = .9; // so it doesnt turn too fast
-    public static double Encoder_Ticks = 537.7;
-    public static double Up_Angle = 135; // When robot is turned on, this angle should be when arm is straight up
+    public static double ENCODER_TICKS = 537.7;
+    public static double UP_ANGLE = 135; // When robot is turned on, this angle should be when arm is straight up
     // Angle from initial when arm is straight up.
 
-    // TODO check limit values based on degrees,
-    // should be between ~ -45 & 180 degrees
+    // TODO: check limit values based on degrees, should be between ~ -45 & 180 degrees
     public static double MAX_LIMIT = 240; // so it doesnt go too far down
     public static double MIN_LIMIT = -5; // stops it from going further down if we use manual lift
 
@@ -56,7 +55,7 @@ public class Lift {
     }
 
     public boolean updateState(){ // dont use
-        if (getPosition() > Up_Angle) state = false;
+        if (getPosition() > UP_ANGLE) state = false;
         state = true;
         return state;
     }
@@ -75,7 +74,7 @@ public class Lift {
     }
 
     public double getPosition(){
-        return (liftMotor.getCurrentPosition()*360/Encoder_Ticks);
+        return (liftMotor.getCurrentPosition()*360/ ENCODER_TICKS);
     } // Returns degrees
 
     public boolean runToPosition(double angle) {
@@ -87,7 +86,7 @@ public class Lift {
         if (orig != angle) return false;
 
         // converts angle into encoder ticks and then runs to position
-        liftMotor.setTargetPosition((int) (Encoder_Ticks*angle/360));
+        liftMotor.setTargetPosition((int) (ENCODER_TICKS *angle/360));
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //with run to position always positive power
         // runto position is always in presets or else itll be jittery
