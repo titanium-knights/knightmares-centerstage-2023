@@ -6,54 +6,48 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
-import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Pair;
 
-// Used mainly to create what buttons to press and what it controls
 @TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
 
-    // we are declaring subsystems here:
-    MecanumDrive drive; // "MecanumDrive" is the variable type, and drive is the name of the variable
+//    Telemetry telemetry;
+    MecanumDrive drive;
     Claw claw;
     Lift lift;
-    PlaneLauncher plane;
+
     PullUp pullup;
-
-
     //Set normal power to 1, no point in slowing the robot down
-    final double normalPower = 1; // final means that the variable is a constant
 
+    final double normalPower = 1;
     //Treat this as a multiplier so u could make finer adjustments in slowmode by moving the stick just a little bit
     final double slowPower = 0.3;
 
     boolean slowMode = false;
-    boolean state = false; // if a preset is running, state = true, if a preset is not running, state = false
+    boolean state = false;
 
-    public void init() { // this only runs once at the very beginning
+    public void init() {
         this.drive = new MecanumDrive(hardwareMap);
         this.claw = new Claw(hardwareMap);
         this.lift = new Lift(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
-        this.plane = new PlaneLauncher(hardwareMap);
 //        telemetry.setAutoClear(false);
     }
 
     @Override
-    public void loop() { // after initialize it keeps running
+    public void loop() {
+        // in case of joystick drift, ignore very small values
+        //TODO: TUNE THIS VALUE
+        final float STICK_MARGIN = 0.2f;
 
-        //slow mode, turns slowmode on and off
+        //slow mode
         if (gamepad1.start || gamepad2.start) {slowMode = !slowMode;}
 
         //driving
         float x = gamepad1.left_stick_x;
         float y = gamepad1.left_stick_y;
         float turn = gamepad1.right_stick_x;
-
-        // in case of joystick drift, ignore very small values
-        //TODO: TUNE THIS VALUE
-        final float STICK_MARGIN = 0.2f;
 
         // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= STICK_MARGIN) x = .0f;
@@ -114,6 +108,7 @@ public class Teleop extends OpMode {
             telemetry.addData("Stop", lift.getPosition());
         }
 
+        // TODO: arm angle, claw angle, pullup encoder value (get position calls), state
 
         //You want this to react to gamepad.dpad_(up/down/left/right) as that is where preset control should be
 
@@ -139,21 +134,18 @@ public class Teleop extends OpMode {
         boolean pullUpUpPreset = gamepad1.y;
         boolean pullUpDownPreset = gamepad1.x;
 
-
+        //pull up is broken, lets not use it
         if (pullUpUpPreset){
-            pullup.liftUp();
+//            pullup.liftUp();
+            //telemetry.addData(String.valueOf((pullup.getPosition().first())));
         }
         else if (pullUpDownPreset) {
-            pullup.liftDown();
+//            pullup.liftDown();
+            //telemetry.addData(pullup.getPosition());
         }
 
         if (gamepad1.back) {
             telemetry.update();
         }
-
-        if (gamepad1.dpad_up) {
-            plane.release();
-        }
-
     }
 }

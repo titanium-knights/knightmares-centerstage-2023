@@ -28,23 +28,22 @@ public class PullUp {
     public PullUp(HardwareMap hmap) {
         this.pullUpMotor1 = hmap.dcMotor.get(CONFIG.pullUpMotor1);
         this.pullUpMotor2 = hmap.dcMotor.get(CONFIG.pullUpMotor2);
-        setInit();
     }
 
     public void setInit() {
         pullUpMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // makes it so the motor is not like loose
         pullUpMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // makes it so the motor is not like loose
         pullUpMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void stop(){ // sets power to 0 - everything stops
         pullUpMotor1.setPower(0);
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor2.setPower(0);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     // true = outside of limits, false = within
