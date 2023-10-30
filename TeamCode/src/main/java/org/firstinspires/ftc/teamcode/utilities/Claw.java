@@ -20,9 +20,6 @@ public class Claw {
     // Angle of the clawRotator when the lift is about to drop
     double CLAW_ANGLE_DROP = 270;
 
-    // if multiplied with the servo angle (which is out of 300), will convert to degrees
-    // if divided with angle in degrees (out of 360), will convert to servo angle out of 300
-    double servoAngleModifier = (double) 360/300;
 
     public Claw(HardwareMap hmap) {
         this.clawOpener = hmap.servo.get(CONFIG.clawServo);
@@ -41,7 +38,7 @@ public class Claw {
 
     // gets position of the clawRotator initially in servo angle and then converts it to degrees, robot centric
     public double getPosition() {
-        return clawRotator.getPosition()/servoAngleModifier;
+        return clawRotator.getPosition();
     }
 
     //
@@ -52,7 +49,7 @@ public class Claw {
 //    }
 
     public void setPosition(double angle) {
-        clawRotator.setPosition((angle*servoAngleModifier));
+        clawRotator.setPosition(angle);
     }
 
 
