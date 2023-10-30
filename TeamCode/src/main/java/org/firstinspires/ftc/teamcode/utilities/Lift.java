@@ -20,6 +20,7 @@ public class Lift {
 
     public static double VERTICAL_ANGLE = 135;
     // Angle from when arm is vertical, where 0 is the minimum degree that the robot arm can go down (robot centric based)
+    // uhhhhhh i dont think we even use this
 
     // TODO: check limit values based on degrees, should be between ~ -45 & 180 degrees
     public static double MAX_LIMIT = 240; // so it doesn't go too far down, measured in degrees based on where the
@@ -106,7 +107,7 @@ public class Lift {
 
     public boolean toDrop(){ // preset for dropping pixels
         //TODO: FIND X
-        final double x = 135;
+        final double x = 155;
         return runToPosition(x);
     }
 
