@@ -18,7 +18,9 @@ public class Claw {
     double CLAW_ANGLE_PICKUP = VERTICAL_ANGLE;
 
     // Angle of the clawRotator when the lift is about to drop
-    double CLAW_ANGLE_DROP = 270;
+    double CLAW_ANGLE_DROP = 270-VERTICAL_ANGLE;
+
+    double ANGLE_SERVO_MODIFIER = 1/300;
 
 
     public Claw(HardwareMap hmap) {
