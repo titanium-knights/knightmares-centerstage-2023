@@ -11,6 +11,8 @@ public class Lift {
 
     public static double LIFT_POWER_MULTIPLIER = .6; // so it doesn't turn too fast
     public static double ENCODER_TICKS = 537.6/28;
+
+    public static double MIDDLE_ANGLE = 140;
     /* ENCODER TICKS EXPLAINED:
     Originally, there are 537.6 encoder ticks, which means that for one 360 degree rotation, the encoder ticks 537.6 times (for 1150 rpm motor)
     28 rotations of worm gear : 1 rotation of the gear
@@ -73,8 +75,22 @@ public class Lift {
         //TODO: rename to slow_power and power because we're not actually using them for up/down
         double power = slowMode ? POWER_DOWN : POWER_UP;
         // if slowMode is on, use power down constant, else, use power up constant
-        if (dir) liftMotor.setPower(power * LIFT_POWER_MULTIPLIER);
-        else liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
+        if (dir) {
+            if (getPosition()>MIDDLE_ANGLE-20) {
+                liftMotor.setPower(power * LIFT_POWER_MULTIPLIER);
+            }
+            else {
+                liftMotor.setPower(power);
+            }
+        }
+        else {
+            if (getPosition()<MIDDLE_ANGLE+20) {
+                liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
+            }
+            else {
+                liftMotor.setPower(-power);
+            }
+        }
     }
 
     // Returns lift position in degrees, robot centric (minimum is 0)
