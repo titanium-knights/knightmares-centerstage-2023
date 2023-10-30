@@ -11,11 +11,15 @@ public class Claw {
 
     final double MAX_BUFFER = 2.0;
 
-    double zeroLiftAngle = 110;
-    double zeroClawAngle = -zeroLiftAngle;
-    double servoAngleModifier = (double) 360/300;
-    //Angle from bottom when lift is pointing straight up
-    //calibrate from motor -> fusion 360
+    // Angle from when arm is vertical, where 0 is the minimum degree that the robot arm can go down (robot centric based)
+    double VERTICAL_ANGLE = 135;
+
+    // Angle of the clawRotator when the lift is to its minimum degree (0) robot centric
+    double CLAW_ANGLE_PICKUP = VERTICAL_ANGLE;
+
+    // Angle of the clawRotator when the lift is about to drop
+    double CLAW_ANGLE_DROP = 270;
+
 
     public Claw(HardwareMap hmap) {
         this.clawOpener = hmap.servo.get(CONFIG.clawServo);
@@ -23,6 +27,8 @@ public class Claw {
     }
 
     // sets positions for open and close position of the claw
+    // only has two positions because servos only allow for two positions
+    // TODO: check if the open and close is not reversed
     public void open() {
         clawOpener.setPosition(0.0);
     }
@@ -30,47 +36,75 @@ public class Claw {
         clawOpener.setPosition(1.0);
     }
 
-    // gets position of the claw opener perhaps in the form of degrees? or radians who knows
-    // if my comments are wrong then oops
+    // gets position of the clawRotator initially in servo angle and then converts it to degrees, robot centric
     public double getPosition() {
-        return clawOpener.getPosition()/servoAngleModifier;
+        return clawRotator.getPosition();
     }
 
     //
-    public void setPosition(double des){
-        // sets rawangle to the real angle of our destination trust it works
-        double rawangle = des + zeroClawAngle;
-        clawRotator.setPosition(1 - rawangle/servoAngleModifier);
+//    public void setPosition(double des){ // sets clawRotator to the angle that we want it to be
+//        // TODO: don't trust it and figure out how the heck this works
+//        double rawangle = des + CLAW_ANGLE_PICKUP;
+//        clawRotator.setPosition(1 - rawangle/servoAngleModifier); // TODO: shouldn't 1 be 360?
+//    }
+
+    public void setPosition(double angle) {
+        clawRotator.setPosition(angle);
     }
 
-    public void setZero(){
+
+    // TODO: check which direction this is actually rotating
+    public void setZero(){ // rotate forward
         clawRotator.setPosition(0);
     }
 
-    public void setOne(){
+    public void setOne(){ // rotate backward
         clawRotator.setPosition(1);
     }
 
-
     public void maintain(double liftAngle) {
-        double trueAngle = liftAngle - zeroLiftAngle;
-        if (trueAngle > -15) maintainDrop(trueAngle);
-        else maintainPickup(trueAngle);
-    } //takes angle
+//        double trueAngle = liftAngle - ; // trueAngle is where 0 degrees is vertical
+//        // converts robot centric angle --> 0 = vertical angle centric
+//        // if anyone is confused about it you can ask Daniel or Aubrey
 
-    public void maintainDrop(double trueAngle){
-        double angle = 180 - trueAngle;
-        double delta = 240 - angle;
-        if (abs(getPosition() - delta) > MAX_BUFFER ){
-            setPosition(delta);
+//        if (trueAngle > -15) maintainDrop(trueAngle);
+//        else maintainPickup(trueAngle);
+
+        // if over a certain point (when lift goes beyond 135), clawRotator will rotate back
+        // else, clawRotator will rotate to the front
+        if (liftAngle > 135) maintainDrop();
+        else maintainPickup();
+    }
+
+//    public void maintainDrop(double trueAngle){
+//        double angle = 180 - trueAngle;
+//        double delta = 240 - angle;
+//
+//        // if clawRotator is not already at the position we want it to be, set it to that position
+//        if (abs(getPosition() - delta) > MAX_BUFFER){
+//            setPosition(delta); //
+//        }
+//    }
+
+    public void maintainDrop() {
+        if (abs(getPosition() - CLAW_ANGLE_DROP) > MAX_BUFFER) {
+            setPosition(CLAW_ANGLE_DROP);
         }
     }
 
-    public void maintainPickup(double trueAngle){
-        double angle = abs(trueAngle);
-        double delta = -angle;
-        if (abs(getPosition() - delta) > MAX_BUFFER){
-            setPosition(delta);
+
+//    public void maintainPickup(double trueAngle){
+//        double angle = abs(trueAngle);
+//        double delta = -angle;
+//        if (abs(getPosition() - delta) > MAX_BUFFER){
+//            setPosition(delta);
+//        }
+//    }
+
+    public void maintainPickup() {
+        if (abs(getPosition() - CLAW_ANGLE_PICKUP) > MAX_BUFFER) {
+            setPosition(CLAW_ANGLE_PICKUP);
         }
     }
+
 }
