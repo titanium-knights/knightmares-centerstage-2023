@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Lift {
     public DcMotor liftMotor;
 
-    public static double LIFT_POWER_MULTIPLIER = .9; // so it doesn't turn too fast
+    public static double LIFT_POWER_MULTIPLIER = .6; // so it doesn't turn too fast
     public static double ENCODER_TICKS = 537.6/28;
     /* ENCODER TICKS EXPLAINED:
     Originally, there are 537.6 encoder ticks, which means that for one 360 degree rotation, the encoder ticks 537.6 times (for 1150 rpm motor)
