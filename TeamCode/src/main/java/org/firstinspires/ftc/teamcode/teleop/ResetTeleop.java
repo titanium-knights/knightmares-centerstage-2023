@@ -55,5 +55,21 @@ public class ResetTeleop extends OpMode {
             lift.stop();
             telemetry.addData("Stop", lift.getPosition());
         }
+
+        //open and close the claw
+        if (gamepad1.x) {
+            claw.open();
+        } else if (gamepad1.a) {
+            claw.close();
+        }
+
+        // claw rotate
+        if (gamepad1.y) {
+            claw.setZero();
+            telemetry.addData("Rotate back", claw.getPosition());
+        } else if (gamepad1.b) {
+            claw.setOne();
+            telemetry.addData("Rotate front", claw.getPosition());
+        }
     }
 }
