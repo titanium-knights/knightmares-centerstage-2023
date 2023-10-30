@@ -93,6 +93,7 @@ public class Lift {
         }
     }
 
+
     // Returns lift position in degrees, robot centric (minimum is 0)
     public double getPosition(){
         // Initially gets back position in terms of encoder ticks, which converts to degrees
