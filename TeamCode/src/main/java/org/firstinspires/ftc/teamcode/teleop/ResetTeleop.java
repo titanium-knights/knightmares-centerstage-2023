@@ -26,6 +26,7 @@ public class ResetTeleop extends OpMode {
 
     boolean reset = false;
     boolean toggle = true;
+    boolean state = false;
 
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
@@ -34,76 +35,41 @@ public class ResetTeleop extends OpMode {
         this.pullup = new PullUp(hardwareMap);
         telemetry.setAutoClear(false);
 
+
     }
 
     public void loop(){
 
-        float x = gamepad1.left_stick_x;
-        float y = gamepad1.left_stick_y;
-        float turn = gamepad1.right_stick_x;
+        float armUp = gamepad1.right_trigger;
+        float armDown = gamepad1.left_trigger;
 
-        telemetry.addLine("x="+x+"y="+y+"turn="+turn);
-
-        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
-        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
-        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
-
-        drive.move(x, y, turn);
-
-        if (gamepad1.dpad_up){
+        if (armUp > 0) {
             lift.toBackBoard();
-            telemetry.addData("Lift", "Backboard");
-        }
-        if (gamepad1.dpad_down){
+            state = false;
+            telemetry.addData("Up", lift.getPosition());
+        } else if (armDown > 0) {
             lift.toRobot();
-            telemetry.addData("Lift", "Robot");
+            state = false;
+            telemetry.addData("Down", lift.getPosition());
+        } else if (!state){
+            lift.stop();
+            telemetry.addData("Stop", lift.getPosition());
         }
 
-        if (gamepad1.dpad_right) claw.setOne();
-        if (gamepad1.dpad_left) claw.setZero();
-
-        if (gamepad1.a) toggle = !toggle;
-        if (toggle) claw.open();
-        else claw.close();
-
-        boolean leftUp = gamepad1.left_trigger > 0;
-        boolean leftDown = gamepad1.right_trigger > 0;
-        boolean rightUp = gamepad1.left_bumper;
-        boolean rightDown = gamepad1.right_bumper;
-
-        if (leftUp){
-            pullup.manualLeftUp();
-            telemetry.addData("Left", "Up");
-        }
-        else if (leftDown) {
-            pullup.manualLeftDown();
-            telemetry.addData("Left", "Down");
-        }
-        else{
-            pullup.stopLeft();
+        //open and close the claw
+        if (gamepad1.x) {
+            claw.open();
+        } else if (gamepad1.a) {
+            claw.close();
         }
 
-        if (rightUp){
-            pullup.manualRightUp();
-            telemetry.addData("Right", "Up");
-        }
-        else if (rightDown) {
-            pullup.manualRightDown();
-            telemetry.addData("Right", "Down");
-        }
-        else{
-            pullup.stopRight();
-        }
-
-        if (gamepad1.b && reset){
-            reset = false;
-            telemetry.update();
-        } else if (gamepad1.b){
-            reset = true;
-        }
-
-        if (gamepad1.dpad_down) {
-            plane.reset();
+        // claw rotate
+        if (gamepad1.y) {
+            claw.setZero();
+            telemetry.addData("Rotate back", claw.getPosition());
+        } else if (gamepad1.b) {
+            claw.setOne();
+            telemetry.addData("Rotate front", claw.getPosition());
         }
     }
 }

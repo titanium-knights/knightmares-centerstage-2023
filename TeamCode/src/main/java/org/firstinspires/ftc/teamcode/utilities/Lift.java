@@ -32,7 +32,7 @@ public class Lift {
     public static double DROP_POINT = 0.60;
 
     // higher power lift going up vs going down cause power + gravity = more power
-    // Not going to use due to difficulty (unless someone comes up w something)
+    // TODO: DO THE ABOVE
     public static double POWER_UP = 0.75;
     public static double POWER_DOWN = 0.55;
 
