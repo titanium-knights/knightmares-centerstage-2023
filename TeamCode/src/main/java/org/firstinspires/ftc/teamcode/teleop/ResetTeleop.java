@@ -26,6 +26,7 @@ public class ResetTeleop extends OpMode {
 
     boolean reset = false;
     boolean toggle = true;
+    boolean state = false;
 
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
@@ -34,20 +35,41 @@ public class ResetTeleop extends OpMode {
         this.pullup = new PullUp(hardwareMap);
         telemetry.setAutoClear(false);
 
+
     }
 
-    public void loop() {
-        float armUp = gamepad1.left_trigger;
-        float armDown = gamepad1.right_trigger;
+    public void loop(){
+
+        float armUp = gamepad1.right_trigger;
+        float armDown = gamepad1.left_trigger;
 
         if (armUp > 0) {
             lift.toBackBoard();
+            state = false;
             telemetry.addData("Up", lift.getPosition());
         } else if (armDown > 0) {
             lift.toRobot();
+            state = false;
             telemetry.addData("Down", lift.getPosition());
-        } else
+        } else if (!state){
             lift.stop();
             telemetry.addData("Stop", lift.getPosition());
         }
+
+        //open and close the claw
+        if (gamepad1.x) {
+            claw.open();
+        } else if (gamepad1.a) {
+            claw.close();
+        }
+
+        // claw rotate
+        if (gamepad1.y) {
+            claw.setZero();
+            telemetry.addData("Rotate back", claw.getPosition());
+        } else if (gamepad1.b) {
+            claw.setOne();
+            telemetry.addData("Rotate front", claw.getPosition());
+        }
     }
+}
