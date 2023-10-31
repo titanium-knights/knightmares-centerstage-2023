@@ -44,7 +44,7 @@ public class Teleop extends OpMode {
 
     @Override
     public void loop() {
-
+        config.check();
         //slow mode toggle
         if (config.slowMode) {slowMode = !slowMode;}
 
