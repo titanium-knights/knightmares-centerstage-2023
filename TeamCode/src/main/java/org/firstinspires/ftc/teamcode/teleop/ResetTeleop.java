@@ -34,12 +34,9 @@ public class ResetTeleop extends OpMode {
         this.lift = new Lift(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
         telemetry.setAutoClear(false);
-
-
     }
 
-    public void loop(){
-
+    public void loop() {
         float armUp = gamepad1.right_trigger;
         float armDown = gamepad1.left_trigger;
 
