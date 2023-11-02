@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Lift {
     public DcMotor liftMotor;
 
-    public static double LIFT_POWER_MULTIPLIER = .6; // so it doesn't turn too fast
+    public static double LIFT_POWER_MULTIPLIER = .9; // so it doesn't turn too fast
     public static double ENCODER_TICKS = 537.6/28;
 
-    public static double MIDDLE_ANGLE = 140;
+    public static double MIDDLE_ANGLE = 250;
     /* ENCODER TICKS EXPLAINED:
     Originally, there are 537.6 encoder ticks, which means that for one 360 degree rotation, the encoder ticks 537.6 times (for 1150 rpm motor)
     28 rotations of worm gear : 1 rotation of the gear
@@ -24,7 +24,7 @@ public class Lift {
     //TODO: consider deleting unused variable
     public static double VERTICAL_ANGLE = 135;
 
-    public static double MAX_LIMIT = 240; // upper limit
+    public static double MAX_LIMIT = 360; // upper limit
     public static double MIN_LIMIT = -5; // lower limit for manual lift
 
     //these might end up being the same as min and max limit
@@ -76,7 +76,7 @@ public class Lift {
         double power = slowMode ? POWER_DOWN : POWER_UP;
         // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
-            if (getPosition()>MIDDLE_ANGLE-20) {
+            if (getPosition() < MIDDLE_ANGLE-20) {
                 liftMotor.setPower(power * LIFT_POWER_MULTIPLIER);
             }
             else {
@@ -84,7 +84,7 @@ public class Lift {
             }
         }
         else {
-            if (getPosition()<MIDDLE_ANGLE+20) {
+            if (getPosition() > MIDDLE_ANGLE+20) {
                 liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
             }
             else {
