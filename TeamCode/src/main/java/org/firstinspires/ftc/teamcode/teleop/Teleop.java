@@ -40,6 +40,8 @@ public class Teleop extends OpMode {
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
         this.config = new TeleopConfig(gamepad1, gamepad2);
+        Thread configRunner = new Thread(config);
+        configRunner.start();
     }
 
     @Override
