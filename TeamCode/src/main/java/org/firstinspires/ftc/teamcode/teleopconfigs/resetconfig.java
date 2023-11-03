@@ -16,6 +16,8 @@ public class resetconfig extends TeleopConfig {
         clawClose = this.gamepad1.x;
         armUpPreset = this.gamepad1.dpad_up;
         armDownPreset = this.gamepad1.dpad_down;
+        pullupUp = this.gamepad1.dpad_left;
+        pullupDown = this.gamepad1.dpad_right;
         //TODO: add more controls here for reset teleop
     }
 }
