@@ -75,5 +75,21 @@ public class ResetTeleop extends OpMode {
             claw.setOne();
             telemetry.addData("Rotate front", claw.getPosition());
         }
+
+        if (config.armUpPreset) {
+            lift.toDrop();
+            state = true;
+
+        } else if (config.armDownPreset) {
+            lift.toPickUp();
+            state = true;
+
+        }
+
+        claw.maintain(lift.getPosition());
+
+//        if (!lift.isBusy()) {
+//            state = false;
+//        }
     }
 }

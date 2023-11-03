@@ -57,11 +57,11 @@ public class Claw {
 
     // TODO: check which direction this is actually rotating
     public void setZero(){ // rotate forward
-        clawRotator.setPosition(1);
+        clawRotator.setPosition(0.3);
     }
 
     public void setOne(){ // rotate backward
-        clawRotator.setPosition(0.3);
+        clawRotator.setPosition(0.95);
     }
 
     public void maintain(double liftAngle) {

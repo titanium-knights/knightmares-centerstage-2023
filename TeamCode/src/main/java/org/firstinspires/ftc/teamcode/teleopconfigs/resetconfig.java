@@ -14,6 +14,8 @@ public class resetconfig extends TeleopConfig {
         //here you can override certain controls
         // make sure to remove the buttons from other controls if you add it something else
         clawClose = this.gamepad1.x;
+        armUpPreset = this.gamepad1.dpad_up;
+        armDownPreset = this.gamepad1.dpad_down;
         //TODO: add more controls here for reset teleop
     }
 }

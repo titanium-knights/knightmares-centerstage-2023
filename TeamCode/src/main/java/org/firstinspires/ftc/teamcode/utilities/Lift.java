@@ -24,7 +24,7 @@ public class Lift {
     //TODO: consider deleting unused variable
     public static double VERTICAL_ANGLE = 135;
 
-    public static double MAX_LIMIT = 360; // upper limit
+    public static double MAX_LIMIT = 100; // upper limit
     public static double MIN_LIMIT = -5; // lower limit for manual lift
 
     //these might end up being the same as min and max limit
@@ -134,8 +134,12 @@ public class Lift {
 
     public void toBackBoard(){ // manual drop
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         //if (checkLimits()) return; // wont turn if its at the limit
         setPower(true);
+        if (getPosition() > 200) {
+            liftMotor.setPower(0);
+        }
     }
 
     public void toRobot(){ // manual pick up
