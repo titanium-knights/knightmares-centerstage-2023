@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.teleopconfigs.resetconfig;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
@@ -20,9 +21,9 @@ public class ResetTeleop extends OpMode {
     MecanumDrive drive;
     Claw claw;
     Lift lift;
-
     PullUp pullup;
     PlaneLauncher plane;
+    resetconfig config;
 
     boolean reset = false;
     boolean toggle = true;
@@ -33,6 +34,10 @@ public class ResetTeleop extends OpMode {
         this.claw = new Claw(hardwareMap);
         this.lift = new Lift(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
+        //TODO: this config isnt actually used, replace all direct gamepad calls with config aliases
+        this.config = new resetconfig(gamepad1, gamepad2);
+        Thread configRunner = new Thread(config);
+        configRunner.start();
         telemetry.setAutoClear(false);
     }
 
@@ -56,8 +61,10 @@ public class ResetTeleop extends OpMode {
         //open and close the claw
         if (gamepad1.x) {
             claw.open();
+            telemetry.addData("Open claw", claw.getPosition());
         } else if (gamepad1.a) {
             claw.close();
+            telemetry.addData("Close claw", claw.getPosition());
         }
 
         // claw rotate
@@ -68,5 +75,25 @@ public class ResetTeleop extends OpMode {
             claw.setOne();
             telemetry.addData("Rotate front", claw.getPosition());
         }
+
+        if (config.armUpPreset) {
+            lift.toDrop();
+            state = true;
+
+        } else if (config.armDownPreset) {
+            lift.toPickUp();
+            state = true;
+
+        }
+
+        claw.maintain(lift.getPosition());
+
+        if (config.pullupUp){
+            pullup.liftUp();
+        }
+        else if (config.pullupDown) {
+            pullup.liftDown();
+        }
+
     }
 }

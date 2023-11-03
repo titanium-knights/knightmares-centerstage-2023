@@ -18,7 +18,7 @@ public class Claw {
     double CLAW_ANGLE_PICKUP = VERTICAL_ANGLE;
 
     // Angle of the clawRotator when the lift is about to drop
-    double CLAW_ANGLE_DROP = 270-VERTICAL_ANGLE;
+    double CLAW_ANGLE_DROP = 180-VERTICAL_ANGLE;
 
     double ANGLE_SERVO_MODIFIER = 1/300;
 
@@ -54,14 +54,13 @@ public class Claw {
         clawRotator.setPosition(angle);
     }
 
-
-    // TODO: check which direction this is actually rotating
+    // rotates back to pick up position
     public void setZero(){ // rotate forward
-        clawRotator.setPosition(0);
-    }
+        clawRotator.setPosition(0.0);
+    } // 0.3
 
-    public void setOne(){ // rotate backward
-        clawRotator.setPosition(1);
+    public void setOne(){ // rotate to drop position
+        clawRotator.setPosition(1); // 0.9
     }
 
     public void maintain(double liftAngle) {
