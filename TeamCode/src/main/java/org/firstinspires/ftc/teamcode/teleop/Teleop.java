@@ -78,9 +78,11 @@ public class Teleop extends OpMode {
         if (config.clawZero) {
             claw.setZero();
             telemetry.addData("Rotate back", claw.getPosition());
+            telemetry.update();
         } else if (config.clawOne) {
             claw.setOne();
             telemetry.addData("Rotate front", claw.getPosition());
+            telemetry.update();
         }
 
         float armUp = config.armUp;
@@ -90,23 +92,28 @@ public class Teleop extends OpMode {
             lift.toBackBoard();
             state = false;
             telemetry.addData("Up", lift.getPosition());
+            telemetry.update();
         } else if (armDown > 0) {
             lift.toRobot();
             state = false;
             telemetry.addData("Down", lift.getPosition());
+            telemetry.update();
         } else if (!state){
             lift.stop();
             telemetry.addData("Stop", lift.getPosition());
+            telemetry.update();
         }
 
         if (config.armUpPreset) {
             lift.toDrop();
             state = true;
             telemetry.addLine("State: True");
+            telemetry.update();
         } else if (config.armDownPreset) {
             lift.toPickUp();
             state = true;
             telemetry.addLine("State: True");
+            telemetry.update();
         }
 
         if (!lift.isBusy()) {
