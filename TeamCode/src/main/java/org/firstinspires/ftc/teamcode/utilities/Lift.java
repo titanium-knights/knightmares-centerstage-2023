@@ -33,8 +33,8 @@ public class Lift {
 
     // higher power lift going up vs going down cause power + gravity = more power
     // TODO: DO THE ABOVE
-    public static double POWER_UP = 0.75;
-    public static double POWER_DOWN = 0.55;
+    public static double POWER_UP = 0.85;
+    public static double POWER_DOWN = 0.65;
 
     //True = at drop zone, false = at pickup zone
     boolean atDropZone;
