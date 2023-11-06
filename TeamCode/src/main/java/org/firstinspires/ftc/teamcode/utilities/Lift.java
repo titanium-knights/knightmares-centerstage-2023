@@ -76,19 +76,19 @@ public class Lift {
         double power = slowMode ? POWER_DOWN : POWER_UP;
         // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
-            if (getPosition() < MIDDLE_ANGLE-20) {
-                liftMotor.setPower(power );
+            if (getPosition() < MIDDLE_ANGLE-20) { // less than 230
+                liftMotor.setPower(power * LIFT_POWER_MULTIPLIER);
             }
             else {
-                liftMotor.setPower(power* LIFT_POWER_MULTIPLIER);
+                liftMotor.setPower(power);
             }
         }
         else {
-            if (getPosition() > MIDDLE_ANGLE+20) {
-                liftMotor.setPower(-power );
+            if (getPosition() > MIDDLE_ANGLE+20) { // greater than 270
+                liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
             }
             else {
-                liftMotor.setPower(-power* LIFT_POWER_MULTIPLIER);
+                liftMotor.setPower(-power);
             }
         }
     }
