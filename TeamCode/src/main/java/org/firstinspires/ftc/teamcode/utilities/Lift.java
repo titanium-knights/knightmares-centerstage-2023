@@ -24,7 +24,7 @@ public class Lift {
     //TODO: consider deleting unused variable
     public static double VERTICAL_ANGLE = 135;
 
-    public static double MAX_LIMIT = 100; // upper limit
+    public static double MAX_LIMIT = 360; // upper limit
     public static double MIN_LIMIT = -5; // lower limit for manual lift
 
     //these might end up being the same as min and max limit
@@ -77,18 +77,18 @@ public class Lift {
         // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
             if (getPosition() < MIDDLE_ANGLE-20) {
-                liftMotor.setPower(power * LIFT_POWER_MULTIPLIER);
+                liftMotor.setPower(power );
             }
             else {
-                liftMotor.setPower(power);
+                liftMotor.setPower(power* LIFT_POWER_MULTIPLIER);
             }
         }
         else {
             if (getPosition() > MIDDLE_ANGLE+20) {
-                liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
+                liftMotor.setPower(-power );
             }
             else {
-                liftMotor.setPower(-power);
+                liftMotor.setPower(-power* LIFT_POWER_MULTIPLIER);
             }
         }
     }
