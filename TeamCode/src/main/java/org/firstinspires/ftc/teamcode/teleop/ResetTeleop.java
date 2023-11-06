@@ -88,8 +88,12 @@ public class ResetTeleop extends OpMode {
 
         claw.maintain(lift.getPosition());
 
-//        if (!lift.isBusy()) {
-//            state = false;
-//        }
+        if (config.pullupUp){
+            pullup.liftUp();
+        }
+        else if (config.pullupDown) {
+            pullup.liftDown();
+        }
+
     }
 }
