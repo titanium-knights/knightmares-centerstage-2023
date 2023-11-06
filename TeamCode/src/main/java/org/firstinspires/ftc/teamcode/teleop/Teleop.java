@@ -40,8 +40,8 @@ public class Teleop extends OpMode {
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
         this.config = new TeleopConfig(gamepad1, gamepad2);
-        Thread configRunner = new Thread(config);
-        configRunner.start();
+//        Thread configRunner = new Thread(config);
+//        configRunner.start();
     }
 
     @Override
@@ -50,6 +50,10 @@ public class Teleop extends OpMode {
         //slow mode toggle
         if (config.slowMode) {slowMode = !slowMode;}
 
+
+        telemetry.setAutoClear(false);
+        //telemetry.addLine("hello world");
+        telemetry.update();
         //driving
         float x = config.x_movement;
         float y = config.y_movement;
@@ -88,19 +92,19 @@ public class Teleop extends OpMode {
         float armUp = config.armUp;
         float armDown = config.armDown;
 
-        if (armUp > 0) {
+        if (armUp > 0.0) {
             lift.toBackBoard();
             state = false;
             telemetry.addData("Up", lift.getPosition());
             telemetry.update();
-        } else if (armDown > 0) {
+        } else if (armDown > 0.0) {
             lift.toRobot();
             state = false;
             telemetry.addData("Down", lift.getPosition());
             telemetry.update();
         } else if (!state){
             lift.stop();
-            telemetry.addData("Stop", lift.getPosition());
+            //telemetry.addData("Stop", lift.getPosition());
             telemetry.update();
         }
 

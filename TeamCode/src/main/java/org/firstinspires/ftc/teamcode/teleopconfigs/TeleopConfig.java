@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.teleopconfigs;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class TeleopConfig implements Runnable {
+public class TeleopConfig {
 
     Gamepad gamepad1;
     Gamepad gamepad2;
@@ -48,13 +48,5 @@ public class TeleopConfig implements Runnable {
         planeLaunch = this.gamepad1.dpad_up;
     }
 
-    @Override
-    public void run() {
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        check();
-    }
+
 }

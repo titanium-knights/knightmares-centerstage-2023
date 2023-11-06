@@ -63,17 +63,13 @@ public class Lift {
     }
 
     // overload the other setPower to default slowmode to false
-    public void setPower(boolean dir) {
-        setPower(dir, false);
-    }
 
     /**
      * @param dir: false = to pick up, true = to drop
-     * @param slowMode: false = normal mode, true = slow mode
      */
-    public void setPower(boolean dir, boolean slowMode) {
+    public void setPower(boolean dir) {
         //TODO: rename to slow_power and power because we're not actually using them for up/down
-        double power = slowMode ? POWER_DOWN : POWER_UP;
+        double power = POWER_UP;
         // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
             if (getPosition() < MIDDLE_ANGLE-20) { // less than 230
