@@ -40,8 +40,8 @@ public class Teleop extends OpMode {
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
         this.config = new TeleopConfig(gamepad1, gamepad2);
-        Thread configRunner = new Thread(config);
-        configRunner.start();
+//        Thread configRunner = new Thread(config);
+//        configRunner.start();
     }
 
     @Override
@@ -50,6 +50,10 @@ public class Teleop extends OpMode {
         //slow mode toggle
         if (config.slowMode) {slowMode = !slowMode;}
 
+
+        telemetry.setAutoClear(false);
+        //telemetry.addLine("hello world");
+        telemetry.update();
         //driving
         float x = config.x_movement;
         float y = config.y_movement;
@@ -78,35 +82,42 @@ public class Teleop extends OpMode {
         if (config.clawZero) {
             claw.setZero();
             telemetry.addData("Rotate back", claw.getPosition());
+            telemetry.update();
         } else if (config.clawOne) {
             claw.setOne();
             telemetry.addData("Rotate front", claw.getPosition());
+            telemetry.update();
         }
 
         float armUp = config.armUp;
         float armDown = config.armDown;
 
-        if (armUp > 0) {
+        if (armUp > 0.0) {
             lift.toBackBoard();
             state = false;
             telemetry.addData("Up", lift.getPosition());
-        } else if (armDown > 0) {
+            telemetry.update();
+        } else if (armDown > 0.0) {
             lift.toRobot();
             state = false;
             telemetry.addData("Down", lift.getPosition());
+            telemetry.update();
         } else if (!state){
             lift.stop();
-            telemetry.addData("Stop", lift.getPosition());
+            //telemetry.addData("Stop", lift.getPosition());
+            telemetry.update();
         }
 
         if (config.armUpPreset) {
             lift.toDrop();
             state = true;
             telemetry.addLine("State: True");
+            telemetry.update();
         } else if (config.armDownPreset) {
             lift.toPickUp();
             state = true;
             telemetry.addLine("State: True");
+            telemetry.update();
         }
 
         if (!lift.isBusy()) {

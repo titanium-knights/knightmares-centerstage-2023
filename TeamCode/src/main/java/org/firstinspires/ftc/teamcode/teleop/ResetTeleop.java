@@ -36,8 +36,6 @@ public class ResetTeleop extends OpMode {
         this.pullup = new PullUp(hardwareMap);
         //TODO: this config isnt actually used, replace all direct gamepad calls with config aliases
         this.config = new resetconfig(gamepad1, gamepad2);
-        Thread configRunner = new Thread(config);
-        configRunner.start();
         telemetry.setAutoClear(false);
     }
 
@@ -55,7 +53,7 @@ public class ResetTeleop extends OpMode {
             telemetry.addData("Down", lift.getPosition());
         } else if (!state){
             lift.stop();
-            telemetry.addData("Stop", lift.getPosition());
+            //telemetry.addData("Stop", lift.getPosition());
         }
 
         //open and close the claw
@@ -86,8 +84,6 @@ public class ResetTeleop extends OpMode {
 
         }
 
-        claw.maintain(lift.getPosition());
-
         if (config.pullupUp){
             pullup.liftUp();
         }
@@ -95,5 +91,7 @@ public class ResetTeleop extends OpMode {
             pullup.liftDown();
         }
 
+        // claw.maintain(lift.getPosition());
     }
+
 }

@@ -24,7 +24,7 @@ public class Lift {
     //TODO: consider deleting unused variable
     public static double VERTICAL_ANGLE = 135;
 
-    public static double MAX_LIMIT = 100; // upper limit
+    public static double MAX_LIMIT = 360; // upper limit
     public static double MIN_LIMIT = -5; // lower limit for manual lift
 
     //these might end up being the same as min and max limit
@@ -33,8 +33,8 @@ public class Lift {
 
     // higher power lift going up vs going down cause power + gravity = more power
     // TODO: DO THE ABOVE
-    public static double POWER_UP = 0.75;
-    public static double POWER_DOWN = 0.55;
+    public static double POWER_UP = 0.85;
+    public static double POWER_DOWN = 0.65;
 
     //True = at drop zone, false = at pickup zone
     boolean atDropZone;
@@ -63,20 +63,16 @@ public class Lift {
     }
 
     // overload the other setPower to default slowmode to false
-    public void setPower(boolean dir) {
-        setPower(dir, false);
-    }
 
     /**
      * @param dir: false = to pick up, true = to drop
-     * @param slowMode: false = normal mode, true = slow mode
      */
-    public void setPower(boolean dir, boolean slowMode) {
+    public void setPower(boolean dir) {
         //TODO: rename to slow_power and power because we're not actually using them for up/down
-        double power = slowMode ? POWER_DOWN : POWER_UP;
+        double power = POWER_UP;
         // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
-            if (getPosition() < MIDDLE_ANGLE-20) {
+            if (getPosition() < MIDDLE_ANGLE-20) { // less than 230
                 liftMotor.setPower(power * LIFT_POWER_MULTIPLIER);
             }
             else {
@@ -84,7 +80,7 @@ public class Lift {
             }
         }
         else {
-            if (getPosition() > MIDDLE_ANGLE+20) {
+            if (getPosition() > MIDDLE_ANGLE+20) { // greater than 270
                 liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
             }
             else {
