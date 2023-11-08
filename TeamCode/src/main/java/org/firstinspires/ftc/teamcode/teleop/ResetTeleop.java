@@ -71,7 +71,7 @@ public class ResetTeleop extends OpMode {
             telemetry.addData("Rotate back", claw.getPosition());
         } else if (gamepad1.b) {
             claw.setOne();
-            telemetry.addData("Rotate front", claw.getPosition());
+            telemetry.addData("Rotate front", claw.getPosition())                                                  ;
         }
 
         if (config.armUpPreset) {

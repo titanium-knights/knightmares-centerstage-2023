@@ -32,7 +32,7 @@ public class Claw {
     // only has two positions because servos only allow for two positions
     // TODO: check if the open and close is not reversed
     public void open() {
-        clawOpener.setPosition(0.0);
+        clawOpener.setPosition(0.5);
     }
     public void close() {
         clawOpener.setPosition(1.0);

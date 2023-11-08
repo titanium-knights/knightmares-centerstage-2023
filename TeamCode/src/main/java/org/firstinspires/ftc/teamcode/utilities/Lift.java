@@ -72,20 +72,22 @@ public class Lift {
         double power = POWER_UP;
         // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
-            if (getPosition() < MIDDLE_ANGLE-20) { // less than 230
-                liftMotor.setPower(power * LIFT_POWER_MULTIPLIER);
-            }
-            else {
-                liftMotor.setPower(power);
-            }
+//            if (getPosition() < MIDDLE_ANGLE-20) {
+//                liftMotor.setPower(1);
+//            }
+//            else {// less than 230
+//                liftMotor.setPower(power * 0.4 * LIFT_POWER_MULTIPLIER);
+//            }
+            liftMotor.setPower(1);
         }
         else {
-            if (getPosition() > MIDDLE_ANGLE+20) { // greater than 270
-                liftMotor.setPower(-power * LIFT_POWER_MULTIPLIER);
-            }
-            else {
-                liftMotor.setPower(-power);
-            }
+//            if (getPosition() > MIDDLE_ANGLE+20) {
+//                liftMotor.setPower(-1);
+//            }
+//            else {// greater than 270
+//                liftMotor.setPower(-power * 0.4 * LIFT_POWER_MULTIPLIER);
+//            }
+            liftMotor.setPower(-1);
         }
     }
 
@@ -93,7 +95,7 @@ public class Lift {
     // Returns lift position in degrees, robot centric (minimum is 0)
     public double getPosition(){
         // Initially gets back position in terms of encoder ticks, which converts to degrees
-        return (liftMotor.getCurrentPosition()*360/ ENCODER_TICKS);
+        return (liftMotor.getCurrentPosition());
     }
 
     public boolean runToPosition(double angle) {
