@@ -10,7 +10,7 @@ public class Lift {
     public DcMotor liftMotor;
 
     public static double LIFT_POWER_MULTIPLIER = .9; // so it doesn't turn too fast
-    public static double ENCODER_TICKS = 537.6/28;
+    public static double ENCODER_TICKS = 103.8*28;
 
     public static double MIDDLE_ANGLE = 250;
     /* ENCODER TICKS EXPLAINED:
@@ -95,7 +95,7 @@ public class Lift {
     // Returns lift position in degrees, robot centric (minimum is 0)
     public double getPosition(){
         // Initially gets back position in terms of encoder ticks, which converts to degrees
-        return (liftMotor.getCurrentPosition());
+        return (360* ((double) liftMotor.getCurrentPosition())/ENCODER_TICKS);
     }
 
     public boolean runToPosition(double angle) {
@@ -135,9 +135,9 @@ public class Lift {
 
         //if (checkLimits()) return; // wont turn if its at the limit
         setPower(true);
-        if (getPosition() > 200) {
-            liftMotor.setPower(0);
-        }
+//        if (getPosition() > 200) {
+//            liftMotor.setPower(0);
+//        }
     }
 
     public void toRobot(){ // manual pick up

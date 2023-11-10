@@ -80,13 +80,16 @@ public class Teleop extends OpMode {
 
         // claw rotate
         if (config.clawZero) {
-            claw.setZero();
-            telemetry.addData("Rotate back", claw.getPosition());
+            pullup.manualRightUp();
+//            claw.setZero();
+//            telemetry.addData("Rotate back", claw.getPosition());
+
             telemetry.update();
         } else if (config.clawOne) {
-            claw.setOne();
-            telemetry.addData("Rotate front", claw.getPosition());
-            telemetry.update();
+            pullup.manualLeftUp();
+//            claw.setOne();
+//            telemetry.addData("Rotate front", claw.getPosition());
+//            telemetry.update();
         }
 
         float armUp = config.armUp;
