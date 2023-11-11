@@ -33,8 +33,8 @@ public class Lift {
 
     // higher power lift going up vs going down cause power + gravity = more power
     // TODO: DO THE ABOVE
-    public static double POWER_UP = 0.85;
-    public static double POWER_DOWN = 0.65;
+    public static double FULL_POWER = 0.95;
+    public static double SLOW_POWER = 0.40;
 
     //True = at drop zone, false = at pickup zone
     boolean atDropZone;
@@ -69,14 +69,13 @@ public class Lift {
      */
     public void setPower(boolean dir) {
         //TODO: rename to slow_power and power because we're not actually using them for up/down
-        double power = POWER_UP;
         // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
-            if (getPosition() < VERTICAL_ANGLE) {
-                liftMotor.setPower(1);
+            if (getPosition() < VERTICAL_ANGLE - 45) {
+                liftMotor.setPower(FULL_POWER);
             }
-            else if (getPosition() >= VERTICAL_ANGLE && getPosition() < (VERTICAL_ANGLE + 30)) {
-                liftMotor.setPower(power * 0.4);
+            else if (getPosition() >= VERTICAL_ANGLE - 45 && getPosition() < (VERTICAL_ANGLE + 30)) {
+                liftMotor.setPower(SLOW_POWER);
             }
             else {
                 liftMotor.setPower(0);
@@ -86,10 +85,10 @@ public class Lift {
         else {
 
             if (getPosition() > VERTICAL_ANGLE) {
-                liftMotor.setPower(-power* 0.6 * LIFT_POWER_MULTIPLIER);
+                liftMotor.setPower(SLOW_POWER);
             }
             else {
-                liftMotor.setPower(-power * 0.4 * LIFT_POWER_MULTIPLIER);
+                liftMotor.setPower(SLOW_POWER);
             }
 
         }
