@@ -69,6 +69,7 @@ public class Lift {
      */
     public void setPower(boolean dir) {
         //TODO: rename to slow_power and power because we're not actually using them for up/down
+        //double power = POWER_UP;
         // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
             if (getPosition() < VERTICAL_ANGLE - 45) {
@@ -85,10 +86,10 @@ public class Lift {
         else {
 
             if (getPosition() > VERTICAL_ANGLE) {
-                liftMotor.setPower(SLOW_POWER);
+                liftMotor.setPower(-SLOW_POWER);
             }
             else {
-                liftMotor.setPower(SLOW_POWER);
+                liftMotor.setPower(-SLOW_POWER);
             }
 
         }
