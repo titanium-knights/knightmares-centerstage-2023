@@ -91,7 +91,7 @@ public class ResetTeleop extends OpMode {
             pullup.liftDown();
         }
 
-        // claw.maintain(lift.getPosition());
+        claw.maintain(lift.getPosition());
     }
 
 }

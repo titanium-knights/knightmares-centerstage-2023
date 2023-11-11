@@ -75,21 +75,22 @@ public class Lift {
             if (getPosition() < VERTICAL_ANGLE - 45) {
                 liftMotor.setPower(FULL_POWER);
             }
-            else if (getPosition() >= VERTICAL_ANGLE - 45 && getPosition() < (VERTICAL_ANGLE + 30)) {
+            // (getPosition() >= VERTICAL_ANGLE - 45 && getPosition() < (VERTICAL_ANGLE + 30))
+            else {
                 liftMotor.setPower(SLOW_POWER);
             }
-            else {
-                liftMotor.setPower(0);
-            }
+//            else {
+//                liftMotor.setPower(0);
+//            }
 
         }
         else {
 
-            if (getPosition() > VERTICAL_ANGLE) {
+            if (getPosition() > VERTICAL_ANGLE - 20) {
                 liftMotor.setPower(-SLOW_POWER);
             }
             else {
-                liftMotor.setPower(-SLOW_POWER);
+                liftMotor.setPower(-SLOW_POWER * 0.25);
             }
 
         }
@@ -99,7 +100,9 @@ public class Lift {
     public double getPosition(){
         // Initially gets back position in terms of encoder ticks, which converts to degrees
         return (360* ((double) liftMotor.getCurrentPosition())/ENCODER_TICKS);
+
     }
+
 
     public boolean runToPosition(double angle) {
         // takes the angle we want it to go to and makes sure the angle is within range
