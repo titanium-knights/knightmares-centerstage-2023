@@ -40,8 +40,8 @@ public class ResetTeleop extends OpMode {
     }
 
     public void loop() {
-        float armUp = gamepad1.right_trigger;
-        float armDown = gamepad1.left_trigger;
+        float armUp = gamepad1.left_trigger;
+        float armDown = gamepad1.right_trigger;
 
         if (armUp > 0) {
             lift.toBackBoard();
