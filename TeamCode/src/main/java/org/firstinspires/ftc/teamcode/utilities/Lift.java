@@ -75,13 +75,12 @@ public class Lift {
             if (getPosition() < VERTICAL_ANGLE - 45) {
                 liftMotor.setPower(FULL_POWER);
             }
-            // (getPosition() >= VERTICAL_ANGLE - 45 && getPosition() < (VERTICAL_ANGLE + 30))
-            else {
+            else if (getPosition() >= VERTICAL_ANGLE - 45 && getPosition() < (VERTICAL_ANGLE + 30)) {
                 liftMotor.setPower(SLOW_POWER);
             }
-//            else {
-//                liftMotor.setPower(0);
-//            }
+            else {
+                liftMotor.setPower(0);
+            }
 
         }
         else {
