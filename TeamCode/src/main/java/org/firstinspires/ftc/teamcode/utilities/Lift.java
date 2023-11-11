@@ -75,7 +75,7 @@ public class Lift {
             if (getPosition() < VERTICAL_ANGLE) {
                 liftMotor.setPower(1);
             }
-            else if (getPosition() >= VERTICAL_ANGLE && getPosition() < 152) {
+            else if (getPosition() >= VERTICAL_ANGLE && getPosition() < (VERTICAL_ANGLE + 30)) {
                 liftMotor.setPower(power * 0.4);
             }
             else {
@@ -130,7 +130,7 @@ public class Lift {
 
     public boolean toDrop(){ // preset for dropping pixels
         //TODO: FIND X
-        final double x = 155;
+        final double x = VERTICAL_ANGLE + 30;
         return runToPosition(x);
     }
 
