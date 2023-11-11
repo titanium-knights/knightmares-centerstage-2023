@@ -14,7 +14,7 @@ public class Lift {
 
     public static double MIDDLE_ANGLE = 250;
     /* ENCODER TICKS EXPLAINED:
-    Originally, there are 537.6 encoder ticks, which means that for one 360 degree rotation, the encoder ticks 537.6 times (for 1150 rpm motor)
+    Originally, there are 103.8 encoder ticks, which means that for one 360 degree rotation, the encoder ticks 103.8 times (for 1150 rpm motor)
     28 rotations of worm gear : 1 rotation of the gear
     since the motor directly turns the worm gear, that means that now, the gear that is connected to the lift will turn slower
     in other words, it will turn 28 times slower
@@ -93,7 +93,6 @@ public class Lift {
 
         }
     }
-
 
     // Returns lift position in degrees, robot centric (minimum is 0)
     public double getPosition(){
