@@ -123,6 +123,22 @@ public class Teleop extends OpMode {
             telemetry.update();
         }
 
+        if (!lift.isBusy()) {
+            state = false;
+        }
+
+        claw.maintain(lift.getPosition());
+
+        if (config.pullupUp){
+            pullup.liftUp();
+        }
+        else if (config.pullupDown) {
+            pullup.liftDown();
+        }
+
+        if (config.updateTelemetry) {
+            telemetry.update();
+        }
 
         if (config.planeLaunch) {
             plane.release();

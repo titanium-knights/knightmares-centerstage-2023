@@ -12,7 +12,7 @@ public class Claw {
     final double MAX_BUFFER = 2.0;
 
     // Angle from when arm is vertical, where 0 is the minimum degree that the robot arm can go down (robot centric based)
-    double VERTICAL_ANGLE = 135;
+    double VERTICAL_ANGLE = 122;
 
     // Angle of the clawRotator when the lift is to its minimum degree (0) robot centric
     double CLAW_ANGLE_PICKUP = VERTICAL_ANGLE;
@@ -20,7 +20,7 @@ public class Claw {
     // Angle of the clawRotator when the lift is about to drop
     double CLAW_ANGLE_DROP = 180-VERTICAL_ANGLE;
 
-    double ANGLE_SERVO_MODIFIER = 1/300;
+    //double ANGLE_SERVO_MODIFIER = 1/300;
 
 
     public Claw(HardwareMap hmap) {
@@ -45,9 +45,9 @@ public class Claw {
 
     //
 //    public void setPosition(double des){ // sets clawRotator to the angle that we want it to be
-//        // TODO: don't trust it and figure out how the heck this works
+//
 //        double rawangle = des + CLAW_ANGLE_PICKUP;
-//        clawRotator.setPosition(1 - rawangle/servoAngleModifier); // TODO: shouldn't 1 be 360?
+//        clawRotator.setPosition(1 - rawangle/servoAngleModifier);
 //    }
 
     public void setPosition(double angle) {

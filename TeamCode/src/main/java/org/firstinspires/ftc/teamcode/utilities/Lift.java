@@ -22,7 +22,7 @@ public class Lift {
 
     // angle of vertical arm from robot arm's minimum position
     //TODO: consider deleting unused variable
-    public static double VERTICAL_ANGLE = 135;
+    public static double VERTICAL_ANGLE = 122;
 
     public static double MAX_LIMIT = 360; // upper limit
     public static double MIN_LIMIT = -5; // lower limit for manual lift
@@ -72,22 +72,26 @@ public class Lift {
         double power = POWER_UP;
         // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
-//            if (getPosition() < MIDDLE_ANGLE-20) {
-//                liftMotor.setPower(1);
-//            }
-//            else {// less than 230
-//                liftMotor.setPower(power * 0.4 * LIFT_POWER_MULTIPLIER);
-//            }
-            liftMotor.setPower(1);
+            if (getPosition() < VERTICAL_ANGLE) {
+                liftMotor.setPower(1);
+            }
+            else if (getPosition() >= VERTICAL_ANGLE && getPosition() < 152) {
+                liftMotor.setPower(power * 0.4);
+            }
+            else {
+                liftMotor.setPower(0);
+            }
+
         }
         else {
-//            if (getPosition() > MIDDLE_ANGLE+20) {
-//                liftMotor.setPower(-1);
-//            }
-//            else {// greater than 270
-//                liftMotor.setPower(-power * 0.4 * LIFT_POWER_MULTIPLIER);
-//            }
-            liftMotor.setPower(-1);
+            liftMotor.setPower(-power* 0.6 * LIFT_POWER_MULTIPLIER);
+            if (getPosition() > VERTICAL_ANGLE) {
+                liftMotor.setPower(-1);
+            }
+            else {
+                liftMotor.setPower(-power * 0.4 * LIFT_POWER_MULTIPLIER);
+            }
+
         }
     }
 
@@ -135,9 +139,6 @@ public class Lift {
 
         //if (checkLimits()) return; // wont turn if its at the limit
         setPower(true);
-//        if (getPosition() > 200) {
-//            liftMotor.setPower(0);
-//        }
     }
 
     public void toRobot(){ // manual pick up
