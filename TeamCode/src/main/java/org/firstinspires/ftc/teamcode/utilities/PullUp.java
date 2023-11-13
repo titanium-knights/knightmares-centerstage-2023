@@ -62,7 +62,7 @@ public class PullUp {
     }
 
     public Pair getPosition(){
-        return (new Pair(pullUpMotor1.getCurrentPosition(), pullUpMotor1.getCurrentPosition()));
+        return (new Pair(pullUpMotor1.getCurrentPosition(), pullUpMotor2.getCurrentPosition()));
     }
 
     //true = synced, false = desynced.
