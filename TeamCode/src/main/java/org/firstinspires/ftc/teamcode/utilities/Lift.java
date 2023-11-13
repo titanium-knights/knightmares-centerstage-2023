@@ -12,7 +12,6 @@ public class Lift {
     public static double LIFT_POWER_MULTIPLIER = .9; // so it doesn't turn too fast
     public static double ENCODER_TICKS = 103.8*28;
 
-    public static double MIDDLE_ANGLE = 250;
     /* ENCODER TICKS EXPLAINED:
     Originally, there are 103.8 encoder ticks, which means that for one 360 degree rotation, the encoder ticks 103.8 times (for 1150 rpm motor)
     28 rotations of worm gear : 1 rotation of the gear
@@ -21,18 +20,12 @@ public class Lift {
     that means in one motor rotation, there will be 537.6/28 encoder ticks */
 
     // angle of vertical arm from robot arm's minimum position
-    //TODO: consider deleting unused variable
     public static double VERTICAL_ANGLE = 122;
 
     public static double MAX_LIMIT = 360; // upper limit
     public static double MIN_LIMIT = -5; // lower limit for manual lift
 
-    //these might end up being the same as min and max limit
-    public static double PICKUP_POINT = 0.1; // tells the arm thing where to go
-    public static double DROP_POINT = 0.60;
-
     // higher power lift going up vs going down cause power + gravity = more power
-    // TODO: DO THE ABOVE
     public static double FULL_POWER = 0.95;
     public static double SLOW_POWER = 0.40;
 
@@ -89,7 +82,7 @@ public class Lift {
                 liftMotor.setPower(-SLOW_POWER);
             }
             else {
-                liftMotor.setPower(-SLOW_POWER*0.25);
+                liftMotor.setPower(-FULL_POWER);
             }
 
         }

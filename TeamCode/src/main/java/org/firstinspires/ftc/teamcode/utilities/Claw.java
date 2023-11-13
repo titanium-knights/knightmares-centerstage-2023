@@ -56,11 +56,11 @@ public class Claw {
 
     // rotates back to pick up position
     public void setZero(){ // rotate forward
-        clawRotator.setPosition(0.9);
+        clawRotator.setPosition(0.3);
     } // 0.3
 
     public void setOne(){ // rotate to drop position
-        clawRotator.setPosition(0.3); // 0.9
+        clawRotator.setPosition(1.0); // 0.9
     }
 
     public void maintain(double liftAngle) {
