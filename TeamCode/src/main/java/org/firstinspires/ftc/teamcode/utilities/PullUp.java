@@ -62,7 +62,7 @@ public class PullUp {
     }
 
     public Pair getPosition(){
-        return (new Pair(pullUpMotor1.getCurrentPosition(), pullUpMotor1.getCurrentPosition()));
+        return (new Pair(pullUpMotor1.getCurrentPosition(), pullUpMotor2.getCurrentPosition()));
     }
 
     //true = synced, false = desynced.
@@ -106,12 +106,12 @@ public class PullUp {
 
     public void manualRightUp(){
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // wont turn if its at the limit
-        pullUpMotor2.setPower(1);
+        pullUpMotor2.setPower(-1);
     }
 
     public void manualRightDown(){
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // wont turn if its at the limit
-        pullUpMotor2.setPower(-1);
+        pullUpMotor2.setPower(1);
     }
 
     public void stopLeft(){
