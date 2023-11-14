@@ -104,7 +104,7 @@ public class PullUp {
         pullUpMotor1.setPower(-1);
     }
 
-    public void manualRightUp(){
+    public void manualRightUp(){ //
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // wont turn if its at the limit
         pullUpMotor2.setPower(-1);
     }
