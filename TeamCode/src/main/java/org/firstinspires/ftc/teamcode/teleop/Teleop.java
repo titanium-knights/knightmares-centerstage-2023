@@ -131,9 +131,13 @@ public class Teleop extends OpMode {
 
         if (config.pullupUp){
             pullup.liftUp();
+            telemetry.addData("pullup Up", pullup.getPosition());
+            telemetry.update();
         }
         else if (config.pullupDown) {
             pullup.liftDown();
+            telemetry.addData("pullup down", pullup.getPosition());
+            telemetry.update();
         }
 
         if (config.updateTelemetry) {
