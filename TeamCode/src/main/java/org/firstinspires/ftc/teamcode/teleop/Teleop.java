@@ -144,7 +144,7 @@ public class Teleop extends OpMode {
             telemetry.update();
         }
 
-        if (config.planeLaunch) { //dpad u
+        if (config.planeLaunch) { //dpad up
             plane.release();
         }
 
