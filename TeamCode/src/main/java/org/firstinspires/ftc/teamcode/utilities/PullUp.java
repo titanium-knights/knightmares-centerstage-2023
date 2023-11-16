@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utilities.Pair;
 
 public class PullUp {
     //DANIEL comment: For this, we don't really care about degrees so, we deal with
-    //everything in encoder ticks or number of rotations.
+    //everything in encoder ticks or number of rotations
     public DcMotor pullUpMotor1;
     public DcMotor pullUpMotor2;
     public static double Encoder_Ticks = 537.7;
