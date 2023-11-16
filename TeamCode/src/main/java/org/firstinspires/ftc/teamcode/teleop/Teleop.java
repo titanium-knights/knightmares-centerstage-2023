@@ -115,11 +115,13 @@ public class Teleop extends OpMode {
             lift.toDrop();
             state = true;
             telemetry.addLine("State: True");
+            claw.setPosition(58); // CLAW_ANGLE_DROP (180-VERTICAL_ANGLE)
             telemetry.update();
         } else if (config.armDownPreset) { //a
             lift.toPickUp();
             state = true;
             telemetry.addLine("State: True");
+            claw.setPosition(122); // CLAW_ANGLE_PICKUP (VERTICAL_ANGLE)
             telemetry.update();
         }
 
