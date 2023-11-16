@@ -96,12 +96,12 @@ public class PullUp {
 
     public void manualLeftUp(){
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// wont turn if its at the limit
-        pullUpMotor1.setPower(1);
+        pullUpMotor1.setPower(-1);
     }
 
     public void manualLeftDown(){
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// wont turn if its at the limit
-        pullUpMotor1.setPower(-1);
+        pullUpMotor1.setPower(1);
     }
 
     public void manualRightUp(){ //
