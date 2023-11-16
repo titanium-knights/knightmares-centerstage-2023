@@ -79,13 +79,13 @@ public class Teleop extends OpMode {
         }
 
         // claw rotate
-        if (config.clawZero) { //dpad left
+        if (config.pullupRight) { //dpad left
             pullup.manualRightUp();
 //            claw.setZero();
 //            telemetry.addData("Rotate back", claw.getPosition());
 
             telemetry.update();
-        } else if (config.clawOne) { //dpad right
+        } else if (config.pullupLeft) { //dpad right
             pullup.manualLeftUp();
 //            claw.setOne();
 //            telemetry.addData("Rotate front", claw.getPosition());
