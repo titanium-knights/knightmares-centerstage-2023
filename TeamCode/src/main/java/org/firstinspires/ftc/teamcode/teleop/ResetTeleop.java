@@ -85,10 +85,12 @@ public class ResetTeleop extends OpMode {
         }
 
         if (config.pullupUp){
-            pullup.liftUp();
+            pullup.manualLeftUp();
+            pullup.manualRightUp();
         }
         else if (config.pullupDown) {
-            pullup.liftDown();
+            pullup.manualRightDown();
+            pullup.manualLeftDown();
         }
 
         //claw.maintain(lift.getPosition());
