@@ -72,28 +72,28 @@ public class Teleop extends OpMode {
         drive.move(x * multiplier, y * multiplier, turn * multiplier);
 
         //open and close the claw
-        if (config.clawOpen) {
+        if (config.clawOpen) { //left bumper
             claw.open();
-        } else if (config.clawClose) {
+        } else if (config.clawClose) { //right bumper
             claw.close();
         }
 
         // claw rotate
-        if (config.clawZero) {
+        if (config.clawZero) { //dpad left
             pullup.manualRightUp();
 //            claw.setZero();
 //            telemetry.addData("Rotate back", claw.getPosition());
 
             telemetry.update();
-        } else if (config.clawOne) {
+        } else if (config.clawOne) { //dpad right
             pullup.manualLeftUp();
 //            claw.setOne();
 //            telemetry.addData("Rotate front", claw.getPosition());
 //            telemetry.update();
         }
 
-        float armUp = config.armUp;
-        float armDown = config.armDown;
+        float armUp = config.armUp; //left-trigger
+        float armDown = config.armDown; //right-trigger
 
         if (armUp > 0.0) {
             lift.toBackBoard();
@@ -111,12 +111,12 @@ public class Teleop extends OpMode {
             telemetry.update();
         }
 
-        if (config.armUpPreset) {
+        if (config.armUpPreset) { //b
             lift.toDrop();
             state = true;
             telemetry.addLine("State: True");
             telemetry.update();
-        } else if (config.armDownPreset) {
+        } else if (config.armDownPreset) { //a
             lift.toPickUp();
             state = true;
             telemetry.addLine("State: True");
@@ -129,12 +129,12 @@ public class Teleop extends OpMode {
 
         claw.maintain(lift.getPosition());
 
-        if (config.pullupUp){
+        if (config.pullupUp){ //y
             pullup.liftUp();
             telemetry.addData("pullup Up", pullup.getPosition());
             telemetry.update();
         }
-        else if (config.pullupDown) {
+        else if (config.pullupDown) { //x
             pullup.liftDown();
             telemetry.addData("pullup down", pullup.getPosition());
             telemetry.update();
