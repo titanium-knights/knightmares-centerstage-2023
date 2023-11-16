@@ -17,7 +17,7 @@ public class PullUp {
     public static double Encoder_Ticks = 537.7;
     public static double PULLUP_POWER_MULTIPLIER = .9; // so it doesnt turn too fast
 
-    public static double topHeight = 24*Encoder_Ticks;
+    public static double topHeight = 1; // 24 * Encoder_Ticks
     public static double DESYNC_LIMIT = 30;
 
     // TODO: check what the actual limits are
@@ -28,6 +28,7 @@ public class PullUp {
     public PullUp(HardwareMap hmap) {
         this.pullUpMotor1 = hmap.dcMotor.get(CONFIG.pullUpMotor1);
         this.pullUpMotor2 = hmap.dcMotor.get(CONFIG.pullUpMotor2);
+        setInit();
     }
 
     public void setInit() {
@@ -46,14 +47,6 @@ public class PullUp {
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    // true = outside of limits, false = within
-    public boolean checkLimits(){
-        double currentHeight1 = getPosition().first();
-        if (currentHeight1 < MIN_LIMIT) {stop(); return true;}
-        if (currentHeight1 > MAX_LIMIT) {stop(); return true;}
-        return false;
-    }
-
     public void setPower(double power, boolean dir) {
         if (dir) pullUpMotor1.setPower(power * PULLUP_POWER_MULTIPLIER);
         else pullUpMotor1.setPower(-power * PULLUP_POWER_MULTIPLIER);
@@ -61,56 +54,58 @@ public class PullUp {
         else pullUpMotor2.setPower(-power * PULLUP_POWER_MULTIPLIER);
     }
 
-    public Pair getPosition(){
-        return (new Pair(pullUpMotor1.getCurrentPosition(), pullUpMotor2.getCurrentPosition()));
-    }
-
-    //true = synced, false = desynced.
-    public boolean checkSync() {
-        return abs(getPosition().first() - getPosition().second()) < DESYNC_LIMIT;
+    public int getPosition(){
+        return pullUpMotor2.getCurrentPosition();
     }
 
     public void liftUp() {
         // converts angle into encoder ticks and then runs to position
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor1.setTargetPosition((int) (topHeight));
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         pullUpMotor2.setTargetPosition((int) (topHeight));
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //with run to position always positive power
         // run to position is always in presets or else itll be jittery
-        setPower(1,true);
+        //setPower(1,false);
+        pullUpMotor1.setPower(1);
+        pullUpMotor2.setPower(1);
 
     }
 
     public void liftDown() {
         // converts angle into encoder ticks and then runs to position
-
-        pullUpMotor1.setTargetPosition((int) (topHeight - Encoder_Ticks));
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullUpMotor1.setTargetPosition((int) (-topHeight));
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pullUpMotor2.setTargetPosition((int) (topHeight - Encoder_Ticks));
+        pullUpMotor2.setTargetPosition((int) (-topHeight));
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //with run to position always positive power
         // run to position is always in presets or else itll be jittery
-        setPower(0.3, true);
+        //setPower(1, false);
+        pullUpMotor1.setPower(1);
+        pullUpMotor2.setPower(1);
     }
 
     public void manualLeftUp(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// wont turn if its at the limit
-        pullUpMotor1.setPower(-1);
-    }
-
-    public void manualLeftDown(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// wont turn if its at the limit
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor1.setPower(1);
     }
 
+    public void manualLeftDown(){
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullUpMotor1.setPower(-1);
+    }
+
     public void manualRightUp(){
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // wont turn if its at the limit
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor2.setPower(1); // 1
     }
 
     public void manualRightDown(){
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // wont turn if its at the limit
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor2.setPower(-1);
     }
 
