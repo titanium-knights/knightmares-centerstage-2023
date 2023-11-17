@@ -17,7 +17,7 @@ public class PlaneLauncher {
     }
 
     public void reset(){
-        launcher.setPosition(30);
+        launcher.setPosition(0);
     }
     public void setPosition(double angle) {
         launcher.setPosition(angle);
