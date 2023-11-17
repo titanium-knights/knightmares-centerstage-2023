@@ -46,12 +46,12 @@ public class DetectingPipelineOne extends LinearOpMode {
         telemetry.addData("Position: ", place);
         telemetry.update();
 
+        drivetrain.move(0, POWER, 0);
+        sleep(FOOT*2);
+        stopDrive();
         // move to the correct spike, place the prop, and park
         switch (place) {
             case 1: // left spike
-                drivetrain.move(0, POWER, 0);
-                sleep(FOOT*2);
-                stopDrive();
                 drivetrain.move(0, 0, POWER);
                 sleep(TURN_45*2);
                 stopDrive();
@@ -65,9 +65,6 @@ public class DetectingPipelineOne extends LinearOpMode {
                 stopDrive();
                 break;
             case 2: //middle spike
-                drivetrain.move(0, POWER, 0);
-                sleep(FOOT*2);
-                stopDrive();
                 claw.open();
                 sleep(300);
                 drivetrain.move(0, POWER, 0);
@@ -76,8 +73,12 @@ public class DetectingPipelineOne extends LinearOpMode {
                 drivetrain.move(0, 0, POWER);
                 sleep(TURN_45*2);
                 stopDrive();
+                break;
             default: // right spike (or we somehow dont know)
-
+                drivetrain.move(0,0,-POWER);
+                sleep(TURN_45*2);
+                stopDrive();
+                claw.open();
         }
 
 
