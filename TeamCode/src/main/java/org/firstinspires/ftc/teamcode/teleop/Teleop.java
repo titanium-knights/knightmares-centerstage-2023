@@ -71,31 +71,42 @@ public class Teleop extends OpMode {
         double multiplier = (slowMode ? slowPower : normalPower);
         drive.move(x * multiplier, y * multiplier, turn * multiplier);
 
-        //open and close the claw
+        // open and close the claw
         if (config.clawOpen) { //left bumper
             claw.open();
         } else if (config.clawClose) { //right bumper
             claw.close();
         }
+        // rotate the claw
+        if (config.clawRotatorScore) {
+            claw.setZero();
+            telemetry.addData("Rotate back", claw.getPosition());
+        } else if (config.clawRotatorPick) {
+            claw.setOne();
+            telemetry.addData("Rotate front", claw.getPosition())                                                  ;
+        }
 
-        // pullUp
-        if (config.pullupRight) { //dpad left
+
+        // pullUp manual
+        if (config.pullupUpManual) { //dpad left
             pullup.manualRightUp();
-//            claw.setZero();
-//            telemetry.addData("Rotate back", claw.getPosition());
-
-            telemetry.update();
+            pullup.manualLeftUp();
         } else {
             pullup.stopRight();
-        } if (config.pullupLeft) { //dpad right
-            // temporarily changed pullupLeft to manualLeftDown
-            pullup.manualRightDown();
-//            claw.setOne();
-//            telemetry.addData("Rotate front", claw.getPosition());
-//            telemetry.update();
-        } else {
             pullup.stopLeft();
+            telemetry.addData("stop pullUp", true);
+            telemetry.update();
+        } if (config.pullupDownManual) { //dpad right
+            // temporarily changed pullupLeft  to manualLeftDown
+            pullup.manualRightDown();
+            pullup.manualLeftDown();
+        } else {
+            pullup.stopRight();
+            telemetry.addData("stop pullUp", true);
+            telemetry.update();
         }
+
+        // pullup preset
         if (config.pullupUp){ //y
             pullup.liftUp();
             telemetry.addData("pullup Up", pullup.getPosition());
@@ -143,8 +154,6 @@ public class Teleop extends OpMode {
         if (!lift.isBusy()) {
             state = false;
         }
-
-        claw.maintain(lift.getPosition());
 
 
 
