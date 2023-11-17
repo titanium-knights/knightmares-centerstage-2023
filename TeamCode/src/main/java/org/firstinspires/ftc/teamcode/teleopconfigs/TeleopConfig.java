@@ -13,8 +13,10 @@ public class TeleopConfig {
     public float turn;
     public boolean clawOpen;
     public boolean clawClose;
-    public boolean pullupRight;
-    public boolean pullupLeft;
+    public boolean clawRotatorScore;
+    public boolean clawRotatorPick;
+    public boolean pullupUpManual;
+    public boolean pullupDownManual;
     public float armUp;
     public float armDown;
     public boolean armUpPreset;
@@ -36,12 +38,15 @@ public class TeleopConfig {
         turn = this.gamepad1.right_stick_x;
         clawOpen = this.gamepad1.left_bumper || this.gamepad2.left_bumper;
         clawClose = this.gamepad1.right_bumper || this.gamepad2.right_bumper;
-        pullupRight = this.gamepad1.dpad_left;
-        pullupLeft = this.gamepad1.dpad_right;
+        clawRotatorScore = this.gamepad1.b;
+        clawRotatorPick = this.gamepad1.a;
+        pullupUpManual = this.gamepad1.dpad_left;
+        pullupDownManual = this.gamepad1.dpad_right;
         armUp = this.gamepad1.left_trigger;
         armDown = this.gamepad1.right_trigger;
-        armUpPreset = this.gamepad2.b;
-        armDownPreset = this.gamepad1.a;
+        // TODO: fix lift preset
+        //armUpPreset = this.gamepad2.b;
+        //armDownPreset = this.gamepad1.a;
         pullupUp = this.gamepad1.y;
         pullupDown = this.gamepad1.x;
         updateTelemetry = this.gamepad1.back;
