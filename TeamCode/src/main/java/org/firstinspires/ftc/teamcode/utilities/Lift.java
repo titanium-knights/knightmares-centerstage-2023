@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Lift {
     public DcMotor liftMotor;
 
-    public static double LIFT_POWER_MULTIPLIER = .9; // so it doesn't turn too fast
     public static double ENCODER_TICKS = 103.8*28;
 
     /* ENCODER TICKS EXPLAINED:
