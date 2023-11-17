@@ -54,7 +54,7 @@ public class Detecttion extends LinearOpMode {
             case 1: // left spike
 //                drivetrain.move(0, 0, POWER);
 //                sleep(TURN_45*2);
-//                stopDrive();
+//                stopDrive()
                 claw.open();
                 sleep(300);
                 drivetrain.move(POWER, 0, 0);
