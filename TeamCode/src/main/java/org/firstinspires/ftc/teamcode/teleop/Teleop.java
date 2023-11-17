@@ -78,7 +78,7 @@ public class Teleop extends OpMode {
             claw.close();
         }
 
-        // claw rotate
+        // pullUp
         if (config.pullupRight) { //dpad left
             pullup.manualRightUp();
 //            claw.setZero();
@@ -86,10 +86,21 @@ public class Teleop extends OpMode {
 
             telemetry.update();
         } else if (config.pullupLeft) { //dpad right
-            pullup.manualLeftUp();
+            // temporarily changed pullupLeft to manualLeftDown
+            pullup.manualRightDown();
 //            claw.setOne();
 //            telemetry.addData("Rotate front", claw.getPosition());
 //            telemetry.update();
+        }
+        if (config.pullupUp){ //y
+            pullup.liftUp();
+            telemetry.addData("pullup Up", pullup.getPosition());
+            telemetry.update();
+        }
+        else if (config.pullupDown) { //x
+            pullup.liftDown();
+            telemetry.addData("pullup down", pullup.getPosition());
+            telemetry.update();
         }
 
         float armUp = config.armUp; //left-trigger
@@ -131,23 +142,17 @@ public class Teleop extends OpMode {
 
         claw.maintain(lift.getPosition());
 
-        if (config.pullupUp){ //y
-            pullup.liftUp();
-            telemetry.addData("pullup Up", pullup.getPosition());
-            telemetry.update();
-        }
-        else if (config.pullupDown) { //x
-            pullup.liftDown();
-            telemetry.addData("pullup down", pullup.getPosition());
-            telemetry.update();
-        }
+
 
         if (config.updateTelemetry) {
             telemetry.update();
         }
 
         if (config.planeLaunch) { //dpad up
-            plane.release();
+            //plane.release();
+            plane.reset();
+            telemetry.addData("pos: ", plane.getPosition());
+            telemetry.update();
         }
 
     }

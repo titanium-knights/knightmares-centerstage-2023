@@ -85,26 +85,29 @@ public class PullUp {
         //with run to position always positive power
         // run to position is always in presets or else itll be jittery
         //setPower(1, false);
-        pullUpMotor1.setPower(1);
-        pullUpMotor2.setPower(1);
-    }
-
-    public void manualLeftUp(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pullUpMotor1.setPower(1);
-    }
-
-    public void manualLeftDown(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor1.setPower(-1);
+        pullUpMotor2.setPower(-1);
     }
 
+    // pullUpMotor1 is reversed. If you want it to go up, power will be negative. If you want it to go down, power will be positive.
     public void manualRightUp(){
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pullUpMotor2.setPower(1); // 1
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setPower(1, false);
+        //pullUpMotor1.setPower(-1);
     }
 
     public void manualRightDown(){
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //pullUpMotor1.setPower(1);
+        setPower(1, true);
+    }
+
+    public void manualLeftUp(){
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullUpMotor2.setPower(-1);
+    }
+
+    public void manualLeftDown(){
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor2.setPower(-1);
     }
