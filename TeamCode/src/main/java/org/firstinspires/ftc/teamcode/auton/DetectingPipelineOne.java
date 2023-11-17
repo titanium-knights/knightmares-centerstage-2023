@@ -14,9 +14,11 @@ import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 @Autonomous(name="VisionRedMaybe", group="Linear OpMode")
 @Config
 public class DetectingPipelineOne extends LinearOpMode {
+    //constant assumptions for power and time for movement
     public static final double POWER = 0.6;
     public static final long FOOT = 500;
     public static final long TURN_45 = 300;
+
     MecanumDrive drivetrain;
 
     @Override
@@ -29,18 +31,24 @@ public class DetectingPipelineOne extends LinearOpMode {
         Lift lift = new Lift(hardwareMap);
         Claw claw = new Claw(hardwareMap);
         claw.close();
+        //drivetrain.move() y is forward x is left
         drivetrain = new MecanumDrive(hardwareMap);
 
         waitForStart();
         runtime.reset();
 
+        // raise the lift and scan the spikes for the prop
+        telemetry.addLine("Scanning...");
+        telemetry.update();
         lift.toScan();
         sleep(FOOT/2);
         int place = vision.getPosition();
+        telemetry.addData("Position: ", place);
+        telemetry.update();
 
-        //y is forward x is left
+        // move to the correct spike, place the prop, and park
         switch (place) {
-            case 1:
+            case 1: // left spike
                 drivetrain.move(0, POWER, 0);
                 sleep(FOOT*2);
                 stopDrive();
@@ -56,7 +64,7 @@ public class DetectingPipelineOne extends LinearOpMode {
                 sleep((long) (FOOT*3.5));
                 stopDrive();
                 break;
-            case 2:
+            case 2: //middle spike
                 drivetrain.move(0, POWER, 0);
                 sleep(FOOT*2);
                 stopDrive();
@@ -68,27 +76,14 @@ public class DetectingPipelineOne extends LinearOpMode {
                 drivetrain.move(0, 0, POWER);
                 sleep(TURN_45*2);
                 stopDrive();
-            default:
+            default: // right spike (or we somehow dont know)
+
         }
 
-        drivetrain.move(-POWER, POWER, 0);
 
-        telemetry.addLine("I think I should have moved");
+        stopDrive();
+        telemetry.addData("Run Time:", runtime);
         telemetry.update();
-
-        sleep(1800);
-
-        drivetrain.move(-POWER, -POWER, 0);
-
-        sleep(2000);
-        telemetry.addLine("moved more");
-        telemetry.update();
-
-
-        drivetrain.move(0, 0, 0);
-        telemetry.addData("Status", "Run Time: " + runtime);
-        telemetry.update();
-
     }
 
     public void stopDrive() {

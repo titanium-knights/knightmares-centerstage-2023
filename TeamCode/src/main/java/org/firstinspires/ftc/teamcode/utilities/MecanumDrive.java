@@ -35,6 +35,11 @@ public class MecanumDrive {
 
     public static HashMap<DcMotor, double[]> directions = new HashMap<>();
 
+    /**
+     * @param x: a positive value will move the robot left, and a negative value will move the robot right
+     * @param y: a positive value will move the robot forward, and a negative value will move the robot backward
+     * @param turn: a positive value will turn the robot counterclockwise, and a negative value will turn the robot clockwise
+     */
     public void move(double x, double y, double turn) {
 
         // dot of fl and br
