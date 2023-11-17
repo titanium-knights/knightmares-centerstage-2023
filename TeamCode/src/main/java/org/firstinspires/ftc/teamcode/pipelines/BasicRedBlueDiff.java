@@ -34,7 +34,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     }
 
     // the location we actually want to go to
-    public volatile Locations location;
+    public volatile Locations location = Locations.ONE;
 
     // working variables for the 3 sections and the colored channel extraction
     private final Mat[] croppedSections = new Mat[3];
@@ -88,6 +88,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     }
 
     public Locations getLocation() {
+        telemetry.addLine(location.name());
         return location;
     }
 

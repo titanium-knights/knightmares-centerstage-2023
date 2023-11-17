@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 public class Detecttion extends LinearOpMode {
     //constant assumptions for power and time for movement
     public static final double POWER = 0.6;
-    public static final long FOOT = 500;
-    public static final long TURN_45 = 300;
+    public static final long FOOT = 400;
+    public static final long TURN_45 = 500; //inaccurate
 
     MecanumDrive drivetrain;
 
@@ -40,34 +40,34 @@ public class Detecttion extends LinearOpMode {
         // raise the lift and scan the spikes for the prop
         telemetry.addLine("Scanning...");
         telemetry.update();
-        lift.toScan();
+        //lift.toScan();
         sleep(FOOT/2);
         int place = vision.getPosition();
         telemetry.addData("Position: ", place);
         telemetry.update();
 
-        drivetrain.move(0, POWER, 0);
+        drivetrain.move(0, -POWER, 0);
         sleep(FOOT*2);
         stopDrive();
         // move to the correct spike, place the prop, and park
         switch (place) {
             case 1: // left spike
-                drivetrain.move(0, 0, POWER);
-                sleep(TURN_45*2);
-                stopDrive();
+//                drivetrain.move(0, 0, POWER);
+//                sleep(TURN_45*2);
+//                stopDrive();
                 claw.open();
                 sleep(300);
-                drivetrain.move(-POWER, 0, 0);
-                sleep((long) (FOOT*1.5));
+                drivetrain.move(POWER, 0, 0);
+                sleep((long) (FOOT*3.5));
                 stopDrive();
-                drivetrain.move(0, POWER, 0);
+                drivetrain.move(0, -POWER, 0);
                 sleep((long) (FOOT*3.5));
                 stopDrive();
                 break;
             case 2: //middle spike
                 claw.open();
                 sleep(300);
-                drivetrain.move(0, POWER, 0);
+                drivetrain.move(0, -POWER, 0);
                 sleep((long) (FOOT*1.5));
                 stopDrive();
                 drivetrain.move(0, 0, POWER);
