@@ -37,27 +37,20 @@ public class Detecttion extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        // raise the lift and scan the spikes for the prop
-        telemetry.addLine("Scanning...");
-        telemetry.update();
-        //lift.toScan();
-        sleep(FOOT/2);
         int place = vision.getPosition();
         telemetry.addData("Position: ", place);
         telemetry.update();
+        claw.close();
 
         switch (place) {
             case 1: // left spike
-//                drivetrain.move(0, 0, POWER);
-//                sleep(TURN_45*2);
-//                stopDrive()
-                sleep(300);
-                drivetrain.move(-POWER, 0, 0);
-                sleep((long) (FOOT));
-                stopDrive();
-//                drivetrain.move(0, -POWER, 0);
-//                sleep((long) (FOOT));
-//                stopDrive();
+                forward(30);
+                claw.open();
+                back(30);
+                right(30);
+                forward(48);
+                left(120);
+                back(30);
                 break;
             case 2: //middle spike
                 claw.open();
@@ -85,6 +78,30 @@ public class Detecttion extends LinearOpMode {
     public void stopDrive() {
         drivetrain.move(0, 0, 0);
         sleep(100);
+    }
+
+    public void forward(int inches) {
+        drivetrain.move(0,-POWER, 0);
+        sleep((long) ((inches/12)*FOOT));
+        stopDrive();
+    }
+
+    public void left(int inches) {
+        drivetrain.move(-POWER,0, 0);
+        sleep((long) ((inches/12)*FOOT));
+        stopDrive();
+    }
+
+    public void right(int inches) {
+        drivetrain.move(POWER,0, 0);
+        sleep((long) ((inches/12)*FOOT));
+        stopDrive();
+    }
+
+    public void back(int inches) {
+        drivetrain.move(0,POWER, 0);
+        sleep((long) ((inches/12)*FOOT));
+        stopDrive();
     }
 
 }
