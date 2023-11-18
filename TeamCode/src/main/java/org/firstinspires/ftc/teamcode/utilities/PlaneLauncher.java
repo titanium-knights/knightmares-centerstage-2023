@@ -12,12 +12,12 @@ public class PlaneLauncher {
         this.launcher = hmap.servo.get(CONFIG.planeServo);
     }
     // when releasing or resetting just move the servo...
-    public void release(){
+    public void set(){
         launcher.setPosition(1);
-    }
+    } // 0.8 before
 
     public void reset(){
-        launcher.setPosition(0);
+        launcher.getController().pwmDisable();
     }
     public void setPosition(double angle) {
         launcher.setPosition(angle);

@@ -32,10 +32,10 @@ public class Claw {
     // only has two positions because servos only allow for two positions
     // TODO: check if the open and close is not reversed
     public void open() {
-        clawOpener.setPosition(0.5);
+        clawOpener.setPosition(0.2);
     }
     public void close() {
-        clawOpener.setPosition(1.0);
+        clawOpener.setPosition(0.8);
     }
 
     // gets position of the clawRotator initially in servo angle and then converts it to degrees, robot centric
@@ -56,11 +56,11 @@ public class Claw {
 
     // rotates back to pick up position
     public void setZero(){ // rotate forward
-        clawRotator.setPosition(0.3);
+        clawRotator.setPosition(0.2);
     } // 0.3
 
     public void setOne(){ // rotate to drop position
-        clawRotator.setPosition(1.0); // 0.9
+        clawRotator.setPosition(0.7); // 0.9
     }
 
     public void maintain(double liftAngle) {

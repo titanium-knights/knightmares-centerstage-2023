@@ -13,7 +13,6 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 public class InitialVision {
     OpenCvCamera camera;
     public BasicRedBlueDiff pipeline;
-    Telemetry telemetry;
 
     public InitialVision(HardwareMap hmap, Telemetry telemetry, String color) {
         int cameraMonitorViewId = hmap.appContext.getResources().getIdentifier("cameraMonitorViewId",
@@ -21,7 +20,6 @@ public class InitialVision {
 
         WebcamName webcamName = hmap.get(WebcamName.class, "Webcam 1");
         camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-        this.telemetry = telemetry;
 
         pipeline = new BasicRedBlueDiff(telemetry, color);
 
@@ -35,7 +33,6 @@ public class InitialVision {
 
             @Override
             public void onError(int errorCode) {
-                telemetry.addData("Error in camera", errorCode);
             }
         });
     }
@@ -46,16 +43,8 @@ public class InitialVision {
 
     public int getPosition(){
         BasicRedBlueDiff.Locations location = pipeline.getLocation();
-        switch (location) {
-            case ONE:
-                return 1;
-            case TWO:
-                return 2;
-            case THREE:
-                return 3;
-            default:
-                telemetry.addData("Fatal Error in getPosition()", "detection failed");
-                return 2;
-        }
+        if (location == BasicRedBlueDiff.Locations.ONE) return 1;
+        else if (location == BasicRedBlueDiff.Locations.TWO) return 2;
+        return 3;
     }
 }

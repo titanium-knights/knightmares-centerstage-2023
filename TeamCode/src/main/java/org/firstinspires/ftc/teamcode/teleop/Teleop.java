@@ -70,7 +70,7 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = (slowMode ? slowPower : normalPower);
-        drive.move(x * multiplier, y * multiplier, turn * multiplier);
+        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
 
         // open and close the claw
         if (config.clawOpen) { //left bumper
@@ -91,20 +91,20 @@ public class Teleop extends OpMode {
         // pullUp manual
         if (config.pullupUpManual) { //dpad left
             pullup.manualRightUp();
-            pullup.manualLeftUp();
+            // pullup.manualLeftUp();
         } else {
             pullup.stopRight();
-            pullup.stopLeft();
-            telemetry.addData("stop pullUp", true);
+            // pullup.stopLeft();
+            // telemetry.addData("stop pullUp", true);
             telemetry.update();
         } if (config.pullupDownManual) { //dpad right
             // temporarily changed pullupLeft  to manualLeftDown
             pullup.manualRightDown();
-            pullup.manualLeftDown();
+            // pullup.manualLeftDown();
         } else {
             pullup.stopRight();
-            telemetry.addData("stop pullUp", true);
-            telemetry.update();
+            // telemetry.addData("stop pullUp", true);
+            // telemetry.update();
         }
 
         // pullup preset
@@ -163,10 +163,16 @@ public class Teleop extends OpMode {
         }
 
         if (config.planeLaunch) { //dpad up
-            //plane.release();
+            plane.set();
+            // plane.reset();
+            telemetry.addData("pos: ", plane.getPosition());
+            telemetry.update();
+        }
+        if (config.planeRelease) { //dpad down
             plane.reset();
             telemetry.addData("pos: ", plane.getPosition());
             telemetry.update();
+
         }
 
     }
