@@ -32,7 +32,7 @@ public class Claw {
     // only has two positions because servos only allow for two positions
     // TODO: check if the open and close is not reversed
     public void open() {
-        clawOpener.setPosition(0.5);
+        clawOpener.setPosition(0.2);
     }
     public void close() {
         clawOpener.setPosition(1.0);
@@ -56,7 +56,7 @@ public class Claw {
 
     // rotates back to pick up position
     public void setZero(){ // rotate forward
-        clawRotator.setPosition(0.3);
+        clawRotator.setPosition(0.0);
     } // 0.3
 
     public void setOne(){ // rotate to drop position

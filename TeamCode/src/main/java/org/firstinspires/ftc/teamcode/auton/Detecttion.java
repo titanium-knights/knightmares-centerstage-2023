@@ -26,7 +26,7 @@ public class Detecttion extends LinearOpMode {
         telemetry.addData("Initialized: ", "Hopefully");
         telemetry.update();
 
-        InitialVision vision = new InitialVision(hardwareMap, telemetry, "blue");
+        //InitialVision vision = new InitialVision(hardwareMap, telemetry, "blue");
         ElapsedTime runtime = new ElapsedTime();
         Lift lift = new Lift(hardwareMap);
         Claw claw = new Claw(hardwareMap);
@@ -37,65 +37,138 @@ public class Detecttion extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        int place = vision.getPosition();
-        telemetry.addData("Position: ", place);
-        telemetry.update();
-        claw.close();
-
-        switch (place) {
-            case 1: // left spike (no specific code yet)
+       // BELOW IS BLUE LEFT
 //                forward(32);
-                drivetrain.move(0,-POWER, 0);
-                sleep(985);
-                stopDrive();
-                claw.open();
+        drivetrain.move(0,-POWER, 0);
+        sleep(1100);
+        stopDrive();
+        //claw.open();
 //                back(32);
-                drivetrain.move(0,POWER, 0);
-                sleep(985);
-                stopDrive();
-//                right(24);
-                drivetrain.move(POWER,0, 0);
-                sleep(700);
-                stopDrive();
-                //                forward(52);
-                drivetrain.move(0,-POWER, 0);
-                sleep(1600);
-                stopDrive();
-                //                right(12);
-                drivetrain.move(POWER,0, 0);
-                sleep(600);
-                stopDrive();
-                break;
-            case 2: //middle spike
-//              forward(32);
-                drivetrain.move(0,-POWER, 0);
-                sleep(985);
-                stopDrive();
-                claw.open();
-//                back(32);
-                drivetrain.move(0,POWER, 0);
-                sleep(985);
-                stopDrive();
-//                right(24);
-                drivetrain.move(POWER,0, 0);
-                sleep(800);
-                stopDrive();
-//                forward(52);
-                drivetrain.move(0,-POWER, 0);
-                sleep(1600);
-                stopDrive();
-//                left(120);
-                drivetrain.move(-POWER,0, 0);
-                sleep(4200);
-                stopDrive();
-//                back(24);
-                drivetrain.move(0,POWER, 0);
-                sleep(1100);
-                stopDrive();
-                break;
-            default:
-                break;
-        }
+        drivetrain.move(0,POWER, 0);
+        sleep(1100);
+        stopDrive();
+//                left(24);
+        drivetrain.move(-POWER,0, 0);
+        sleep(1600);
+        stopDrive();
+
+//        //BELOW IS RED RIGHT
+////                forward(32);
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+//        //claw.open();
+////                back(32);
+//        drivetrain.move(0,POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+////                right(24);
+//        drivetrain.move(POWER,0, 0);
+//        sleep(1600);
+//        stopDrive();
+////        2
+
+//        int place = vision.getPosition();
+//        telemetry.addData("Position: ", place);
+//        telemetry.update();
+//        claw.close();
+        //lift.toScan();
+        //middle spike
+
+
+
+//        // BELOW IS BLUE RIGHT
+////              forward(32);
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+//        claw.open();
+////                back(32);
+//        drivetrain.move(0,POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+////                right(24);
+//        drivetrain.move(POWER,0, 0);
+//        sleep(800);
+//        stopDrive();
+////                forward(52);
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(1600);
+//        stopDrive();
+////                left(120);
+//        drivetrain.move(-POWER,0, 0);
+//        sleep(4200);
+//        stopDrive();
+////                back(24);
+//        drivetrain.move(0,POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+
+
+
+        // BELOW IS RED LEFT
+////              forward(32);
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+//        claw.open();
+////                back(32);
+//        drivetrain.move(0,POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+////                left(24);
+//        drivetrain.move(-POWER,0, 0);
+//        sleep(800);
+//        stopDrive();
+////                forward(52);
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(1600);
+//        stopDrive();
+////                right(120);
+//        drivetrain.move(POWER,0, 0);
+//        sleep(4200);
+//        stopDrive();
+////                back(24);
+//        drivetrain.move(0,POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+
+
+
+        //BELOW IS BLUE LEFT
+////                forward(32);
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+//        //claw.open();
+////                back(32);
+//        drivetrain.move(0,POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+////                left(24);
+//        drivetrain.move(-POWER,0, 0);
+//        sleep(1600);
+//        stopDrive();
+
+
+
+
+
+
+
+
+//        switch (place) {
+//            case 1: // left spike (no specific code yet)
+//
+//                break;
+//
+//
+//
+//                break;
+//
+//            default:
+//                break;
+//        }
 
 
         stopDrive();

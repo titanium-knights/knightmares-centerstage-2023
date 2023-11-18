@@ -81,7 +81,7 @@ public class Lift {
                 liftMotor.setPower(-SLOW_POWER);
             }
             else {
-                liftMotor.setPower(-FULL_POWER);
+                liftMotor.setPower(-SLOW_POWER);
             }
 
         }

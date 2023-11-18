@@ -51,17 +51,17 @@ public class PullUp {
     public void setPower(double power, boolean dir, int motor) {
         if (motor == 1) {
             if (dir) {
-                pullUpMotor1.setPower(power * PULLUP_POWER_MULTIPLIER);
+                pullUpMotor1.setPower(power);
             }
             else {
-                pullUpMotor1.setPower(-power * PULLUP_POWER_MULTIPLIER);
+                pullUpMotor1.setPower(-power);
             }
         } else if (motor == 2) {
             if (dir) {
-                pullUpMotor2.setPower(power * PULLUP_POWER_MULTIPLIER);
+                pullUpMotor2.setPower(power);
             }
             else {
-                pullUpMotor2.setPower(-power * PULLUP_POWER_MULTIPLIER);
+                pullUpMotor2.setPower(-power);
             }
         }
 
@@ -106,7 +106,7 @@ public class PullUp {
     // pullUpMotor1 and 2 are reversed. If you want it to go up, power will be negative. If you want it to go down, power will be positive.
     public void manualRightUp(){
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setPower(1, false, 1);
+        setPower(0.8, false, 1);
     }
 
     public void manualRightDown(){
@@ -116,12 +116,12 @@ public class PullUp {
 
     public void manualLeftUp(){
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setPower(1, true, 2);
+        setPower(0.8, true, 2);
     }
 
     public void manualLeftDown(){
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setPower(1, false, 2);
+        setPower(0.8, false, 2);
     }
 
     public void stopLeft(){
