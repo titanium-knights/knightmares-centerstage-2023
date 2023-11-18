@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 
 //blue Right Side
 @Autonomous(name="VisionBlueMaybe", group="Linear OpMode")
@@ -30,29 +31,16 @@ public class Detecttion extends LinearOpMode {
         ElapsedTime runtime = new ElapsedTime();
         Lift lift = new Lift(hardwareMap);
         Claw claw = new Claw(hardwareMap);
+        PlaneLauncher plane = new PlaneLauncher(hardwareMap);
         claw.close();
+        plane.release();
         //drivetrain.move() -y is forward, +x is left
         drivetrain = new MecanumDrive(hardwareMap);
 
         waitForStart();
         runtime.reset();
 
-       // BELOW IS BLUE LEFT
-//                forward(32);
-        drivetrain.move(0,-POWER, 0);
-        sleep(1100);
-        stopDrive();
-        //claw.open();
-//                back(32);
-        drivetrain.move(0,POWER, 0);
-        sleep(1100);
-        stopDrive();
-//                left(24);
-        drivetrain.move(-POWER,0, 0);
-        sleep(1600);
-        stopDrive();
-
-//        //BELOW IS RED RIGHT
+//       // BELOW IS BLUE LEFT
 ////                forward(32);
 //        drivetrain.move(0,-POWER, 0);
 //        sleep(1100);
@@ -62,10 +50,25 @@ public class Detecttion extends LinearOpMode {
 //        drivetrain.move(0,POWER, 0);
 //        sleep(1100);
 //        stopDrive();
-////                right(24);
-//        drivetrain.move(POWER,0, 0);
+////                left(24);
+//        drivetrain.move(-POWER,0, 0);
 //        sleep(1600);
 //        stopDrive();
+
+        //BELOW IS RED RIGHT
+//                forward(32);
+        drivetrain.move(0,-POWER, 0);
+        sleep(1000);
+        stopDrive();
+        //claw.open();
+//                back(32);
+        drivetrain.move(0,POWER, 0);
+        sleep(1000);
+        stopDrive();
+//                right(24);
+        drivetrain.move(POWER,0, 0);
+        sleep(1600);
+        stopDrive();
 ////        2
 
 //        int place = vision.getPosition();

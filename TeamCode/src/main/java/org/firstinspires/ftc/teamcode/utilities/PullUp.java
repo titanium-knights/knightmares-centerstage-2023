@@ -56,14 +56,15 @@ public class PullUp {
             else {
                 pullUpMotor1.setPower(-power);
             }
-        } else if (motor == 2) {
-            if (dir) {
-                pullUpMotor2.setPower(power);
-            }
-            else {
-                pullUpMotor2.setPower(-power);
-            }
         }
+//        else if (motor == 2) {
+//            if (dir) {
+//                pullUpMotor2.setPower(power);
+//            }
+//            else {
+//                pullUpMotor2.setPower(-power);
+//            }
+//        }
 
 
     }

@@ -25,6 +25,7 @@ public class TeleopConfig {
     public boolean pullupDown;
     public boolean updateTelemetry;
     public boolean planeLaunch;
+    public boolean planeRelease;
 
     public TeleopConfig(Gamepad gamepad1, Gamepad gamepad2) {
         this.gamepad1 = gamepad1;
@@ -51,6 +52,7 @@ public class TeleopConfig {
         pullupDown = this.gamepad1.x;
         updateTelemetry = this.gamepad1.back;
         planeLaunch = this.gamepad1.dpad_up;
+        planeRelease = this.gamepad1.dpad_down;
     }
 
 

@@ -90,20 +90,20 @@ public class Teleop extends OpMode {
         // pullUp manual
         if (config.pullupUpManual) { //dpad left
             pullup.manualRightUp();
-            pullup.manualLeftUp();
+            // pullup.manualLeftUp();
         } else {
             pullup.stopRight();
-            pullup.stopLeft();
+            // pullup.stopLeft();
             // telemetry.addData("stop pullUp", true);
             telemetry.update();
         } if (config.pullupDownManual) { //dpad right
             // temporarily changed pullupLeft  to manualLeftDown
             pullup.manualRightDown();
-            pullup.manualLeftDown();
+            // pullup.manualLeftDown();
         } else {
             pullup.stopRight();
             // telemetry.addData("stop pullUp", true);
-            telemetry.update();
+            // telemetry.update();
         }
 
         // pullup preset
@@ -166,6 +166,12 @@ public class Teleop extends OpMode {
             // plane.reset();
             telemetry.addData("pos: ", plane.getPosition());
             telemetry.update();
+        }
+        if (config.planeRelease) { //dpad down
+            plane.reset();
+            telemetry.addData("pos: ", plane.getPosition());
+            telemetry.update();
+
         }
 
     }
