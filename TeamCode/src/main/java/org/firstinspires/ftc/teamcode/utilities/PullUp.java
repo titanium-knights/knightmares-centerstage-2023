@@ -54,7 +54,14 @@ public class PullUp {
                 pullUpMotor1.setPower(power);
             }
             else {
-                pullUpMotor1.setPower(-power);
+                pullUpMotor1.setPower(-power * PULLUP_POWER_MULTIPLIER);
+            }
+        } else if (motor == 2) {
+            if (dir) {
+                pullUpMotor2.setPower(power * PULLUP_POWER_MULTIPLIER * 0.7);
+            }
+            else {
+                pullUpMotor2.setPower(-power * PULLUP_POWER_MULTIPLIER);
             }
         }
 //        else if (motor == 2) {
