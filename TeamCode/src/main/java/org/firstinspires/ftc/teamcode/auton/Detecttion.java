@@ -31,7 +31,7 @@ public class Detecttion extends LinearOpMode {
         Lift lift = new Lift(hardwareMap);
         Claw claw = new Claw(hardwareMap);
         claw.close();
-        //drivetrain.move() y is forward x is left
+        //drivetrain.move() -y is forward, +x is left
         drivetrain = new MecanumDrive(hardwareMap);
 
         waitForStart();
@@ -46,22 +46,17 @@ public class Detecttion extends LinearOpMode {
         telemetry.addData("Position: ", place);
         telemetry.update();
 
-        drivetrain.move(0, -POWER, 0);
-        sleep(FOOT*2);
-        stopDrive();
-        // move to the correct spike, place the prop, and park
         switch (place) {
             case 1: // left spike
 //                drivetrain.move(0, 0, POWER);
 //                sleep(TURN_45*2);
 //                stopDrive()
-                claw.open();
                 sleep(300);
-                drivetrain.move(POWER, 0, 0);
-                sleep((long) (FOOT*3.5));
+                drivetrain.move(-POWER, 0, 0);
+                sleep((long) (FOOT));
                 stopDrive();
                 drivetrain.move(0, -POWER, 0);
-                sleep((long) (FOOT*3.5));
+                sleep((long) (FOOT));
                 stopDrive();
                 break;
             case 2: //middle spike

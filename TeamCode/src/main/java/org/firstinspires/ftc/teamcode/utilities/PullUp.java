@@ -116,12 +116,12 @@ public class PullUp {
 
     public void manualLeftUp(){
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setPower(1, false, 2);
+        setPower(1, true, 2);
     }
 
     public void manualLeftDown(){
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setPower(1, true, 2);
+        setPower(1, false, 2);
     }
 
     public void stopLeft(){
