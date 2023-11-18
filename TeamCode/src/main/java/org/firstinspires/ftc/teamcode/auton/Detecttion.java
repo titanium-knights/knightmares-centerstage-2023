@@ -11,12 +11,12 @@ import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 
 //blue Right Side
-@Autonomous(name="VisionRedMaybe", group="Linear OpMode")
+@Autonomous(name="VisionBlueMaybe", group="Linear OpMode")
 @Config
 public class Detecttion extends LinearOpMode {
     //constant assumptions for power and time for movement
     public static final double POWER = 0.6;
-    public static final long FOOT = 400;
+    public static final long FOOT = 525;
     public static final long TURN_45 = 500; //inaccurate
 
     MecanumDrive drivetrain;
@@ -55,9 +55,9 @@ public class Detecttion extends LinearOpMode {
                 drivetrain.move(-POWER, 0, 0);
                 sleep((long) (FOOT));
                 stopDrive();
-                drivetrain.move(0, -POWER, 0);
-                sleep((long) (FOOT));
-                stopDrive();
+//                drivetrain.move(0, -POWER, 0);
+//                sleep((long) (FOOT));
+//                stopDrive();
                 break;
             case 2: //middle spike
                 claw.open();
