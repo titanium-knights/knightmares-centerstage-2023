@@ -44,15 +44,56 @@ public class Detecttion extends LinearOpMode {
 
         switch (place) {
             case 1: // left spike (no specific code yet)
-            case 2: //middle spike
-            default:
-                forward(30);
+//                forward(32);
+                drivetrain.move(0,-POWER, 0);
+                sleep(985);
+                stopDrive();
                 claw.open();
-                back(30);
-                right(30);
-                forward(48);
-                left(120);
-                back(30);
+//                back(32);
+                drivetrain.move(0,POWER, 0);
+                sleep(985);
+                stopDrive();
+//                right(24);
+                drivetrain.move(POWER,0, 0);
+                sleep(700);
+                stopDrive();
+                //                forward(52);
+                drivetrain.move(0,-POWER, 0);
+                sleep(1600);
+                stopDrive();
+                //                right(12);
+                drivetrain.move(POWER,0, 0);
+                sleep(600);
+                stopDrive();
+                break;
+            case 2: //middle spike
+//              forward(32);
+                drivetrain.move(0,-POWER, 0);
+                sleep(985);
+                stopDrive();
+                claw.open();
+//                back(32);
+                drivetrain.move(0,POWER, 0);
+                sleep(985);
+                stopDrive();
+//                right(24);
+                drivetrain.move(POWER,0, 0);
+                sleep(800);
+                stopDrive();
+//                forward(52);
+                drivetrain.move(0,-POWER, 0);
+                sleep(1600);
+                stopDrive();
+//                left(120);
+                drivetrain.move(-POWER,0, 0);
+                sleep(4200);
+                stopDrive();
+//                back(24);
+                drivetrain.move(0,POWER, 0);
+                sleep(1100);
+                stopDrive();
+                break;
+            default:
                 break;
         }
 
@@ -67,28 +108,34 @@ public class Detecttion extends LinearOpMode {
         sleep(100);
     }
 
-    public void forward(int inches) {
+    public void forward(double inches) {
+        long FORWARD_FOOT = 400;
         drivetrain.move(0,-POWER, 0);
-        sleep((long) ((inches/12)*FOOT));
+        sleep((long) ((inches/12)*FORWARD_FOOT));
         stopDrive();
     }
 
-    public void left(int inches) {
-        drivetrain.move(-POWER,0, 0);
-        sleep((long) ((inches/12)*FOOT));
-        stopDrive();
-    }
-
-    public void right(int inches) {
-        drivetrain.move(POWER,0, 0);
-        sleep((long) ((inches/12)*FOOT));
-        stopDrive();
-    }
-
-    public void back(int inches) {
+    public void back(double inches) {
+        long BACKWARD_FOOT = 415;
         drivetrain.move(0,POWER, 0);
-        sleep((long) ((inches/12)*FOOT));
+        sleep((long) ((inches/12)*BACKWARD_FOOT));
         stopDrive();
     }
+
+    public void left(double inches) {
+        int STRAFE_FOOT = 525;
+        drivetrain.move(-POWER,0, 0);
+        sleep((long) ((inches/12)*STRAFE_FOOT));
+        stopDrive();
+    }
+
+    public void right(double inches) {
+        int STRAFE_FOOT = 525;
+        drivetrain.move(POWER,0, 0);
+        sleep((long) ((inches/12)*STRAFE_FOOT));
+        stopDrive();
+    }
+
+
 
 }
