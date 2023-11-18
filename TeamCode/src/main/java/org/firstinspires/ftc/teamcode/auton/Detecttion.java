@@ -33,7 +33,7 @@ public class Detecttion extends LinearOpMode {
         Claw claw = new Claw(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
         claw.close();
-        plane.release();
+        plane.set();
         //drivetrain.move() -y is forward, +x is left
         drivetrain = new MecanumDrive(hardwareMap);
 
