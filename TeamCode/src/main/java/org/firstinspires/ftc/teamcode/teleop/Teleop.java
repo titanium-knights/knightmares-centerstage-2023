@@ -162,7 +162,7 @@ public class Teleop extends OpMode {
         }
 
         if (config.planeLaunch) { //dpad up
-            plane.release();
+            plane.set();
             // plane.reset();
             telemetry.addData("pos: ", plane.getPosition());
             telemetry.update();
