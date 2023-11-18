@@ -58,7 +58,7 @@ public class PullUp {
             }
         } else if (motor == 2) {
             if (dir) {
-                pullUpMotor2.setPower(power * PULLUP_POWER_MULTIPLIER);
+                pullUpMotor2.setPower(power * PULLUP_POWER_MULTIPLIER * 0.7);
             }
             else {
                 pullUpMotor2.setPower(-power * PULLUP_POWER_MULTIPLIER);
