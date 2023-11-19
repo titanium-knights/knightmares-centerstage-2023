@@ -100,7 +100,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
 
     @Override
     public Mat processFrame(Mat input) {
-        int max = 0;
+        int max = -1;
         int maxindex = -1;
 
         //map croppedSections to color values and then to an array
@@ -122,7 +122,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
 
         // draw a rectangle around the section with the highest color value
         final int THICKNESS = 7;
-        if (maxindex != -1)
+        if (maxindex > -1)
         Imgproc.rectangle(
                 input,
                 rect_points.get(maxindex*2),
