@@ -36,7 +36,6 @@ public class DropAndParkBlueRight extends LinearOpMode {
         drivetrain.move(0,-POWER, 0);
         sleep(1100);
         stopDrive();
-
         //drop pixel
         claw.open();
         //back up to starting position

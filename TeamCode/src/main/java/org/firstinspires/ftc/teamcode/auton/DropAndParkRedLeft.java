@@ -36,7 +36,6 @@ public class DropAndParkRedLeft extends LinearOpMode {
         drivetrain.move(0,-POWER, 0);
         sleep(1100);
         stopDrive();
-
         // move forward to spike mark and drop pixel
         drivetrain.move(0,-POWER, 0);
         sleep(1100);
