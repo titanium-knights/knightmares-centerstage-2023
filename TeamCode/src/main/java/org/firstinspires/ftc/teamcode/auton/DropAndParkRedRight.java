@@ -26,7 +26,7 @@ public class DropAndParkRedRight extends LinearOpMode {
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
         claw.close();
         plane.set();
-        //drivetrain.move() -y is forward, +x is left
+        //drivetrain.move() -y is forward, +x is right, +turn is counterclockwise robot centric
         drivetrain = new MecanumDrive(hardwareMap);
 
         waitForStart();

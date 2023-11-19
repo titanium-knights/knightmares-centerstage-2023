@@ -27,28 +27,77 @@ public class DropAndParkBlueLeft extends LinearOpMode {
         ElapsedTime runtime = new ElapsedTime();
         Claw claw = new Claw(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
-        claw.close();
         plane.set();
-        //drivetrain.move() -y is forward, +x is left
+        // rotate claw down to keep pixel in place
+        claw.setZero();
+        //drivetrain.move() -y is forward, +x is right, +turn is counterclockwise robot centric
         drivetrain = new MecanumDrive(hardwareMap);
 
         waitForStart();
         runtime.reset();
 
-        //move forward to spike marks
+
+        // BELOW IS RIGHT SPIKE
+        // move forward to spike marks
         drivetrain.move(0,-POWER, 0);
-        sleep(1100);
+        sleep(900);
         stopDrive();
-        //drop the pixel at the middle spike
-        claw.open();
-        //move back to the starting position
+        // turn to face right spike
+        drivetrain.move(0,0, -POWER);
+        sleep(550);
+        stopDrive();
+        // move forward to right spike mark
+        drivetrain.move(0,-POWER, 0);
+        sleep(150);
+        stopDrive();
+        //drop the pixel at the right spike
+        claw.setOne();
+        // move back from right spike mark to park
         drivetrain.move(0,POWER, 0);
-        sleep(1100);
-        stopDrive();
-        //park in the backstage
-        drivetrain.move(-POWER,0, 0);
         sleep(1600);
         stopDrive();
+
+//        // BELOW IS LEFT SPIKE
+//        // move forward to spike marks
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(985);
+//        stopDrive();
+//        // turn to face left spike
+//        drivetrain.move(0,0, POWER);
+//        sleep(600);
+//        stopDrive();
+//        // move forward to left spike mark
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(250);
+//        stopDrive();
+//        //drop the pixel at the left spike
+//        claw.setOne();
+//        // move back from left spike mark
+//        drivetrain.move(0,POWER, 0);
+//        sleep(250);
+//        stopDrive();
+//        // strafe to the left
+//        drivetrain.move(-POWER,0, 0);
+//        sleep(1000);
+//        stopDrive();
+//        // move forward to park
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(1600);
+//        stopDrive();
+
+//        // BELOW IS CENTER SPIKE
+//        //move forward to spike marks
+//        drivetrain.move(0,-POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+//        //move back to the starting position
+//        drivetrain.move(0,POWER, 0);
+//        sleep(1100);
+//        stopDrive();
+//        //park in the backstage
+//        drivetrain.move(-POWER,0, 0);
+//        sleep(1600);
+//        stopDrive();
 
         stopDrive();
         telemetry.addData("Run Time:", runtime);
