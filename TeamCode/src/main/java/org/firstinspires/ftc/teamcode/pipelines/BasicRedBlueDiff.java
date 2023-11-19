@@ -11,6 +11,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class BasicRedBlueDiff extends OpenCvPipeline {
 
@@ -40,24 +41,29 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     private final Mat[] croppedSections = new Mat[3];
     private final Mat colored = new Mat();
 
-    /**
-     * instantiate the object with telemetry and a color, which defaults to RED
-     */
+
+    //instantiate the object with telemetry and a color, which defaults to RED
     public BasicRedBlueDiff(Telemetry telemetry) {
         this(telemetry, "red");
     }
 
     public BasicRedBlueDiff(Telemetry telemetry, String color) {
-        if (color.equals("red")) this.color = RED;
-        else if (color.equals("blue")) this.color = BLUE;
-        else this.color = RED;
-
-        colorNum = (this.color.equals(RED)) ? 0 : 2;
-
         this.telemetry = telemetry;
+
+        if (color.equalsIgnoreCase("red")) this.color = RED;
+        else if (color.equalsIgnoreCase("blue")) this.color = BLUE;
+        else {
+            this.color = RED;
+            telemetry.addLine("Invalid color, defaulting to red");
+        }
+
+        // store which RGB channel we're looking at
+        colorNum = (this.color.equals(RED)) ? 0 : 2;
     }
 
-    //return the likelihood that the section is the team color
+    /**
+     * @return likelihood that the given section is the team color
+     */
     private int processSection(Mat input) {
         final int MARGIN = 70;
 
@@ -67,8 +73,8 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
 
         int colorSum = 0;
         int count = 0;
-        for (double x = 0; x < input.rows()-10; x += 10) {
-            for (double y = 0; y < input.cols()-10; y += 10) {
+        for (int x = 0; x < input.rows()-10; x += 10) {
+            for (int y = 0; y < input.cols()-10; y += 10) {
                 ++count;
                 double sum = 0;
                 for (int i=0;i<10;i++) {
