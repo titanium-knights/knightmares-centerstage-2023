@@ -18,12 +18,12 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     private final Telemetry telemetry;
 
     //tentative RGB values for RED and BLUE
-    private static final Scalar RED = new Scalar(255, 0, 0);
-    private static final Scalar BLUE = new Scalar(0, 0, 255);
+    public static Scalar RED = new Scalar(255, 0, 0);
+    public static Scalar BLUE = new Scalar(0, 0, 255);
 
     // store the color we're looking for (i.e. team color) and its index
     private final Scalar color;
-    private final int colorNum;
+    public static int colorNum;
 
     // top left and bottom right points for the three rectangles we will crop into
     // will be defined in init()
