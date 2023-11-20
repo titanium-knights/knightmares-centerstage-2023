@@ -122,13 +122,14 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
 
         // draw a rectangle around the section with the highest color value
         final int THICKNESS = 7;
-        if (maxindex > -1)
-        Imgproc.rectangle(
-                input,
-                rect_points.get(maxindex*2),
-                rect_points.get(2*maxindex+1),
-                new Scalar(125, 182, 73),
-                THICKNESS);
+        if (maxindex > -1) {
+            Imgproc.rectangle(
+                    input,
+                    rect_points.get(maxindex * 2),
+                    rect_points.get(2 * maxindex + 1),
+                    new Scalar(125, 182, 73),
+                    THICKNESS);
+        }
 
         return input;
     }

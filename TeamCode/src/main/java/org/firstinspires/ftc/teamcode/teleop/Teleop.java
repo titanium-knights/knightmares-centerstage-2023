@@ -41,8 +41,6 @@ public class Teleop extends OpMode {
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
         this.config = new TeleopConfig(gamepad1, gamepad2);
-//        Thread configRunner = new Thread(config);
-//        configRunner.start();
     }
 
     @Override
@@ -53,7 +51,6 @@ public class Teleop extends OpMode {
 
 
         telemetry.setAutoClear(false);
-        //telemetry.addLine("hello world");
         telemetry.update();
         //driving
         float x = config.x_movement;
@@ -78,39 +75,38 @@ public class Teleop extends OpMode {
         } else if (config.clawClose) { //right bumper
             claw.close();
         }
+
         // rotate the claw
         if (config.clawRotatorScore) {
-            claw.setZero();
+            claw.setDrop();
             telemetry.addData("Rotate back", claw.getPosition());
         } else if (config.clawRotatorPick) {
-            claw.setOne();
+            claw.setPick();
             telemetry.addData("Rotate front", claw.getPosition())                                                  ;
         }
-
 
         // pullUp manual
         if (config.pullupUpManual) { //dpad left
             pullup.manualRightUp();
+
+            telemetry.addData("pullup Manual Up", pullup.getPosition()[0]);
+            telemetry.update();
             // pullup.manualLeftUp();
-        } else {
+        } else if (config.pullupDownManual) {
+            pullup.manualRightDown();
+            telemetry.addData("pullup Manual Down", pullup.getPosition()[0]);
+            telemetry.update();
+            // pullup.manualLeftDown();
+        }
+        else {
             pullup.stopRight();
             // pullup.stopLeft();
-            // telemetry.addData("stop pullUp", true);
-            telemetry.update();
-        } if (config.pullupDownManual) { //dpad right
-            // temporarily changed pullupLeft  to manualLeftDown
-            pullup.manualRightDown();
-            // pullup.manualLeftDown();
-        } else {
-            pullup.stopRight();
-            // telemetry.addData("stop pullUp", true);
-            // telemetry.update();
         }
 
         // pullup preset
         if (config.pullupUp){ //y
             pullup.liftUp();
-            telemetry.addData("pullup Up", pullup.getPosition());
+            telemetry.addData("pullup Up", pullup.getPosition()[0]);
             telemetry.update();
         }
         else if (config.pullupDown) { //x
@@ -156,18 +152,13 @@ public class Teleop extends OpMode {
             state = false;
         }
 
-
-
-        if (config.updateTelemetry) {
-            telemetry.update();
-        }
-
         if (config.planeLaunch) { //dpad up
             plane.set();
             // plane.reset();
             telemetry.addData("pos: ", plane.getPosition());
             telemetry.update();
         }
+
         if (config.planeRelease) { //dpad down
             plane.reset();
             telemetry.addData("pos: ", plane.getPosition());

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.utilities;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static java.lang.Double.max;
 import static java.lang.Double.min;
 
@@ -7,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Lift {
-    public DcMotor liftMotor;
+    DcMotor liftMotor;
 
     public static double ENCODER_TICKS = 103.8*28;
 
@@ -38,9 +39,10 @@ public class Lift {
     }
 
     public void setInit() {
-        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // makes it so the motor is not loose
+         // makes it so the motor is not loose
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftMotor.setZeroPowerBehavior(BRAKE);
     }
 
     //completely stop lift

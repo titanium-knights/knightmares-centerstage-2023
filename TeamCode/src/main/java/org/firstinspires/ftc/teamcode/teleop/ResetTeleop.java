@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
+import android.media.Image;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -23,10 +25,7 @@ public class ResetTeleop extends OpMode {
     Lift lift;
     PullUp pullup;
     PlaneLauncher plane;
-    resetconfig config;
 
-    boolean reset = false;
-    boolean toggle = true;
     boolean state = false;
 
     public void init() {
@@ -34,9 +33,7 @@ public class ResetTeleop extends OpMode {
         this.claw = new Claw(hardwareMap);
         this.lift = new Lift(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
-        //TODO: this config isnt actually used, replace all direct gamepad calls with config aliases
-        this.config = new resetconfig(gamepad1, gamepad2);
-        telemetry.setAutoClear(false);
+        this.plane = new PlaneLauncher(hardwareMap);
     }
 
     public void loop() {
@@ -53,47 +50,47 @@ public class ResetTeleop extends OpMode {
             telemetry.addData("Down", lift.getPosition());
         } else if (!state){
             lift.stop();
-            //telemetry.addData("Stop", lift.getPosition());
-        }
-
-        //open and close the claw
-        if (gamepad1.x) {
-            claw.open();
-            telemetry.addData("Open claw", claw.getPosition());
-        } else if (gamepad1.a) {
-            claw.close();
-            telemetry.addData("Close claw", claw.getPosition());
         }
 
         // claw rotate
         if (gamepad1.y) {
             claw.setZero();
-            telemetry.addData("Rotate back", claw.getPosition());
+            telemetry.addData("Rotate 0", claw.getPosition());
         } else if (gamepad1.b) {
             claw.setOne();
-            telemetry.addData("Rotate front", claw.getPosition())                                                  ;
+            telemetry.addData("Rotate 1", claw.getPosition())                                                  ;
         }
 
-        if (config.armUpPreset) {
-            lift.toDrop();
-            state = true;
-
-        } else if (config.armDownPreset) {
-            lift.toPickUp();
-            state = true;
-
+        if (gamepad1.left_bumper){
+            pullup.liftUp();
+        } else if (gamepad1.right_bumper){
+            pullup.liftDown();
         }
-
-        if (config.pullupUp){
+        //LEFT
+        if (gamepad1.dpad_left){
             pullup.manualLeftUp();
-            pullup.manualRightUp();
-        }
-        else if (config.pullupDown) {
-            pullup.manualRightDown();
+        } else if (gamepad1.dpad_down){
             pullup.manualLeftDown();
         }
 
-        //claw.maintain(lift.getPosition());
+        //RIGHT
+        if (gamepad1.dpad_up){
+            pullup.manualRightUp();
+        } else if (gamepad1.dpad_right){
+            pullup.manualRightDown();
+        }
+
+        if (gamepad1.b){
+            telemetry.clear();
+            telemetry.addData("positionLeft", pullup.getPosition()[0]);
+            telemetry.addData("positionRight", pullup.getPosition()[1]);
+            telemetry.addData("BusyLeft", pullup.isBusy1());
+            telemetry.addData("BusyRight", pullup.isBusy2());
+            telemetry.update();
+        }
+
+
+
     }
 
 }

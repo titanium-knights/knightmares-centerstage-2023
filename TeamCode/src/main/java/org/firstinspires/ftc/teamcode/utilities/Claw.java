@@ -9,8 +9,6 @@ public class Claw {
     Servo clawOpener;
     Servo clawRotator;
 
-    final double MAX_BUFFER = 2.0;
-
     // Angle from when arm is vertical, where 0 is the minimum degree that the robot arm can go down (robot centric based)
     double VERTICAL_ANGLE = 122;
 
@@ -43,69 +41,47 @@ public class Claw {
         return clawRotator.getPosition();
     }
 
-    //
-//    public void setPosition(double des){ // sets clawRotator to the angle that we want it to be
-//
-//        double rawangle = des + CLAW_ANGLE_PICKUP;
-//        clawRotator.setPosition(1 - rawangle/servoAngleModifier);
-//    }
-
-    public void setPosition(double angle) {
-        clawRotator.setPosition(angle);
+    public void setPosition(double position) {
+        clawRotator.setPosition(position);
     }
 
     // rotates back to drop position
     public void setZero(){ // rotate forward
-        clawRotator.setPosition(0.7);
+        clawRotator.setPosition(0);
     }
-
     public void setOne(){ // rotate to pick up position
-        clawRotator.setPosition(0.2);
+        clawRotator.setPosition(1);
     }
 
-    public void maintain(double liftAngle) {
-//        double trueAngle = liftAngle - ; // trueAngle is where 0 degrees is vertical
-//        // converts robot centric angle --> 0 = vertical angle centric
-//        // if anyone is confused about it you can ask Daniel or Aubrey
+    public void setPick(){clawRotator.setPosition(0.7);}
+    public void setDrop(){clawRotator.setPosition(0.2);}
 
-//        if (trueAngle > -15) maintainDrop(trueAngle);
-//        else maintainPickup(trueAngle);
-
-        // if over a certain point (when lift goes beyond 135), clawRotator will rotate back
-        // else, clawRotator will rotate to the front
-        if (liftAngle > 135) maintainDrop();
-        else maintainPickup();
-    }
-
-//    public void maintainDrop(double trueAngle){
-//        double angle = 180 - trueAngle;
-//        double delta = 240 - angle;
+//    public void maintain(double liftAngle) {
+////        double trueAngle = liftAngle - ; // trueAngle is where 0 degrees is vertical
+////        // converts robot centric angle --> 0 = vertical angle centric
+////        // if anyone is confused about it you can ask Daniel or Aubrey
 //
-//        // if clawRotator is not already at the position we want it to be, set it to that position
-//        if (abs(getPosition() - delta) > MAX_BUFFER){
-//            setPosition(delta); //
+////        if (trueAngle > -15) maintainDrop(trueAngle);
+////        else maintainPickup(trueAngle);
+//
+//        // if over a certain point (when lift goes beyond 135), clawRotator will rotate back
+//        // else, clawRotator will rotate to the front
+//        if (liftAngle > 135) maintainDrop();
+//        else maintainPickup();
+//    }
+//
+//    public void maintainDrop() {
+//        if (abs(getPosition() - CLAW_ANGLE_DROP) > MAX_BUFFER) {
+//            setPosition(CLAW_ANGLE_DROP);
 //        }
 //    }
-
-    public void maintainDrop() {
-        if (abs(getPosition() - CLAW_ANGLE_DROP) > MAX_BUFFER) {
-            setPosition(CLAW_ANGLE_DROP);
-        }
-    }
-
-
-//    public void maintainPickup(double trueAngle){
-//        double angle = abs(trueAngle);
-//        double delta = -angle;
-//        if (abs(getPosition() - delta) > MAX_BUFFER){
-//            setPosition(delta);
+//
+//
+//
+//    public void maintainPickup() {
+//        if (abs(getPosition() - CLAW_ANGLE_PICKUP) > MAX_BUFFER) {
+//            setPosition(CLAW_ANGLE_PICKUP);
 //        }
 //    }
-
-    public void maintainPickup() {
-        if (abs(getPosition() - CLAW_ANGLE_PICKUP) > MAX_BUFFER) {
-            setPosition(CLAW_ANGLE_PICKUP);
-        }
-    }
 
 }
