@@ -15,8 +15,8 @@ public class SamplePipeline extends OpenCvPipeline {
     int avg;
     int avgA;
 
-    static final int STREAM_WIDTH = 1920; //change these to our camera
-    static final int STREAM_HEIGHT = 1080; //change theese to our camera
+    static final int STREAM_WIDTH = 1280;
+    static final int STREAM_HEIGHT = 720;
 
     static final int WidthRectA = 130;
     static final int HeightRectA = 110;

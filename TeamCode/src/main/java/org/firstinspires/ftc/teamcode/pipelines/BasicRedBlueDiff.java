@@ -21,7 +21,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     public static Scalar RED = new Scalar(255, 0, 0);
     public static Scalar BLUE = new Scalar(0, 0, 255);
 
-    // store the color we're looking for (i.e. team color) and its index
+    // store the color we're looking for (i.e. team color) and its index in the channels array
     private final Scalar color;
     public static int colorNum;
 
@@ -79,7 +79,7 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
                 double sum = 0;
                 for (int i=0;i<10;i++) {
                     for (int j=0;j<10;j++) {
-                        double s = input.get((int) x + i, (int) y + j)[0];
+                        double s = input.get(x + i, y + j)[0];
                         if (s > MARGIN) sum += s;
                     }
                 }
