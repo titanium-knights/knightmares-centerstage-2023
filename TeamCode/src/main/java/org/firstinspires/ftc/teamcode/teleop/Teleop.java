@@ -77,12 +77,19 @@ public class Teleop extends OpMode {
         }
 
         // rotate the claw
+//        if (config.clawRotatorScore) {
+//            claw.setDrop();
+//            telemetry.addData("Rotate back", claw.getPosition());
+//        } else if (config.clawRotatorPick) {
+//            claw.setPick();
+//            telemetry.addData("Rotate front", claw.getPosition())                                                  ;
+//        }
+
         if (config.clawRotatorScore) {
-            claw.setDrop();
-            telemetry.addData("Rotate back", claw.getPosition());
-        } else if (config.clawRotatorPick) {
-            claw.setPick();
-            telemetry.addData("Rotate front", claw.getPosition())                                                  ;
+            lift.toDrop();
+            telemetry.addData("lift to drop position", lift.getPosition());
+            claw.setDrop(); //random value;
+            telemetry.addData("claw to drop position", claw.getPosition());
         }
 
         // pullUp manual

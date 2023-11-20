@@ -124,7 +124,8 @@ public class Lift {
     }
 
     public boolean toDrop(){ // preset for dropping pixels
-        final double x = VERTICAL_ANGLE + 30;
+        // final double x = VERTICAL_ANGLE + 30;
+        final double x = MAX_LIMIT; // daniel told me to switch it to max value
         return runToPosition(x);
     }
 
