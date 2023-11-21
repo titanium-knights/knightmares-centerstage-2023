@@ -155,5 +155,6 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
 
             croppedSections[i/2] = colored.submat(new Rect(A, B));
         }
+        colored.release();
     }
 }
