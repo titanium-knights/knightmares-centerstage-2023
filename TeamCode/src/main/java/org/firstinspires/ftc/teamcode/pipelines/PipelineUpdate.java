@@ -8,7 +8,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 
-public class SamplePipeline extends OpenCvPipeline {
+public class PipelineUpdate extends OpenCvPipeline {
     Mat YCrCb = new Mat();
     Mat Y = new Mat();
     Mat RectA_Y = new Mat();
