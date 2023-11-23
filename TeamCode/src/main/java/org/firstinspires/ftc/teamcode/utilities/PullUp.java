@@ -17,7 +17,7 @@ public class PullUp {
     DcMotor pullUpMotor2;
     public static double Encoder_Ticks = 537.7;
 
-    public static int topHeight = 100; // 24 * Encoder_Ticks
+    public static int topHeight = -100; // 24 * Encoder_Ticks
 
     public PullUp(HardwareMap hmap) {
         this.pullUpMotor1 = hmap.dcMotor.get(CONFIG.pullUpMotor1);
@@ -63,7 +63,6 @@ public class PullUp {
         pullUpMotor2.setTargetPosition(position);
     }
 
-
     public void liftUp() {
         setTargetPosition(topHeight);
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -82,23 +81,23 @@ public class PullUp {
     }
 
     // pullUpMotor1 and 2 are reversed. If you want it to go up, power will be negative. If you want it to go down, power will be positive.
-    public void manualRightUp(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pullUpMotor1.setPower(-0.8);
+    public void manualRightDown(){
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullUpMotor2.setPower(-0.8);
     }
 
-    public void manualRightDown(){
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pullUpMotor1.setPower(1);
+    public void manualRightUp(){
+        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullUpMotor2.setPower(1);
     }
 
     public void manualLeftUp(){
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor1.setPower(1);
     }
 
     public void manualLeftDown(){
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor1.setPower(-0.8);
     }
 

@@ -15,10 +15,7 @@ public class PlaneLauncher {
     public void set(){
         launcher.setPosition(1);
     } // 0.8 before
-
-    public void reset(){
-        launcher.getController().pwmDisable();
-    }
+    public void reset() {launcher.setPosition(0);}
     public void setPosition(double angle) {
         launcher.setPosition(angle);
     }

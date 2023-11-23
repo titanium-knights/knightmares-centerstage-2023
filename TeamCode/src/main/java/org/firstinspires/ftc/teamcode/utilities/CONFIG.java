@@ -29,4 +29,5 @@ public class CONFIG {
     public static String pullUpMotor2 = "pl2"; // Right
 
     public static String planeServo = "plane";
+    public static String intake = "intake";
 }

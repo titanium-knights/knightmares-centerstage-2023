@@ -122,6 +122,9 @@ public class Teleop extends OpMode {
             telemetry.update();
         }
 
+        if (pullup.isBusy1()) pullup.stopLeft();
+        if (pullup.isBusy2()) pullup.stopRight();
+
         float armUp = config.armUp; //left-trigger
         float armDown = config.armDown; //right-trigger
 

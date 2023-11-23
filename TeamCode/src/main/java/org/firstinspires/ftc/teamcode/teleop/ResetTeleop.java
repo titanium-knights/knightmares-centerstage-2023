@@ -66,11 +66,15 @@ public class ResetTeleop extends OpMode {
         } else if (gamepad1.right_bumper){
             pullup.liftDown();
         }
+
+
         //LEFT
         if (gamepad1.dpad_left){
             pullup.manualLeftUp();
         } else if (gamepad1.dpad_down){
             pullup.manualLeftDown();
+        } else if (!pullup.isBusy1()){
+            pullup.stopLeft();
         }
 
         //RIGHT
@@ -78,6 +82,8 @@ public class ResetTeleop extends OpMode {
             pullup.manualRightUp();
         } else if (gamepad1.dpad_right){
             pullup.manualRightDown();
+        } else if (!pullup.isBusy2()){
+            pullup.stopRight();
         }
 
         if (gamepad1.b){
