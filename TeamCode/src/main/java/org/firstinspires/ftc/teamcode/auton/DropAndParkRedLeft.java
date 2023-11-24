@@ -32,35 +32,59 @@ public class DropAndParkRedLeft extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        // forward to spike mark
+        // SPIKE 2
         drivetrain.move(0,-POWER, 0);
-        sleep(1100);
+        sleep(1300); // guess #1
         stopDrive();
-        // move forward to spike mark and drop pixel
-        drivetrain.move(0,-POWER, 0);
-        sleep(1100);
-        stopDrive();
-        claw.open();
-        //back up to starting position
-        drivetrain.move(0,POWER, 0);
-        sleep(1100);
-        stopDrive();
-        // move left to avoid running over pixel
+        // then drop pixel
         drivetrain.move(-POWER,0, 0);
-        sleep(800);
-        stopDrive();
-        // move forward to align with stage door
-        drivetrain.move(0,-POWER, 0);
-        sleep(1600);
-        stopDrive();
-        //strafe right through the stage door up until the rightmost wall
-        drivetrain.move(POWER,0, 0);
         sleep(4200);
         stopDrive();
-        // back up into the backstage to park
+
+        // SPIKE 1
         drivetrain.move(0,POWER, 0);
-        sleep(1100);
+        sleep(900);
         stopDrive();
+        drivetrain.move(0,0, -POWER);
+        sleep(550);
+        stopDrive();
+        drivetrain.move(0,-POWER, 0);
+        sleep(150);
+        stopDrive();
+        // drop the pixel
+        drivetrain.move(0,POWER, 0);
+        sleep(150);
+        stopDrive();
+        drivetrain.move(POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+        drivetrain.move(0,-POWER, 0);
+        sleep(4500); // guess #2
+        stopDrive();
+
+        // SPIKE 3
+        drivetrain.move(0,POWER, 0);
+        sleep(900);
+        stopDrive();
+        drivetrain.move(0,0, POWER);
+        sleep(600);
+        stopDrive();
+        drivetrain.move(0,-POWER, 0);
+        sleep(150);
+        stopDrive();
+        // drop the pixel
+        drivetrain.move(0,POWER, 0);
+        sleep(150);
+        stopDrive();
+        drivetrain.move(-POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+        drivetrain.move(0,-POWER, 0);
+        sleep(4500); // guess #2
+        stopDrive();
+
+        telemetry.addData("Run Time:", runtime);
+        telemetry.update();
     }
 
     public void stopDrive() {

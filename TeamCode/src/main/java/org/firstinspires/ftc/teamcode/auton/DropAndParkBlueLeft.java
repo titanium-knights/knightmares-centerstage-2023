@@ -36,70 +36,63 @@ public class DropAndParkBlueLeft extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        // SPIKE 2
+        drivetrain.move(0,POWER, 0);
+        sleep(1300); // guess #1
+        stopDrive();
+        // then drop pixel
+        drivetrain.move(POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+        drivetrain.move(-POWER, 0, 0);
+        sleep(1300); // guess #1
+        stopDrive();
+        drivetrain.move(POWER, 0, 0);
+        sleep(800);
+        stopDrive();
 
-        // BELOW IS RIGHT SPIKE
-        // move forward to spike marks
-        drivetrain.move(0,-POWER, 0);
+        // SPIKE 1
+        drivetrain.move(0,POWER, 0);
         sleep(900);
         stopDrive();
-        // turn to face right spike
         drivetrain.move(0,0, -POWER);
         sleep(550);
         stopDrive();
-        // move forward to right spike mark
         drivetrain.move(0,-POWER, 0);
         sleep(150);
         stopDrive();
-        //drop the pixel at the right spike
-        claw.setOne();
-        // move back from right spike mark to park
+        // drop the pixel
+        drivetrain.move(0,POWER, 0);
+        sleep(150);
+        stopDrive();
+        drivetrain.move(-POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+        drivetrain.move(0,-POWER, 0);
+        sleep(1600);
+        stopDrive();
+
+        // SPIKE 3
+        drivetrain.move(0,POWER, 0);
+        sleep(900);
+        stopDrive();
+        drivetrain.move(0,0, POWER);
+        sleep(600);
+        stopDrive();
+        drivetrain.move(0,-POWER, 0);
+        sleep(150);
+        stopDrive();
+        // drop the pixel
+        drivetrain.move(0,POWER, 0);
+        sleep(150);
+        stopDrive();
+        drivetrain.move(POWER, 0, 0);
+        sleep(800);
+        stopDrive();
         drivetrain.move(0,POWER, 0);
         sleep(1600);
         stopDrive();
 
-//        // BELOW IS LEFT SPIKE
-//        // move forward to spike marks
-//        drivetrain.move(0,-POWER, 0);
-//        sleep(985);
-//        stopDrive();
-//        // turn to face left spike
-//        drivetrain.move(0,0, POWER);
-//        sleep(600);
-//        stopDrive();
-//        // move forward to left spike mark
-//        drivetrain.move(0,-POWER, 0);
-//        sleep(250);
-//        stopDrive();
-//        //drop the pixel at the left spike
-//        claw.setOne();
-//        // move back from left spike mark
-//        drivetrain.move(0,POWER, 0);
-//        sleep(250);
-//        stopDrive();
-//        // strafe to the left
-//        drivetrain.move(-POWER,0, 0);
-//        sleep(1000);
-//        stopDrive();
-//        // move forward to park
-//        drivetrain.move(0,-POWER, 0);
-//        sleep(1600);
-//        stopDrive();
-
-//        // BELOW IS CENTER SPIKE
-//        //move forward to spike marks
-//        drivetrain.move(0,-POWER, 0);
-//        sleep(1100);
-//        stopDrive();
-//        //move back to the starting position
-//        drivetrain.move(0,POWER, 0);
-//        sleep(1100);
-//        stopDrive();
-//        //park in the backstage
-//        drivetrain.move(-POWER,0, 0);
-//        sleep(1600);
-//        stopDrive();
-
-        stopDrive();
         telemetry.addData("Run Time:", runtime);
         telemetry.update();
     }

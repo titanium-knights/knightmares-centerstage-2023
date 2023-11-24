@@ -32,19 +32,65 @@ public class DropAndParkRedRight extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        // forward to spike mark
-        drivetrain.move(0,-POWER, 0);
-        sleep(1000);
-        stopDrive();
-        claw.open();
-        //back up to starting position
+        // SPIKE 2
         drivetrain.move(0,POWER, 0);
-        sleep(1000);
+        sleep(1300); // guess #1
         stopDrive();
-        // move right into parking zone (in backstage)
-        drivetrain.move(POWER,0, 0);
+        // then drop pixel
+        drivetrain.move(-POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+        drivetrain.move(-POWER, 0, 0);
+        sleep(1300); // guess #1
+        stopDrive();
+        drivetrain.move(-POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+
+        // SPIKE 1
+        drivetrain.move(0,POWER, 0);
+        sleep(900);
+        stopDrive();
+        drivetrain.move(0,0, -POWER);
+        sleep(550);
+        stopDrive();
+        drivetrain.move(0,-POWER, 0);
+        sleep(150);
+        stopDrive();
+        // drop the pixel
+        drivetrain.move(0,POWER, 0);
+        sleep(150);
+        stopDrive();
+        drivetrain.move(-POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+        drivetrain.move(0,POWER, 0);
         sleep(1600);
         stopDrive();
+
+        // SPIKE 3
+        drivetrain.move(0,POWER, 0);
+        sleep(900);
+        stopDrive();
+        drivetrain.move(0,0, POWER);
+        sleep(600);
+        stopDrive();
+        drivetrain.move(0,-POWER, 0);
+        sleep(150);
+        stopDrive();
+        // drop the pixel
+        drivetrain.move(0,POWER, 0);
+        sleep(150);
+        stopDrive();
+        drivetrain.move(POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+        drivetrain.move(0,-POWER, 0);
+        sleep(1600);
+        stopDrive();
+
+        telemetry.addData("Run Time:", runtime);
+        telemetry.update();
     }
 
     public void stopDrive() {

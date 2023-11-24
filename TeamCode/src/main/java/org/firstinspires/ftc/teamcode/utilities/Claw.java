@@ -30,10 +30,11 @@ public class Claw {
     // only has two positions because servos only allow for two positions
     // TODO: check if the open and close is not reversed
     public void open() {
-        clawOpener.setPosition(0.2);
+        clawOpener.setPosition(0.3);
+        //clawOpener.getController().pwmDisable();
     }
     public void close() {
-        clawOpener.setPosition(0.8);
+        clawOpener.setPosition(0.9);
     }
 
     // gets position of the clawRotator initially in servo angle and then converts it to degrees, robot centric
