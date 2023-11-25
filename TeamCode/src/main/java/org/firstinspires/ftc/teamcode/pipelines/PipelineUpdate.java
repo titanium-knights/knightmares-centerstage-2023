@@ -8,6 +8,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 
+//TODO: maybe try doing BasicRedBlueDiff using YCrCb
 public class PipelineUpdate extends OpenCvPipeline {
     Mat YCrCb = new Mat();
     Mat Cr = new Mat();
@@ -18,7 +19,7 @@ public class PipelineUpdate extends OpenCvPipeline {
 
     static final int STREAM_WIDTH = 1280;
     static final int STREAM_HEIGHT = 720;
-    ArrayList<Mat> yCrCbChannels = new ArrayList<Mat>(3);
+    ArrayList<Mat> yCrCbChannels = new ArrayList<>(3);
     static final int WidthRectA = 130;
     static final int HeightRectA = 110;
 
@@ -29,7 +30,7 @@ public class PipelineUpdate extends OpenCvPipeline {
 
     void inputToY(Mat input) {
         Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
-        ArrayList<Mat> yCrCbChannels = new ArrayList<Mat>(3);
+        ArrayList<Mat> yCrCbChannels = new ArrayList<>(3);
         Core.split(YCrCb, yCrCbChannels);
         Cr = yCrCbChannels.get(1);
         Cb = yCrCbChannels.get(2);
