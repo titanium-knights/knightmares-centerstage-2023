@@ -7,8 +7,8 @@ import static java.lang.Double.min;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Lift {
-    DcMotor liftMotor;
+public class Arm {
+    DcMotor armMotor;
 
     public static double ENCODER_TICKS = 1425*3;
 
@@ -22,38 +22,35 @@ public class Lift {
     // angle of vertical arm from robot arm's minimum position
     public static double VERTICAL_ANGLE = 122;
 
-    public static double MAX_LIMIT = 360; // upper limit
+    public static double MAX_LIMIT = VERTICAL_ANGLE + 30; // upper limit
     public static double MIN_LIMIT = -5; // lower limit for manual lift
 
     // higher power lift going up vs going down cause power + gravity = more power
     public static double FULL_POWER = 0.95;
     public static double SLOW_POWER = 0.40;
 
-    //True = at drop zone, false = at pickup zone
-    boolean atDropZone;
 
-    public Lift(HardwareMap hmap) {
-        this.liftMotor = hmap.dcMotor.get(CONFIG.liftMotor);
-        this.atDropZone = true;
+    public Arm(HardwareMap hmap) {
+        this.armMotor = hmap.dcMotor.get(CONFIG.armMotor);
         setInit();
     }
 
     public void setInit() {
          // makes it so the motor is not loose
-        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        liftMotor.setZeroPowerBehavior(BRAKE);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor.setZeroPowerBehavior(BRAKE);
     }
 
     //completely stop lift
     public void stop() {
-        liftMotor.setPower(0);
-        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor.setPower(0);
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     // purpose: make sure you don't interrupt a preset
     public boolean isBusy() {
-        return liftMotor.isBusy();
+        return armMotor.isBusy();
     }
 
     // overload the other setPower to default slowmode to false
@@ -62,28 +59,25 @@ public class Lift {
      * @param dir: false = to pick up, true = to drop
      */
     public void setPower(boolean dir) {
-        //TODO: rename to slow_power and power because we're not actually using them for up/down
-        //double power = POWER_UP;
-        // if slowMode is on, use power down constant, else, use power up constant
         if (dir) {
             if (getPosition() < VERTICAL_ANGLE - 45) {
-                liftMotor.setPower(FULL_POWER);
+                armMotor.setPower(FULL_POWER);
             }
             else if (getPosition() >= VERTICAL_ANGLE - 45 && getPosition() < (VERTICAL_ANGLE + 30)) {
-                liftMotor.setPower(SLOW_POWER);
+                armMotor.setPower(SLOW_POWER);
             }
             else {
-                liftMotor.setPower(0);
+                armMotor.setPower(0);
             }
 
         }
         else {
 
             if (getPosition() > VERTICAL_ANGLE - 40) {
-                liftMotor.setPower(-SLOW_POWER);
+                armMotor.setPower(-SLOW_POWER);
             }
             else {
-                liftMotor.setPower(-SLOW_POWER);
+                armMotor.setPower(-SLOW_POWER);
             }
 
         }
@@ -92,10 +86,9 @@ public class Lift {
     // Returns lift position in degrees, robot centric (minimum is 0)
     public double getPosition(){
         // Initially gets back position in terms of encoder ticks, which converts to degrees
-        return (360* ((double) liftMotor.getCurrentPosition())/ENCODER_TICKS);
+        return (360* ((double) armMotor.getCurrentPosition())/ENCODER_TICKS);
 
     }
-
 
     public boolean runToPosition(double angle) {
         // takes the angle we want it to go to and makes sure the angle is within range
@@ -106,8 +99,8 @@ public class Lift {
         if (orig != angle) return false;
 
         // converts angle into encoder ticks and then runs to position
-        liftMotor.setTargetPosition((int) (ENCODER_TICKS *angle/360));
-        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setTargetPosition((int) (ENCODER_TICKS *angle/360));
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         // with run to position always positive power (setPower will be the one determining direction)
         // run to position is always in presets or else it'll be jittery
         setPower(true);
@@ -115,30 +108,27 @@ public class Lift {
         return true; // to confirm that it runs
     }
 
-    public boolean toScan(){
-        return runToPosition(45);
-    }
+    public boolean toNeutral(){
+        return runToPosition(25);
+    } //preset to wait until pixels taken in
 
     public boolean toPickUp(){ // preset for picking up pixels
         return runToPosition(0);
     }
 
     public boolean toDrop(){ // preset for dropping pixels
-        // final double x = VERTICAL_ANGLE + 30;
-        final double x = MAX_LIMIT; // daniel told me to switch it to max value
+        final double x = MAX_LIMIT;
+
         return runToPosition(x);
     }
 
     public void toBackBoard(){ // manual drop
-        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        //if (checkLimits()) return; // wont turn if its at the limit
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setPower(true);
     }
 
     public void toRobot(){ // manual pick up
-        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //if (checkLimits()) return;
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setPower(false);
     }
 }

@@ -21,7 +21,7 @@ public class CONFIG {
 
 
     //move arm up and down
-    public static String liftMotor = "lift"; //exp 2
+    public static String armMotor = "arm"; //exp 2
 
     public static String colorSensor = "color"; //ch 0
 

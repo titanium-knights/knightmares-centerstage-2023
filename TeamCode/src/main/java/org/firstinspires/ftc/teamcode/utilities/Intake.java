@@ -8,12 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
-    DcMoter intakeMotor;
+    DcMotor intakeMotor;
 
     public static double POWER = 0.95;
+    public static double REVERSE_POWER = -0.30;
 
     public Intake(HardwareMap hmap) {
-        this.intakeMotor = hmap.dcMotor.get(CONFIG.liftMotor);
+        this.intakeMotor = hmap.dcMotor.get(CONFIG.intake);
         setInit();
     }
 
@@ -26,5 +27,13 @@ public class Intake {
 
     public void runIntake() {
         intakeMotor.setPower(POWER);
+    }
+
+    public void runReverse(){
+        intakeMotor.setPower(REVERSE_POWER);
+    }
+
+    public void stop(){
+        intakeMotor.setPower(0);
     }
 }

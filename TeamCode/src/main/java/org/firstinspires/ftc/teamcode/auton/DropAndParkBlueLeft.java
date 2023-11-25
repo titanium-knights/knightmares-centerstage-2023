@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
-import org.firstinspires.ftc.teamcode.utilities.Lift;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 

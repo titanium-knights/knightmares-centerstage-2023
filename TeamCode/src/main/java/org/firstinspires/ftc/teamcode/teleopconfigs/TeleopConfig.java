@@ -17,15 +17,18 @@ public class TeleopConfig {
     public boolean clawRotatorPick;
     public boolean pullupUpManual;
     public boolean pullupDownManual;
-    public float armUp;
-    public float armDown;
-    public boolean armUpPreset;
-    public boolean armDownPreset;
+    public float armUpManual;
+    public float armDownManual;
+    public float armUpPreset;
+    public float armDownPreset;
     public boolean pullupUp;
     public boolean pullupDown;
     public boolean updateTelemetry;
     public boolean planeLaunch;
     public boolean planeRelease;
+    public boolean intakeForward;
+    public boolean intakeReverse;
+    public boolean intakeStop;
 
     public TeleopConfig(Gamepad gamepad1, Gamepad gamepad2) {
         this.gamepad1 = gamepad1;
@@ -37,22 +40,17 @@ public class TeleopConfig {
         x_movement = this.gamepad1.left_stick_x;
         y_movement = this.gamepad1.left_stick_y;
         turn = this.gamepad1.right_stick_x;
-        clawOpen = this.gamepad1.left_bumper || this.gamepad2.left_bumper;
-        clawClose = this.gamepad1.right_bumper || this.gamepad2.right_bumper;
-        clawRotatorScore = this.gamepad1.b;
-        clawRotatorPick = this.gamepad1.a;
-        pullupUpManual = this.gamepad1.dpad_left;
-        pullupDownManual = this.gamepad1.dpad_right;
-        armUp = this.gamepad1.left_trigger;
-        armDown = this.gamepad1.right_trigger;
-        // TODO: fix lift preset
-        //armUpPreset = this.gamepad2.b;
-        //armDownPreset = this.gamepad1.a;
-        pullupUp = this.gamepad1.y;
-        pullupDown = this.gamepad1.x;
+        clawClose = this.gamepad1.left_bumper || this.gamepad2.left_bumper;
+        clawOpen = this.gamepad1.right_bumper || this.gamepad2.right_bumper;
+        pullupUpManual = this.gamepad1.dpad_up;
+        pullupDownManual = this.gamepad1.dpad_down;
+        armUpPreset = this.gamepad1.right_trigger;
+        armDownPreset = this.gamepad1.left_trigger;
         updateTelemetry = this.gamepad1.back;
-        planeLaunch = this.gamepad1.dpad_up;
-        planeRelease = this.gamepad1.dpad_down;
+        planeRelease = this.gamepad1.x;
+        intakeForward = this.gamepad1.dpad_right;
+        intakeReverse = this.gamepad1.dpad_left;
+        intakeStop = this.gamepad1.a;
     }
 
 

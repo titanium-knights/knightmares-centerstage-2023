@@ -1,19 +1,13 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import android.media.Image;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.teleopconfigs.resetconfig;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
-import org.firstinspires.ftc.teamcode.utilities.Lift;
+import org.firstinspires.ftc.teamcode.utilities.Arm;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
-
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp(name="Calibration/Reset Teleop")
 public class ResetTeleop extends OpMode {
@@ -22,7 +16,7 @@ public class ResetTeleop extends OpMode {
 
     MecanumDrive drive;
     Claw claw;
-    Lift lift;
+    Arm lift;
     PullUp pullup;
     PlaneLauncher plane;
 
@@ -31,7 +25,7 @@ public class ResetTeleop extends OpMode {
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
         this.claw = new Claw(hardwareMap);
-        this.lift = new Lift(hardwareMap);
+        this.lift = new Arm(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
     }
@@ -93,6 +87,10 @@ public class ResetTeleop extends OpMode {
             telemetry.addData("BusyLeft", pullup.isBusy1());
             telemetry.addData("BusyRight", pullup.isBusy2());
             telemetry.update();
+        }
+
+        if (gamepad1.a){
+
         }
 
 
