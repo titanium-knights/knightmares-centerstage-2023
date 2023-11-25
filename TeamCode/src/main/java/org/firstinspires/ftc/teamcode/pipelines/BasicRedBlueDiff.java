@@ -10,23 +10,21 @@ import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 
 public class BasicRedBlueDiff extends OpenCvPipeline {
 
     private final Telemetry telemetry;
 
     //tentative RGB values for RED and BLUE
-    public static Scalar RED = new Scalar(255, 0, 0);
-    public static Scalar BLUE = new Scalar(0, 0, 255);
+    public static Scalar RED_HIGH = new Scalar(255, 0, 0);
+    public static Scalar BLUE_HIGH = new Scalar(0, 0, 255);
+    public static Scalar RED_LOW = new Scalar(200, 0, 0);
+    public static Scalar BLUE_LOW = new Scalar(0, 0, 200);
 
-    // store the color we're looking for (i.e. team color) and its index in the channels array
-    private final Scalar color;
-    public static int colorNum;
+    // store the color we're looking for (i.e. team color) as its index in the channels array
+    public int colorNum;
 
     // top left and bottom right points for the three rectangles we will crop into
-    // will be defined in init()
     ArrayList<Point> rect_points = new ArrayList<>();
 
     // the three places we might end up
@@ -37,60 +35,24 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
     // the location we actually want to go to
     public volatile Locations location = Locations.ONE;
 
-    // working variables for the 3 sections and the colored channel extraction
+    // for the 3 sections
     private final Mat[] croppedSections = new Mat[3];
-    private final Mat colored = new Mat();
-
 
     //instantiate the object with telemetry and a color, which defaults to RED
+    // this is the constructor that will be used by easy openCV sim
     public BasicRedBlueDiff(Telemetry telemetry) {
-        this(telemetry, "red");
+        this(telemetry, "blue");
     }
 
     public BasicRedBlueDiff(Telemetry telemetry, String color) {
         this.telemetry = telemetry;
 
-        if (color.equalsIgnoreCase("red")) this.color = RED;
-        else if (color.equalsIgnoreCase("blue")) this.color = BLUE;
+        if (color.equalsIgnoreCase("red")) this.colorNum = 0;
+        else if (color.equalsIgnoreCase("blue")) this.colorNum = 2;
         else {
-            this.color = RED;
+            this.colorNum = 0;
             telemetry.addLine("Invalid color, defaulting to red");
         }
-
-        // store which RGB channel we're looking at
-        colorNum = (this.color.equals(RED)) ? 0 : 2;
-    }
-
-    /**
-     * @return likelihood that the given section is the team color
-     */
-    private int processSection(Mat input) {
-        final int MARGIN = 70;
-
-        // loop over croppedSection in bigger chunks (not single px)
-        // if average redness/blueness is above a margin, return the red/blue value
-        // otherwise, return 0
-
-        int colorSum = 0;
-        int count = 0;
-        for (int x = 0; x < input.rows()-10; x += 10) {
-            for (int y = 0; y < input.cols()-10; y += 10) {
-                ++count;
-                double sum = 0;
-                for (int i=0;i<10;i++) {
-                    for (int j=0;j<10;j++) {
-                        double s = input.get(x + i, y + j)[0];
-                        if (s > MARGIN) sum += s;
-                    }
-                }
-                if (sum > MARGIN) colorSum += sum;
-            }
-        }
-
-        // avoid divide by zero
-        if (count == 0) return 0;
-
-        return colorSum/count;
     }
 
     public Locations getLocation() {
@@ -100,43 +62,37 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
 
     @Override
     public Mat processFrame(Mat input) {
-        int max = -1;
-        int maxindex = -1;
+        int maxIndex = 0;
+        double[] scores = new double[3];
 
-        //map croppedSections to color values and then to an array
-        int[] colorValues = Arrays.stream(croppedSections)
-            .map(this::processSection)
-            .mapToInt(Integer::intValue)
-            .toArray();
-
-        for (int i=0;i<colorValues.length;i++) {
-            telemetry.addData("Color " + i, colorValues[i]);
-            telemetry.update();
-
-            if (colorValues[i] > max) {
-                max = colorValues[i];
-                location = Locations.values()[i];
-                maxindex = i;
-            }
+        for (int i=0;i<croppedSections.length;i++) {
+            Mat section = croppedSections[i];
+            double[] avg = Core.mean(section).val;
+            int want = (int) avg[colorNum];
+            int unWanted = (int) ((avg[getOppColor()]/2 + avg[1])/1.5);
+            scores[i] = want - unWanted;
         }
 
-        // draw a rectangle around the section with the highest color value
+        for (int i=0;i<scores.length;i++) {
+            if (scores[i] > scores[maxIndex]) maxIndex = i;
+        }
+
+        location = Locations.values()[maxIndex];
+        telemetry.addData("Chose position: ", maxIndex);
+
         final int THICKNESS = 7;
-        if (maxindex > -1) {
-            Imgproc.rectangle(
-                    input,
-                    rect_points.get(maxindex * 2),
-                    rect_points.get(2 * maxindex + 1),
-                    new Scalar(125, 182, 73),
-                    THICKNESS);
-        }
+        Imgproc.rectangle(
+                input,
+                rect_points.get(maxIndex * 2),
+                rect_points.get(2 * maxIndex + 1),
+                new Scalar(135, 23, 113),
+                THICKNESS);
 
         return input;
     }
 
     @Override
     public void init(Mat input) {
-
         // Rectangle coordinates (upper left [A] and bottom right [B]) for the three cropped sections
         //this code just currently splits into three equal sections
         rect_points.add(new Point(0, 0));
@@ -146,15 +102,28 @@ public class BasicRedBlueDiff extends OpenCvPipeline {
         rect_points.add(new Point(2*input.cols()/3.0, 0));
         rect_points.add(new Point(input.cols(), input.rows()));
 
-        Core.extractChannel(input, colored, colorNum);
-
         // initialize the three cropped sections
         for (int i = 0; i < rect_points.size(); i += 2) {
             Point A = rect_points.get(i);
             Point B = rect_points.get(i + 1);
 
-            croppedSections[i/2] = colored.submat(new Rect(A, B));
+            croppedSections[i/2] = input.submat(new Rect(A, B));
         }
-        colored.release();
+    }
+
+    /**
+     * @deprecated older version of the code referenced this, may use again do not delete
+     */
+    public Scalar[] getColorRange(int channelNum) {
+        if (channelNum == 0) return new Scalar[] {RED_LOW, RED_HIGH};
+        else if (channelNum == 2) return new Scalar[] {BLUE_LOW, BLUE_HIGH};
+        else return new Scalar[] {new Scalar(0, 0, 0), new Scalar(0, 0, 0)};
+    }
+
+    /**
+     * me when im tired of retyping this ternary statement over and over again
+     * */
+    public int getOppColor() {
+        return colorNum == 0 ? 2 : 0;
     }
 }
