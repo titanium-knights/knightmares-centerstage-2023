@@ -37,6 +37,11 @@ public class Teleop extends OpMode {
     //whether or not a preset is currently running
     boolean state = false;
 
+    //Prevents irreversible things such as pullup and plane launcher from running before this button is pressed
+    boolean validate = false;
+    //makes validate button have to be pressed for a while before features enabled
+    int validatecount = 0;
+
     //runs once, setup function
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
@@ -54,6 +59,9 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
         config.check();
+
+        if (config.validate) {++validatecount;}
+        if (validatecount > 5) {validate = true;}
         //slow mode toggle
         if (config.slowMode) {slowMode = !slowMode;}
 
@@ -95,12 +103,12 @@ public class Teleop extends OpMode {
         }
 
         // pullUp manual
-        if (config.pullupUpManual) { //dpad up
+        if (config.pullupUpManual && validate) { //dpad up
             pullup.manualRightUp();
             pullup.manualLeftUp();
             telemetry.addData("pullup Manual Up", pullup.getPosition()[0]);
             telemetry.update();
-        } else if (config.pullupDownManual) { //dpad down
+        } else if (config.pullupDownManual && validate) { //dpad down
             pullup.manualRightDown();
             pullup.manualLeftDown();
             telemetry.addData("pullup Manual Down", pullup.getPosition()[0]);
@@ -112,7 +120,7 @@ public class Teleop extends OpMode {
             pullup.stopLeft();
         }
 
-        if (config.planeRelease) { //X
+        if (config.planeRelease && validate) { //X
             plane.reset();
             telemetry.addData("pos: ", plane.getPosition());
             telemetry.update();

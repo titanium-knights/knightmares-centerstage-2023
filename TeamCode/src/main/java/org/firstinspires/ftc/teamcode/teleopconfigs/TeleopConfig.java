@@ -29,6 +29,7 @@ public class TeleopConfig {
     public boolean intakeForward;
     public boolean intakeReverse;
     public boolean intakeStop;
+    public boolean validate; //prevents plane and pullup
 
     public TeleopConfig(Gamepad gamepad1, Gamepad gamepad2) {
         this.gamepad1 = gamepad1;
@@ -36,7 +37,7 @@ public class TeleopConfig {
     }
 
     public void check() {
-        slowMode = this.gamepad1.start || this.gamepad2.start;
+        slowMode = this.gamepad1.b || this.gamepad2.b;
         x_movement = this.gamepad1.left_stick_x;
         y_movement = this.gamepad1.left_stick_y;
         turn = this.gamepad1.right_stick_x;
@@ -48,6 +49,7 @@ public class TeleopConfig {
         armDownPreset = this.gamepad1.left_trigger;
         updateTelemetry = this.gamepad1.back;
         planeRelease = this.gamepad1.x;
+        validate = this.gamepad1.y;
         intakeForward = this.gamepad1.dpad_right;
         intakeReverse = this.gamepad1.dpad_left;
         intakeStop = this.gamepad1.a;
