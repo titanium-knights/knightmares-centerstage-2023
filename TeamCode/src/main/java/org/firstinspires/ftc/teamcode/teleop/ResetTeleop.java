@@ -89,8 +89,11 @@ public class ResetTeleop extends OpMode {
             telemetry.update();
         }
 
-        if (gamepad1.a){
-
+        if (gamepad1.x){
+            plane.set();
+        }
+        if(gamepad1.y){
+            plane.reset();
         }
 
 
