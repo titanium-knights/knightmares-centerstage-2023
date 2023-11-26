@@ -69,30 +69,30 @@ public class Teleop extends OpMode {
         float x = config.x_movement;
         float y = config.y_movement;
         float turn = config.turn;
-        move(x, y, turn, slowMode);
+        move(-x, y, turn, slowMode);
 
         //ARM
         if (config.armUpPreset > STICK_MARGIN) { //Right Trigger
             arm.toDrop();
-            //TODO: FIX THIS VALUE
-            claw.setPosition(0.6); // CLAW_ANGLE_DROP (180-VERTICAL_ANGLE)
+            claw.setDrop(); // CLAW_ANGLE_DROP (180-VERTICAL_ANGLE)
             telemetry.addLine("Arm to drop preset");
             telemetry.update();
 
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
             arm.toNeutral();
-            claw.setPosition(0); // CLAW_ANGLE_PICKUP (VERTICAL_ANGLE)
+            claw.setPick(); // CLAW_ANGLE_PICKUP (VERTICAL_ANGLE)
             telemetry.addLine("Arm to pickup preset");
             telemetry.update();
 
             state = true;
         }
 
+        // CLAW
         if(config.clawClose){//Left Bumper
             //Lower Arm and Close Claw
             arm.toPickUp();
-            while (arm.isBusy());
+            while (arm.isBusy()); // wait
             claw.close();
         } else if (config.clawOpen){//right bumper
             claw.open();
@@ -118,12 +118,11 @@ public class Teleop extends OpMode {
 
         } else if (!pullup.isBusy1()) {
             pullup.stopRight();
-        } else if (!pullup.isBusy2()) {
             pullup.stopLeft();
         }
 
         if (config.planeRelease && validate) { //X
-            plane.reset();
+            plane.set();
             telemetry.addData("pos: ", plane.getPosition());
             telemetry.update();
         }

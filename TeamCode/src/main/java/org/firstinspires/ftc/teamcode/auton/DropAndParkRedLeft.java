@@ -44,12 +44,13 @@ public class DropAndParkRedLeft extends LinearOpMode {
                 drivetrain.move(0,0, -POWER);
                 sleep(550);
                 stopDrive();
-                drivetrain.move(0,-POWER, 0);
+                drivetrain.move(0,POWER, 0);
                 sleep(150);
                 stopDrive();
                 intake.runReverse();
                 sleep(500);
-                drivetrain.move(0,POWER, 0);
+                intake.stop();
+                drivetrain.move(0,-POWER, 0);
                 sleep(150);
                 stopDrive();
                 drivetrain.move(POWER, 0, 0);
@@ -59,19 +60,7 @@ public class DropAndParkRedLeft extends LinearOpMode {
                 sleep(4500); // guess #2
                 stopDrive();
                 break;
-            case 2:
-                // SPIKE 2
-                drivetrain.move(0,-POWER, 0);
-                sleep(1300); // guess #1
-                stopDrive();
-                intake.runReverse();
-                sleep(500);
-                drivetrain.move(-POWER,0, 0);
-                sleep(4200);
-                stopDrive();
-                break;
             case 3:
-            default:
                 // SPIKE 3
                 drivetrain.move(0,POWER, 0);
                 sleep(900);
@@ -84,6 +73,7 @@ public class DropAndParkRedLeft extends LinearOpMode {
                 stopDrive();
                 intake.runReverse();
                 sleep(500);
+                intake.stop();
                 drivetrain.move(0,POWER, 0);
                 sleep(150);
                 stopDrive();
@@ -94,6 +84,20 @@ public class DropAndParkRedLeft extends LinearOpMode {
                 sleep(4500); // guess #2
                 stopDrive();
                 break;
+            case 2:
+            default:
+                // SPIKE 2
+                drivetrain.move(0,POWER, 0);
+                sleep(1300); // guess #1
+                stopDrive();
+                intake.runReverse();
+                sleep(500);
+                intake.stop();
+                drivetrain.move(-POWER,0, 0);
+                sleep(4200);
+                stopDrive();
+                break;
+
         }
 
         telemetry.addData("Run Time:", runtime);
