@@ -83,7 +83,7 @@ public class PullUp {
     // pullUpMotor1 and 2 are reversed. If you want it to go up, power will be negative. If you want it to go down, power will be positive.
     public void manualRightDown(){
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pullUpMotor2.setPower(-0.8);
+        pullUpMotor2.setPower(-1);
     }
 
     public void manualRightUp(){
@@ -98,7 +98,7 @@ public class PullUp {
 
     public void manualLeftDown(){
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pullUpMotor1.setPower(-0.8);
+        pullUpMotor1.setPower(-1);
     }
 
     public void stopLeft(){

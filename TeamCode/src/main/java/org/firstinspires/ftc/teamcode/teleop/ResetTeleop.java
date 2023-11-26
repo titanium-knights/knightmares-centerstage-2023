@@ -47,13 +47,15 @@ public class ResetTeleop extends OpMode {
         }
 
         // claw rotate
-        if (gamepad1.y) {
-            claw.setZero();
-            telemetry.addData("Rotate 0", claw.getPosition());
-        } else if (gamepad1.b) {
-            claw.setOne();
-            telemetry.addData("Rotate 1", claw.getPosition())                                                  ;
-        }
+//        if (gamepad1.y) {
+//            claw.setZero();
+//            telemetry.addData("Rotate 0", claw.getPosition());
+//
+//        }
+//        } else if (gamepad1.b) {
+//            claw.setOne();
+//            telemetry.addData("Rotate 1", claw.getPosition())                                                  ;
+//        }
 
         if (gamepad1.left_bumper){
             pullup.liftUp();
@@ -80,14 +82,14 @@ public class ResetTeleop extends OpMode {
             pullup.stopRight();
         }
 
-        if (gamepad1.b){
-            telemetry.clear();
-            telemetry.addData("positionLeft", pullup.getPosition()[0]);
-            telemetry.addData("positionRight", pullup.getPosition()[1]);
-            telemetry.addData("BusyLeft", pullup.isBusy1());
-            telemetry.addData("BusyRight", pullup.isBusy2());
-            telemetry.update();
-        }
+//        if (gamepad1.b){
+//            telemetry.clear();
+//            telemetry.addData("positionLeft", pullup.getPosition()[0]);
+//            telemetry.addData("positionRight", pullup.getPosition()[1]);
+//            telemetry.addData("BusyLeft", pullup.isBusy1());
+//            telemetry.addData("BusyRight", pullup.isBusy2());
+//            telemetry.update();
+//        }
 
         if (gamepad1.x){
             plane.set();
