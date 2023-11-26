@@ -98,9 +98,11 @@ public class Teleop extends OpMode {
             claw.open();
         }
 
-        if (!arm.isBusy()) {
-            state = false;
-        }
+//        if (!arm.isBusy()) {
+//            state = false;
+//            telemetry.addData("stopped", arm.getPosition());
+//            telemetry.update();
+//        }
 
         // pullUp manual
         if (config.pullupUpManual && validate) { //dpad up

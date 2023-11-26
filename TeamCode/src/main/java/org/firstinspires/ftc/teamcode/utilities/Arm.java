@@ -94,22 +94,18 @@ public class Arm {
         // takes the angle we want it to go to and makes sure the angle is within range
         // just in case wrong input
         double orig = angle;
-        angle = min(angle, MAX_LIMIT);
-        angle = max(angle, MIN_LIMIT);
-        if (orig != angle) return false;
-
         // converts angle into encoder ticks and then runs to position
         armMotor.setTargetPosition((int) (ENCODER_TICKS *angle/360));
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         // with run to position always positive power (setPower will be the one determining direction)
         // run to position is always in presets or else it'll be jittery
-        setPower(true);
+        armMotor.setPower(-0.7);
 
         return true; // to confirm that it runs
     }
 
     public boolean toNeutral(){
-        return runToPosition(25);
+        return runToPosition(-25);
     } //preset to wait until pixels taken in
 
     public boolean toPickUp(){ // preset for picking up pixels
@@ -119,7 +115,7 @@ public class Arm {
     public boolean toDrop(){ // preset for dropping pixels
         final double x = MAX_LIMIT;
 
-        return runToPosition(x);
+        return runToPosition(-x);
     }
 
     public void toBackBoard(){ // manual drop

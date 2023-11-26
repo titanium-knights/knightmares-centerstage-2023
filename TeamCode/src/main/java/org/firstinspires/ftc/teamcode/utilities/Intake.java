@@ -19,8 +19,6 @@ public class Intake {
     }
 
     public void setInit() {
-        // makes it so the motor is not loose
-        intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor.setZeroPowerBehavior(BRAKE);
     }
