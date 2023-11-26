@@ -47,6 +47,7 @@ public class DropAndParkRedRight extends LinearOpMode {
                 sleep(150);
                 stopDrive();
                 intake.runReverse();
+                sleep(500);
                 drivetrain.move(0,POWER, 0);
                 sleep(150);
                 stopDrive();
@@ -63,6 +64,7 @@ public class DropAndParkRedRight extends LinearOpMode {
                 sleep(1300); // guess #1
                 stopDrive();
                 intake.runReverse();
+                sleep(500);
                 drivetrain.move(-POWER, 0, 0);
                 sleep(800);
                 stopDrive();
@@ -86,6 +88,7 @@ public class DropAndParkRedRight extends LinearOpMode {
                 sleep(150);
                 stopDrive();
                 intake.runReverse();
+                sleep(500);
                 drivetrain.move(0,POWER, 0);
                 sleep(150);
                 stopDrive();
