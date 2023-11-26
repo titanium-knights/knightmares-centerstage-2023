@@ -24,16 +24,16 @@ public class BlueBrokenIgnorableOpMode extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        drivetrain.move(-POWER, POWER, 0);
+        drivetrain.move(-POWER, -POWER, 0);
 
         telemetry.addLine("I think I should have moved");
         telemetry.update();
 
-        sleep(1800);
+        sleep(1200);
 
-        drivetrain.move(-POWER, -POWER, 0);
+        drivetrain.move(POWER, -POWER, 0);
 
-        sleep(2000);
+        sleep(300);
         telemetry.addLine("moved more");
         telemetry.update();
 
