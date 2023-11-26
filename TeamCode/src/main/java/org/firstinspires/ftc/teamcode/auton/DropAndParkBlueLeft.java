@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
+import org.firstinspires.ftc.teamcode.utilities.Intake;
 
 @Autonomous(name="BlueLeft-DropPark", group="Linear OpMode")
 @Config
@@ -28,9 +29,7 @@ public class DropAndParkBlueLeft extends LinearOpMode {
         ElapsedTime runtime = new ElapsedTime();
         Claw claw = new Claw(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
-        plane.set();
-        // rotate claw down to keep pixel in place
-        claw.setZero();
+        Intake intake = new Intake(hardwareMap);
         //drivetrain.move() -y is forward, +x is right, +turn is counterclockwise robot centric
         drivetrain = new MecanumDrive(hardwareMap);
 
@@ -50,7 +49,7 @@ public class DropAndParkBlueLeft extends LinearOpMode {
                 drivetrain.move(0,-POWER, 0);
                 sleep(150);
                 stopDrive();
-                // drop the pixel
+                intake.runReverse();
                 drivetrain.move(0,POWER, 0);
                 sleep(150);
                 stopDrive();
@@ -72,7 +71,7 @@ public class DropAndParkBlueLeft extends LinearOpMode {
                 drivetrain.move(0,-POWER, 0);
                 sleep(150);
                 stopDrive();
-                // drop the pixel
+                intake.runReverse();
                 drivetrain.move(0,POWER, 0);
                 sleep(150);
                 stopDrive();
@@ -89,7 +88,7 @@ public class DropAndParkBlueLeft extends LinearOpMode {
                 drivetrain.move(0,POWER, 0);
                 sleep(1300); // guess #1
                 stopDrive();
-                // then drop pixel
+                intake.runReverse();
                 drivetrain.move(POWER, 0, 0);
                 sleep(800);
                 stopDrive();
