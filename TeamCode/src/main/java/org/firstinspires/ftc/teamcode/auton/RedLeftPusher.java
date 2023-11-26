@@ -9,9 +9,9 @@ import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 
-@Autonomous(name="BlueRightBrokenPushbot", group="Linear OpMode")
+@Autonomous(name="RedLeftBrokenPushBot", group="Linear OpMode")
 @Config
-public class BlueRightPusher extends LinearOpMode {
+public class RedLeftPusher extends LinearOpMode {
 
     MecanumDrive drivetrain;
     public static int forward_time = 925;
@@ -39,9 +39,9 @@ public class BlueRightPusher extends LinearOpMode {
         sleep(600);
         intake.stop();
         drivetrain.move(0, POWER, 0);
-        sleep(200);
+        sleep(250);
         stopDrive();
-        drivetrain.move(-POWER, 0, 0);
+        drivetrain.move(POWER, 0, 0);
         sleep(strafe_time);
         stopDrive();
 

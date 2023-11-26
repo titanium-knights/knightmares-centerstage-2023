@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 
 //Blue Left Side
-@Autonomous(name="MudasirCantCodeBlueLeft", group="Linear OpMode")
+@Autonomous(name="JustParkBlueLeft", group="Linear OpMode")
 @Config
 public class BlueBrokenIgnorableOpMode extends LinearOpMode {
 
