@@ -22,7 +22,7 @@ public class DropAndParkBlueRight extends LinearOpMode {
         telemetry.addData("Initialized: ", "Hopefully");
         telemetry.update();
 
-        InitialVision vision = new InitialVision(hardwareMap, telemetry);
+        InitialVision vision = new InitialVision(hardwareMap, telemetry, "blue");
         ElapsedTime runtime = new ElapsedTime();
         Claw claw = new Claw(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
