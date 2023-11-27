@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.auton.pushbot;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 
-@Autonomous(name="BlueRightBrokenPushbot", group="Linear OpMode")
+@Autonomous(name="JustParkBlueRight", group="Linear OpMode")
 @Config
 public class BlueRightPusher extends LinearOpMode {
 

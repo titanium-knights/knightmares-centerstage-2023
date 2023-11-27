@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.auton.pushbot;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 //Red Right Side
 @Autonomous(name="JustParkRedRight", group="Linear OpMode")
 @Config
-public class BrokenIgnorableOpMode extends LinearOpMode {
+public class RedRightPusher extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
