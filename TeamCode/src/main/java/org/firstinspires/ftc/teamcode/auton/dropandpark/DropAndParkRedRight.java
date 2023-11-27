@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.auton.dropandpark;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -11,9 +11,9 @@ import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 
-@Autonomous(name="BlueRight-DropPark", group="Linear OpMode")
+@Autonomous(name="RedRight-DropPark", group="Linear OpMode")
 @Config
-public class DropAndParkBlueRight extends LinearOpMode {
+public class DropAndParkRedRight extends LinearOpMode {
     MecanumDrive drivetrain;
     final double POWER = 0.6;
 
@@ -22,7 +22,7 @@ public class DropAndParkBlueRight extends LinearOpMode {
         telemetry.addData("Initialized: ", "Hopefully");
         telemetry.update();
 
-        InitialVision vision = new InitialVision(hardwareMap, telemetry, "blue");
+        InitialVision vision = new InitialVision(hardwareMap, telemetry);
         ElapsedTime runtime = new ElapsedTime();
         Claw claw = new Claw(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
@@ -35,65 +35,68 @@ public class DropAndParkBlueRight extends LinearOpMode {
         int pos = vision.getPosition();
 
         switch (pos) {
-            case 2:
-                // SPIKE 2
-                drivetrain.move(0, POWER, 0);
-                sleep(1300); // guess #1
-                stopDrive();
-                intake.runReverse();
-                sleep(500);
-                intake.stop();
-                drivetrain.move(POWER, 0, 0);
-                sleep(4200);
-                stopDrive();
-                break;
             case 1:
                 // SPIKE 1
-                drivetrain.move(0, POWER, 0);
+                drivetrain.move(0,POWER, 0);
                 sleep(900);
                 stopDrive();
-                drivetrain.move(0, 0, -POWER);
+                drivetrain.move(0,0, -POWER);
                 sleep(550);
                 stopDrive();
-                drivetrain.move(0, -POWER, 0);
+                drivetrain.move(0,-POWER, 0);
                 sleep(150);
                 stopDrive();
                 intake.runReverse();
                 sleep(500);
-                intake.stop();
-                drivetrain.move(0, POWER, 0);
-                sleep(150);
-                stopDrive();
-                drivetrain.move(POWER, 0, 0);
-                sleep(800);
-                stopDrive();
-                drivetrain.move(0, -POWER, 0);
-                sleep(4500); // guess #2
-                stopDrive();
-                break;
-            case 3:
-            default:
-                // SPIKE 3
-                drivetrain.move(0, POWER, 0);
-                sleep(900);
-                stopDrive();
-                drivetrain.move(0, 0, POWER);
-                sleep(600);
-                stopDrive();
-                drivetrain.move(0, -POWER, 0);
-                sleep(150);
-                stopDrive();
-                intake.runReverse();
-                sleep(500);
-                intake.stop();
-                drivetrain.move(0, POWER, 0);
+                drivetrain.move(0,POWER, 0);
                 sleep(150);
                 stopDrive();
                 drivetrain.move(-POWER, 0, 0);
                 sleep(800);
                 stopDrive();
-                drivetrain.move(0, -POWER, 0);
-                sleep(4500); // guess #2
+                drivetrain.move(0,POWER, 0);
+                sleep(1600);
+                stopDrive();
+                break;
+            case 2:
+                // SPIKE 2
+                drivetrain.move(0,POWER, 0);
+                sleep(1300); // guess #1
+                stopDrive();
+                intake.runReverse();
+                sleep(500);
+                drivetrain.move(-POWER, 0, 0);
+                sleep(800);
+                stopDrive();
+                drivetrain.move(-POWER, 0, 0);
+                sleep(1300); // guess #1
+                stopDrive();
+                drivetrain.move(-POWER, 0, 0);
+                sleep(800);
+                stopDrive();
+                break;
+            case 3:
+            default:
+                // SPIKE 3
+                drivetrain.move(0,POWER, 0);
+                sleep(900);
+                stopDrive();
+                drivetrain.move(0,0, POWER);
+                sleep(600);
+                stopDrive();
+                drivetrain.move(0,-POWER, 0);
+                sleep(150);
+                stopDrive();
+                intake.runReverse();
+                sleep(500);
+                drivetrain.move(0,POWER, 0);
+                sleep(150);
+                stopDrive();
+                drivetrain.move(POWER, 0, 0);
+                sleep(800);
+                stopDrive();
+                drivetrain.move(0,-POWER, 0);
+                sleep(1600);
                 stopDrive();
                 break;
         }
