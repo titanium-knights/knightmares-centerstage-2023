@@ -51,6 +51,7 @@ public class Teleop extends OpMode {
         this.plane = new PlaneLauncher(hardwareMap);
         this.intake = new Intake(hardwareMap);
         this.config = new TeleopConfig(gamepad1, gamepad2);
+        plane.reset();
 
         telemetry.setAutoClear(false);
         telemetry.update();
@@ -59,6 +60,7 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
         config.check();
+
 
         if (config.validate) {++validatecount;}
         if (validatecount > 5) {validate = true;}
