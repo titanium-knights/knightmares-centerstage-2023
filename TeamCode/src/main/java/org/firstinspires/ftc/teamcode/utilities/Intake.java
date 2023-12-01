@@ -38,6 +38,6 @@ public class Intake {
     }
 
     public void runRotator(){
-        intakeRotator.setPosition(0.5); //random value
+        intakeRotator.setPosition(0.3); //random value
     }
 }
