@@ -147,8 +147,13 @@ public class Teleop extends OpMode {
     }
 
     public void intake(){
-        if (config.intakeForward) intake.runIntake();
+        if (config.intakeForward) {
+            intake.runRotator();
+            intake.runIntake();
+        }
         if (config.intakeReverse) intake.runReverse();
         if (config.intakeStop) intake.stop();
     }
+
+
 }

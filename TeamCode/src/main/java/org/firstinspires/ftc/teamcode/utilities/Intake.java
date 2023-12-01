@@ -6,9 +6,11 @@ import static java.lang.Double.min;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Intake {
     DcMotor intakeMotor;
+    Servo intakeRotator;
 
     public static double POWER = 0.5;
     public static double REVERSE_POWER = -0.5;
@@ -33,5 +35,9 @@ public class Intake {
 
     public void stop(){
         intakeMotor.setPower(0);
+    }
+
+    public void runRotator(){
+        intakeRotator.setPosition(0.5); //random value
     }
 }
