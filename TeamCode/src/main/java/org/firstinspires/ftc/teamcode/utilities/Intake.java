@@ -17,6 +17,7 @@ public class Intake {
 
     public Intake(HardwareMap hmap) {
         this.intakeMotor = hmap.dcMotor.get(CONFIG.intake);
+        this.intakeRotator = hmap.servo.get(CONFIG.intakeRotator);
         setInit();
     }
 
@@ -38,6 +39,14 @@ public class Intake {
     }
 
     public void runRotator(){
-        intakeRotator.setPosition(0.3); //random value
+        intakeRotator.setPosition(0.3);
+    }
+
+    public void setZero() {
+        intakeRotator.setPosition(0.0);
+    }
+
+    public void setOne() {
+        intakeRotator.setPosition(1.0);
     }
 }

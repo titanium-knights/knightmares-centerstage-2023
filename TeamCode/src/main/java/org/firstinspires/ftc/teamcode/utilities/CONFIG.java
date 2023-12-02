@@ -30,4 +30,6 @@ public class CONFIG {
 
     public static String planeServo = "plane";
     public static String intake = "intake";
+
+    public static String intakeRotator = "intakeRotator";
 }

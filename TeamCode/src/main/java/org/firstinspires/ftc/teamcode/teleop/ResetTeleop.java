@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.Arm;
+import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
@@ -19,6 +20,7 @@ public class ResetTeleop extends OpMode {
     Arm lift;
     PullUp pullup;
     PlaneLauncher plane;
+    Intake intake;
 
     boolean state = false;
 
@@ -28,6 +30,7 @@ public class ResetTeleop extends OpMode {
         this.lift = new Arm(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
+        this.intake = new Intake(hardwareMap);
     }
 
     public void loop() {
@@ -98,8 +101,7 @@ public class ResetTeleop extends OpMode {
             plane.reset();
         }
 
-
-
+        if (gamepad1.a) intake.setZero();
+        else if (gamepad1.b) intake.setOne();
     }
-
 }
