@@ -132,6 +132,10 @@ public class Teleop extends OpMode {
 
         intake(); //dpad right = forward, left = reverse, a = stop
 
+        if (config.planeRelease) { // lifts intake off of the ground
+            intake.setUp();
+        }
+
     }
 
     public void move(float x, float y, float turn, boolean slowMode){
@@ -148,7 +152,7 @@ public class Teleop extends OpMode {
 
     public void intake(){
         if (config.intakeForward) {
-            intake.runRotator();
+            intake.setZero();
             intake.runIntake();
         }
         if (config.intakeReverse) intake.runReverse();
