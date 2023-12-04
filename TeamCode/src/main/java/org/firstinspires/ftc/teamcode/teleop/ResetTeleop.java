@@ -102,6 +102,6 @@ public class ResetTeleop extends OpMode {
         }
 
         if (gamepad1.a) intake.setZero();
-        else if (gamepad1.b) intake.setOne();
+        else if (gamepad1.b) intake.setUp();
     }
 }
