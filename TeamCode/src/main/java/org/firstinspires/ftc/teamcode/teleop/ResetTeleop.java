@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.utilities.Claw;
+import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.Arm;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
@@ -16,7 +16,7 @@ public class ResetTeleop extends OpMode {
     final float STICK_MARGIN = 0.2f;
 
     MecanumDrive drive;
-    Claw claw;
+    Bay bay;
     Arm lift;
     PullUp pullup;
     PlaneLauncher plane;
@@ -26,7 +26,7 @@ public class ResetTeleop extends OpMode {
 
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
-        this.claw = new Claw(hardwareMap);
+        this.bay = new Bay(hardwareMap);
         this.lift = new Arm(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
@@ -49,15 +49,15 @@ public class ResetTeleop extends OpMode {
             lift.stop();
         }
 
-        // claw rotate
+        // bay rotate
 //        if (gamepad1.y) {
-//            claw.setZero();
-//            telemetry.addData("Rotate 0", claw.getPosition());
+//            bay.setZero();
+//            telemetry.addData("Rotate 0", bay.getPosition());
 //
 //        }
 //        } else if (gamepad1.b) {
-//            claw.setOne();
-//            telemetry.addData("Rotate 1", claw.getPosition())                                                  ;
+//            bay.setOne();
+//            telemetry.addData("Rotate 1", bay.getPosition())                                                  ;
 //        }
 
         if (gamepad1.left_bumper){

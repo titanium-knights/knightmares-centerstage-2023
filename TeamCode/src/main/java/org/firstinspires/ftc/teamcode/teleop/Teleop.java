@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.teleopconfigs.TeleopConfig;
-import org.firstinspires.ftc.teamcode.utilities.Claw;
+import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.Arm;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
@@ -17,7 +17,7 @@ public class Teleop extends OpMode {
     // we are declaring subsystems here:
 
     MecanumDrive drive;
-    Claw claw;
+    Bay bay;
     Arm arm;
     PlaneLauncher plane;
     PullUp pullup;
@@ -45,7 +45,7 @@ public class Teleop extends OpMode {
     //runs once, setup function
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
-        this.claw = new Claw(hardwareMap);
+        this.bay = new Bay(hardwareMap);
         this.arm = new Arm(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
@@ -76,28 +76,28 @@ public class Teleop extends OpMode {
         //ARM
         if (config.armUpPreset > STICK_MARGIN) { //Right Trigger
             arm.toDrop();
-            claw.setDrop(); // CLAW_ANGLE_DROP (180-VERTICAL_ANGLE)
+            bay.setDrop(); // bay_ANGLE_DROP (180-VERTICAL_ANGLE)
             telemetry.addLine("Arm to drop preset");
             telemetry.update();
 
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
             arm.toNeutral();
-            claw.setPick(); // CLAW_ANGLE_PICKUP (VERTICAL_ANGLE)
+            bay.setPick(); // bay_ANGLE_PICKUP (VERTICAL_ANGLE)
             telemetry.addLine("Arm to pickup preset");
             telemetry.update();
 
             state = true;
         }
 
-        // CLAW
-        if(config.clawClose){//Left Bumper
-            //Lower Arm and Close Claw
+        // bay
+        if(config.bayClose){//Left Bumper
+            //Lower Arm and Close bay
             arm.toPickUp();
             while (arm.isBusy()); // wait
-            claw.close();
-        } else if (config.clawOpen){//right bumper
-            claw.open();
+            bay.close();
+        } else if (config.bayOpen){//right bumper
+            bay.open();
         }
 
 //        if (!arm.isBusy()) {

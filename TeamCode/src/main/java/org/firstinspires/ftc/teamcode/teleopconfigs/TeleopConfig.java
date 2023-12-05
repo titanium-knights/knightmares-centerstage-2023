@@ -11,10 +11,10 @@ public class TeleopConfig {
     public float x_movement;
     public float y_movement;
     public float turn;
-    public boolean clawOpen;
-    public boolean clawClose;
-    public boolean clawRotatorScore;
-    public boolean clawRotatorPick;
+    public boolean bayOpen;
+    public boolean bayClose;
+    public boolean bayRotatorScore;
+    public boolean bayRotatorPick;
     public boolean pullupUpManual;
     public boolean pullupDownManual;
     public float armUpManual;
@@ -41,8 +41,8 @@ public class TeleopConfig {
         x_movement = this.gamepad1.left_stick_x;
         y_movement = this.gamepad1.left_stick_y;
         turn = this.gamepad1.right_stick_x;
-        clawClose = this.gamepad1.left_bumper || this.gamepad2.left_bumper;
-        clawOpen = this.gamepad1.right_bumper || this.gamepad2.right_bumper;
+        bayClose = this.gamepad1.left_bumper || this.gamepad2.left_bumper;
+        bayOpen = this.gamepad1.right_bumper || this.gamepad2.right_bumper;
         pullupUpManual = this.gamepad1.dpad_up;
         pullupDownManual = this.gamepad1.dpad_down;
         armUpPreset = this.gamepad1.right_trigger;

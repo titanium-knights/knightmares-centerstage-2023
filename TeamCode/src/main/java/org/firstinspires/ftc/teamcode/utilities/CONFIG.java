@@ -14,10 +14,10 @@ public class CONFIG {
     //webcam
     public static String webcam = "Webcam 1";
 
-    //claw open and close
-    public static String clawServo = "claw"; //ch 1
-    //rotate claw
-    public static String clawSpin = "clawspin"; //ch 0
+    //bay open and close
+    public static String bayServo = "bay"; //ch 1
+    //rotate bay
+    public static String baySpin = "bayspin"; //ch 0
 
 
     //move arm up and down

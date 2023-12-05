@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.utilities.Claw;
+import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
@@ -25,7 +25,7 @@ public class DropAndParkRedLeft extends LinearOpMode {
 
         InitialVision vision = new InitialVision(hardwareMap, telemetry);
         ElapsedTime runtime = new ElapsedTime();
-        Claw claw = new Claw(hardwareMap);
+        Bay bay = new Bay(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
         Intake intake = new Intake(hardwareMap);
         //drivetrain.move() -y is forward, +x is right, +turn is counterclockwise robot centric
