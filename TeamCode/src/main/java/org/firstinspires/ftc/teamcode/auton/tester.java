@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
+import org.firstinspires.ftc.teamcode.utilities.Stick;
 
 @Autonomous(name="tester", group="Linear OpMode")
 @Config
@@ -30,23 +31,27 @@ public class tester extends LinearOpMode {
         Intake intake = new Intake(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
         plane.reset();
+        Stick stick = new Stick(hardwareMap);
+        stick.lock();
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();
         runtime.reset();
 
-        backTwo();
+        stick.unlock();
+
+        //backTwo();
 
 //        // RED LEFT /////////////////
 //        // red-left-spike2
 //        backTwo();
-//        // intake stuff
+//        stick.unlock();
 //        leftFour();
 //
 //        // red-left-spike1
 //        backOne();
 //        turnClockwise();
 //        forwardOneEighth();
-//        // intake stuff
+//        stick.unlock();
 //        backOneEighth();
 //        rightOne();
 //        backFour();
@@ -55,7 +60,7 @@ public class tester extends LinearOpMode {
 //        backOne();
 //        turnCounterClockwise();
 //        forwardOneEighth();
-//        // intake stuff
+//        stick.unlock();
 //        backOneEighth();
 //        leftOne();
 //        forwardFour();
@@ -63,7 +68,7 @@ public class tester extends LinearOpMode {
 //        // RED RIGHT /////////////////
 //        // red-right-spike2
 //        backTwo();
-//        // intake stuff
+//        stick.unlock();
 //        leftOne();
 //        forwardTwo();
 //        leftOne();
@@ -72,7 +77,7 @@ public class tester extends LinearOpMode {
 //        backOne();
 //        turnClockwise();
 //        forwardOneEighth();
-//        // intake stuff
+//        stick.unlock();
 //        backOneEighth();
 //        leftOne();
 //        backTwo();
@@ -81,7 +86,7 @@ public class tester extends LinearOpMode {
 //        backOne();
 //        turnCounterClockwise();
 //        forwardOneEighth();
-//        // intake stuff
+//        stick.unlock();
 //        backOneEighth();
 //        rightOne();
 //        forwardOne();
@@ -89,7 +94,7 @@ public class tester extends LinearOpMode {
 //        // BLUE LEFT ////////////////
 //        // blue-left-spike2
 //        backTwo();
-//        // intake stuff
+//        stick.lock();
 //        rightOne();
 //        forwardTwo();
 //        rightOne();
@@ -98,7 +103,7 @@ public class tester extends LinearOpMode {
 //        backOne();
 //        turnClockwise();
 //        forwardOneEighth();
-//        // intake stuff
+//        stick.unlock();
 //        backOneEighth();
 //        leftOne();
 //        forwardTwo();
@@ -107,7 +112,7 @@ public class tester extends LinearOpMode {
 //        backOne();
 //        turnCounterClockwise();
 //        forwardOneEighth();
-//        // intake stuff
+//        stick.unlock();
 //        backOneEighth();
 //        rightOne();
 //        backTwo();
@@ -117,21 +122,21 @@ public class tester extends LinearOpMode {
 //        backOne();
 //        turnClockwise();
 //        forwardOneEighth();
-//        // intake stuff
+//        stick.unlock();
 //        backOneEighth();
 //        rightOne();
 //        forwardFour();
 //
 //        // blue-right-spike2
 //        backTwo();
-//        // intake stuff
+//        stick.unlock();
 //        rightFour();
 //
 //        // blue-right-spike3
 //        backOne();
 //        turnCounterClockwise();
 //        forwardOneEighth();
-//        // intake stuff
+//        stick.unlock();
 //        backOneEighth();
 //        leftOne();
 //        backFour();
