@@ -12,7 +12,7 @@ public class Intake {
     DcMotor intakeMotor;
     Servo intakeRotator;
 
-    public static double POWER = 0.5;
+    public static double POWER = 0.3;
     public static double REVERSE_POWER = -0.8;
 
     public Intake(HardwareMap hmap) {
