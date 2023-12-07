@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.utilities;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
-import static java.lang.Double.max;
-import static java.lang.Double.min;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -53,7 +51,7 @@ public class Arm {
         return armMotor.isBusy();
     }
 
-    // overload the other setPower to default slowmode to false
+    // overload the other setPower to default slowMode to false
 
     /**
      * @param dir: false = to pick up, true = to drop
@@ -92,7 +90,6 @@ public class Arm {
     public boolean runToPosition(double angle) {
         // takes the angle we want it to go to and makes sure the angle is within range
         // just in case wrong input
-        double orig = angle;
         // converts angle into encoder ticks and then runs to position
         armMotor.setTargetPosition((int) (ENCODER_TICKS *angle/360));
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

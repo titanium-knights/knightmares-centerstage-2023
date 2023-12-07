@@ -60,7 +60,7 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
         config.check();
-
+        bay.maintain(arm);
 
         if (config.validate) {++validatecount;}
         if (validatecount > 5) {validate = true;}
