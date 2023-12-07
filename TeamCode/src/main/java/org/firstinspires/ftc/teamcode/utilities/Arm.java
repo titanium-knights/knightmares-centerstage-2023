@@ -79,7 +79,6 @@ public class Arm {
             else {
                 armMotor.setPower(-SLOW_POWER);
             }
-
         }
     }
 
