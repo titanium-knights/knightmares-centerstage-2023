@@ -13,7 +13,7 @@ public class PlaneLauncher {
     }
     // when releasing or resetting just move the servo...
     public void set(){
-        launcher.setPosition(0.8);
+        launcher.setPosition(0.5);
     } // 0.8 before
     public void reset() {launcher.setPosition(0.2);}
     public void setPosition(double angle) {
