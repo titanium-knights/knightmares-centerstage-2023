@@ -19,6 +19,7 @@ public class tester extends LinearOpMode {
     public static int forward_time = 1100;
     public static int strafe_time = 4000;
     public final double POWER = 0.5;
+
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry.addData("Initialized: ", "Hopefully");

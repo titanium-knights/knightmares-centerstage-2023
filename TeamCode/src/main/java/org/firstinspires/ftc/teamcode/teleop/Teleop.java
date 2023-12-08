@@ -55,6 +55,7 @@ public class Teleop extends OpMode {
 
         telemetry.setAutoClear(false);
         telemetry.update();
+        bay.setPick();
     }
 
     @Override
