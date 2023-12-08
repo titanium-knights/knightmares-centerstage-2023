@@ -77,14 +77,12 @@ public class Teleop extends OpMode {
         //ARM
         if (config.armUpPreset > STICK_MARGIN) { //Right Trigger
             arm.toDrop();
-            bay.setDrop(); // bay_ANGLE_DROP (180-VERTICAL_ANGLE)
             telemetry.addLine("Arm to drop preset");
             telemetry.update();
 
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
-            arm.toNeutral();
-            bay.setPick(); // bay_ANGLE_PICKUP (VERTICAL_ANGLE)
+            arm.toPickUp();
             telemetry.addLine("Arm to pickup preset");
             telemetry.update();
 
