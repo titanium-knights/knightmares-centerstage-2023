@@ -53,6 +53,8 @@ public class Teleop extends OpMode {
         this.config = new TeleopConfig(gamepad1, gamepad2);
         plane.reset();
 
+        intake.setUp();
+
         telemetry.setAutoClear(false);
         telemetry.update();
         bay.setPick();

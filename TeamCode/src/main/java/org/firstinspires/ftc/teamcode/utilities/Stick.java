@@ -11,7 +11,7 @@ public class Stick {
     }
 
     public void lock() {
-        stickRot.setPosition(0.5); //TODO: tune the value pls
+        stickRot.setPosition(0.0); //TODO: tune the value pls
     }
     public void unlock() {
         stickRot.setPosition(1.0); //TODO: pls tune the value

@@ -13,7 +13,7 @@ public class Intake {
     Servo intakeRotator;
 
     public static double POWER = 0.3;
-    public static double REVERSE_POWER = -0.5;
+    public static double REVERSE_POWER = -0.7;
 
     public Intake(HardwareMap hmap) {
         this.intakeMotor = hmap.dcMotor.get(CONFIG.intake);
@@ -39,10 +39,10 @@ public class Intake {
     }
 
     public void setZero() {
-        intakeRotator.setPosition(0.2);
+        intakeRotator.setPosition(0.5);
     }
 
     public void setUp() {
-        intakeRotator.setPosition(0.0);
+        intakeRotator.setPosition(0.2);
     }
 }

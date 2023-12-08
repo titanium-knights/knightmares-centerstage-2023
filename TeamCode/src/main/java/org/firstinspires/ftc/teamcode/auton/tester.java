@@ -32,7 +32,7 @@ public class tester extends LinearOpMode {
         plane.reset();
         Stick stick = new Stick(hardwareMap);
         stick.lock();
-        stick.unlock();
+
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();
         runtime.reset();
