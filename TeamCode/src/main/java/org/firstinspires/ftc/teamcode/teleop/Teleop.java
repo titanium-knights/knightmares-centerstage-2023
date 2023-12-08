@@ -86,7 +86,7 @@ public class Teleop extends OpMode {
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
             arm.toPickUp();
-            bay.setPick(); //TODO: tune
+            bay.setPick();
             telemetry.addLine("Arm to pickup preset");
             telemetry.update();
 
@@ -152,6 +152,7 @@ public class Teleop extends OpMode {
     public void intake(){
         if (config.intakeForward) {
             intake.setZero();
+            //bayRotator.getController().pwmDisable();
             intake.runIntake();
         }
         if (config.intakeReverse) {

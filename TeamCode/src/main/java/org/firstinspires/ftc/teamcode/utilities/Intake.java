@@ -38,8 +38,13 @@ public class Intake {
         intakeMotor.setPower(0);
     }
 
+    public void noPower() {
+        //servoRotator.getController.pwmDisable();
+    }
+
+
     public void setZero() {
-        intakeRotator.setPosition(0.5);
+        intakeRotator.setPosition(0.46);
     }
 
     public void setUp() {
