@@ -61,7 +61,7 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
         config.check();
-        bay.maintain(arm);
+        //bay.maintain(arm);
 
         if (config.validate) {++validatecount;}
         if (validatecount > 5) {validate = true;}
@@ -77,12 +77,14 @@ public class Teleop extends OpMode {
         //ARM
         if (config.armUpPreset > STICK_MARGIN) { //Right Trigger
             arm.toDrop();
+            bay.setDrop();
             telemetry.addLine("Arm to drop preset");
             telemetry.update();
 
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
             arm.toPickUp();
+            bay.setPick(); //TODO: tune
             telemetry.addLine("Arm to pickup preset");
             telemetry.update();
 

@@ -20,7 +20,7 @@ public class Arm {
     // angle of vertical arm from robot arm's minimum position
     public static double VERTICAL_ANGLE = 122;
 
-    public static double MAX_LIMIT = VERTICAL_ANGLE + 58; // upper limit
+    public static double MAX_LIMIT = VERTICAL_ANGLE + 30; // upper limit
     public static double MIN_LIMIT = -5; // lower limit for manual lift
 
     // higher power lift going up vs going down cause power + gravity = more power
