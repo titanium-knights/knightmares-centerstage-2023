@@ -37,7 +37,11 @@ public class tester extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        // TODO: add this to auton path
         stick.unlock();
+        sleep(300);
+
+
 
         //backTwo();
 
