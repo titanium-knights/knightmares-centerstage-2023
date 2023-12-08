@@ -39,7 +39,7 @@ public class Intake {
     }
 
     public void setZero() {
-        intakeRotator.setPosition(0.3);
+        intakeRotator.setPosition(0.2);
     }
 
     public void setUp() {
