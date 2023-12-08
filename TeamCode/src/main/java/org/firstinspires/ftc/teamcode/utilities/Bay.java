@@ -35,16 +35,17 @@ public class Bay {
     }
 
     // rotates back to drop position
-    public void setPick() {bayRotator.setPosition(0);}
-    public void setDrop() {bayRotator.setPosition(120.0/180.0);} // 120/180
+    public void setPick() {bayRotator.setPosition(250/300);}
+    public void setDrop() {bayRotator.setPosition(102/300);} // 102/300
 
     public void maintain(Arm arm){
-        if (arm.getPosition() >= 0 && arm.getPosition() <= 102) {
-            double x = INITIAL_ARM_ANGLE+arm.getPosition();
-            setPosition((180-x)/300.0);
-        } else {
-            setPosition(270.0/300.0);
-        }
+        setPosition(1.0);
+//        if (arm.getPosition() > 0 && arm.getPosition() <= 102) {
+//            double x = INITIAL_ARM_ANGLE+arm.getPosition();
+//            setPosition((180-x)/300.0);
+//        } else {
+//            setPosition(270.0/300.0);
+//        }
     }
 
 }
