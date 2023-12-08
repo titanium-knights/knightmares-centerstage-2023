@@ -21,7 +21,6 @@ public class ResetTeleop extends OpMode {
     PullUp pullup;
     PlaneLauncher plane;
     Intake intake;
-
     boolean state = false;
 
     public void init() {
@@ -49,16 +48,15 @@ public class ResetTeleop extends OpMode {
             lift.stop();
         }
 
-        // bay rotate
-//        if (gamepad1.y) {
-//            bay.setZero();
-//            telemetry.addData("Rotate 0", bay.getPosition());
-//
-//        }
-//        } else if (gamepad1.b) {
-//            bay.setOne();
-//            telemetry.addData("Rotate 1", bay.getPosition())                                                  ;
-//        }
+//         bay rotate
+        if (gamepad1.y) {
+            bay.setZero();
+            telemetry.addData("Rotate 0", bay.getPosition());
+
+        } else if (gamepad1.b) {
+            bay.setOne();
+            telemetry.addData("Rotate 1", bay.getPosition());                                                  ;
+        }
 
         if (gamepad1.left_bumper){
             pullup.liftUp();

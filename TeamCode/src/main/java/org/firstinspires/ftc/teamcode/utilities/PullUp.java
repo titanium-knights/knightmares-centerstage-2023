@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.utilities;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
-import static java.lang.Double.max;
-import static java.lang.Double.min;
 import static java.lang.Math.abs;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.teamcode.utilities.Pair;
 
 
 public class PullUp {
