@@ -24,8 +24,6 @@ public class tester extends LinearOpMode {
         telemetry.addData("Initialized: ", "Hopefully");
         telemetry.update();
 
-
-
         ElapsedTime runtime = new ElapsedTime();
         drivetrain = new MecanumDrive(hardwareMap);
         Intake intake = new Intake(hardwareMap);
@@ -33,6 +31,7 @@ public class tester extends LinearOpMode {
         plane.reset();
         Stick stick = new Stick(hardwareMap);
         stick.lock();
+        stick.unlock();
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();
         runtime.reset();
@@ -158,6 +157,13 @@ public class tester extends LinearOpMode {
         sleep(650);
         stopDrive();
     }
+
+    public void backDrop() {
+        drivetrain.move(0,POWER, 0);
+        sleep(800); // TODO: tune
+        stopDrive();
+    }
+
     public void backTwo() {
         drivetrain.move(0,POWER, 0);
         sleep(1300); // TODO: tune

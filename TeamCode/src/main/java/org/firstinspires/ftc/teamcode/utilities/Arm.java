@@ -24,7 +24,7 @@ public class Arm {
     public static double MIN_LIMIT = -5; // lower limit for manual lift
 
     // higher power lift going up vs going down cause power + gravity = more power
-    public static double FULL_POWER = 0.95;
+    public static double FULL_POWER = 0.75;
     public static double SLOW_POWER = 0.40;
 
 
