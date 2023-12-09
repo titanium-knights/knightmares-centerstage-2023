@@ -42,158 +42,59 @@ public class tester extends LinearOpMode {
         // TODO: tune everything
         // RED LEFT (new) - wasn't sure when to put stick.unlock() in any of these I'll need help w that.
         // red-left-spike2
-        backOne();
-        forwardOne();
-        rightOne();
-        backTwo();
-        leftFour();
-
-        // red-left-spike1
-        backOne();
-        turnCounterClockwise();
-        backOneEighth();
-        forwardOneEighth();
-        rightOne();
-        backOne();
-        leftOne(); // i think this line and the next could be combined into a leftTwo() if we make one.
-        leftOne();
-        forwardFour();
-
-        // red-left-spike3
-        backOne();
-        turnClockwise();
-        backOneEighth();
-        forwardOneEighth();
-        leftOne();
-        forwardOne();
-        rightOne(); // i think this line and the next could be combined into a rightTwo()
-        rightOne();
-        backFour();
-
-        // RED RIGHT
-        // red-right-spike2
-        backOne();
-        forwardOne();
-        leftOne(); // i think this line and the next could be combined into a leftTwo()
-        leftOne();
-
-        // red-right-spike1
-        backOne();
-        turnCounterClockwise();
-        backOneEighth();
-        forwardOneEighth();
-        rightOne();
-        forwardTwo();
-
-        // red-right-spike3
-        backOne();
-        turnClockwise();
-        backOneEighth();
-        forwardOneEighth();
-        leftOne();
-        backTwo();
-        backFour();
-        //forwardFour();
-
-//        // RED LEFT /////////////////
-//        // red-left-spike2
-//        backTwo();
+//        backOne();
 //        dropPixel();
-//        leftFour();
+//        forwardOne();
+//        rightHalf();
+//        backTwo();
+//        turnCounterClockwise();
+//        forwardTwo();
+//        rightOne();
+//        forwardTwo();
+
 //
 //        // red-left-spike1
 //        backOne();
-//        turnClockwise();
-//        forwardOneEighth();
-//        dropPixel();
-//        backOneEighth();
-//        rightOne();
-//        backFour();
-//
-//        // red-left-spike3
-//        backOne();
 //        turnCounterClockwise();
-//        forwardOneEighth();
-//        stick.unlock();
 //        backOneEighth();
-//        leftOne();
-//        forwardFour();
-//
-//        // RED RIGHT /////////////////
-//        // red-right-spike2
-//        backTwo();
-//        stick.unlock();
+//        dropPixel();
+//        forwardOneEighth();
 //        leftOne();
 //        forwardTwo();
-//        leftOne();
-//
-//        // red-right-spike1
-//        backOne();
-//        turnClockwise();
-//        forwardOneEighth();
-//        stick.unlock();
-//        backOneEighth();
-//        leftOne();
-//        backTwo();
-//
-//        // red-right-spike3
-//        backOne();
-//        turnCounterClockwise();
-//        forwardOneEighth();
-//        stick.unlock();
-//        backOneEighth();
 //        rightOne();
 //        forwardOne();
 //
-//        // BLUE LEFT ////////////////
-//        // blue-left-spike2
-//        backTwo();
-//        stick.lock();
-//        rightOne();
-//        forwardTwo();
-//        rightOne();
-//
-//        // blue-left-spike1
+//        // red-left-spike3
 //        backOne();
 //        turnClockwise();
-//        forwardOneEighth();
-//        stick.unlock();
 //        backOneEighth();
-//        leftOne();
-//        forwardTwo();
-//
-//        // blue-left-spike3
-//        backOne();
-//        turnCounterClockwise();
+//        dropPixel();
 //        forwardOneEighth();
-//        stick.unlock();
-//        backOneEighth();
 //        rightOne();
-//        backTwo();
-//
-//        // BLUE RIGHT ////////////////
-//        // blue-right-spike1
-//        backOne();
-//        turnClockwise();
-//        forwardOneEighth();
-//        stick.unlock();
-//        backOneEighth();
-//        rightOne();
-//        forwardFour();
-//
-//        // blue-right-spike2
-//        backTwo();
-//        stick.unlock();
-//        rightFour();
-//
-//        // blue-right-spike3
-//        backOne();
-//        turnCounterClockwise();
-//        forwardOneEighth();
-//        stick.unlock();
-//        backOneEighth();
-//        leftOne();
 //        backFour();
+//
+//        // RED RIGHT
+//        // red-right-spike2
+//        backOne();
+//        dropPixel();
+//        forwardOneEighth();
+//        leftTwo();
+//
+//        // red-right-spike1
+//        backOne();
+//        turnCounterClockwise();
+//        backOneEighth();
+//        dropPixel();
+//        forwardOneHalf();
+//
+//        // red-right-spike3
+//        backOne();
+//        turnClockwise();
+//        backOneEighth();
+//        dropPixel();
+//        forwardOneEighth();
+//        leftOne();
+//        backTwo();
 
         telemetry.addData("Status", "Run Time: " + runtime);
         telemetry.addLine("Please work thanks! ");
@@ -214,18 +115,18 @@ public class tester extends LinearOpMode {
     // FORWARD AND BACKWARD
     public void backOne() {
         drivetrain.move(0,POWER, 0);
-        sleep(1300);
+        sleep(1250);
         stopDrive();
     }
 
     public void backTwo() {
         drivetrain.move(0,POWER, 0);
-        sleep(2200);
+        sleep(2000);
         stopDrive();
     }
-    public void backFour() {
+    public void backFour() { // turns slightly right
         drivetrain.move(0,POWER, 0);
-        sleep(3400); // TODO: tune
+        sleep(3500);
         stopDrive();
     }
     public void forwardOne() {
@@ -233,43 +134,54 @@ public class tester extends LinearOpMode {
         sleep(1300);
         stopDrive();
     }
+    public void forwardOneHalf() {
+        drivetrain.move(0,-POWER, 0);
+        sleep(1800);
+        stopDrive();
+    }
+
     public void forwardTwo() {
         drivetrain.move(0, -POWER, 0);
         sleep(2200);
         stopDrive();
     }
-    public void forwardFour() {
+    public void forwardFour() { // turns slightly left
         drivetrain.move(0,-POWER, 0);
-        sleep(3200); // TODO: tune
+        sleep(3500);
         stopDrive();
     }
     public void forwardOneEighth() {
         drivetrain.move(0,-POWER, 0);
-        sleep(200); // TODO: tune
+        sleep(300);
         stopDrive();
     }
     public void backOneEighth() {
         drivetrain.move(0,POWER, 0);
-        sleep(200); // TODO: tune
+        sleep(300);
         stopDrive();
     }
 
     // TURNING
     public void turnClockwise() {
         drivetrain.move(0,0, -POWER);
-        sleep(965);
+        sleep(830);
         stopDrive();
     }
     public void turnCounterClockwise() {
         drivetrain.move(0,0, POWER);
-        sleep(950);
+        sleep(925);
         stopDrive();
     }
 
     // STRAFING
+    public void rightHalf() {
+        drivetrain.move(-POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+    }
     public void rightOne() {
         drivetrain.move(-POWER, 0, 0);
-        sleep(1800);
+        sleep(1200);
         stopDrive();
     }
     public void rightFour() {
@@ -277,14 +189,26 @@ public class tester extends LinearOpMode {
         sleep(5200);
         stopDrive();
     }
+    public void leftOneHalf() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(1200);
+        stopDrive();
+    }
+
     public void leftOne() {
         drivetrain.move(POWER, 0, 0);
-        sleep(1800);
+        sleep(1600);
+        stopDrive();
+    }
+
+    public void leftTwo() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(2600);
         stopDrive();
     }
     public void leftFour() { // NOTE: moves slightly forward
         drivetrain.move(POWER,0, 0);
-        sleep(4600);
+        sleep(5600);
         stopDrive();
     }
 }
