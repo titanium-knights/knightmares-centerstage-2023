@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.utilities.Stick;
 public class testerblue extends LinearOpMode {
 
     MecanumDrive drivetrain;
+    Stick stick;
     public static int forward_time = 1100;
     public static int strafe_time = 4000;
     public final double POWER = 0.5;
@@ -31,7 +32,7 @@ public class testerblue extends LinearOpMode {
         intake.setUp();
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
         plane.reset();
-        Stick stick = new Stick(hardwareMap);
+        stick = new Stick(hardwareMap);
         stick.lock();
 
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
@@ -49,8 +50,7 @@ public class testerblue extends LinearOpMode {
                 backOneEighth();
                 turnCounterClockwise();
                 backOneEighth();
-                stick.unlock();
-                sleep(100);
+                dropPixel();
                 forwardOneEighth();
                 rightOne();
                 rightOne();
@@ -62,8 +62,7 @@ public class testerblue extends LinearOpMode {
                 backOneEighth();
                 turnClockwise();
                 backOneEighth();
-                stick.unlock();
-                sleep(100);
+                dropPixel();
                 forwardOneEighth();
                 leftOne();
                 leftOne();
@@ -76,8 +75,7 @@ public class testerblue extends LinearOpMode {
                 telemetry.addLine("Defaulting to case 2");
                 backOne();
                 backOneEighth();
-                stick.unlock();
-                sleep(100);
+                dropPixel();
                 forwardOne();
                 forwardOneEighth();
                 rightFour();
@@ -92,8 +90,7 @@ public class testerblue extends LinearOpMode {
                 backOneEighth();
                 turnCounterClockwise();
                 backOneEighth();
-                stick.unlock();
-                sleep(100);
+                dropPixel();
                 forwardOneEighth();
                 rightOne();
                 forwardOne();
@@ -109,8 +106,7 @@ public class testerblue extends LinearOpMode {
                 backOneEighth();
                 turnClockwise();
                 backOneEighth();
-                stick.unlock();
-                sleep(100);
+                dropPixel();
                 forwardOneEighth();
                 leftOne();
                 backOne();
@@ -125,8 +121,7 @@ public class testerblue extends LinearOpMode {
                 telemetry.addLine("Defaulting to case 2");
                 backOne();
                 backOneEighth();
-                stick.unlock();
-                sleep(100);
+                dropPixel();
                 forwardOne();
                 forwardOneEighth();
                 leftOne();
@@ -142,6 +137,11 @@ public class testerblue extends LinearOpMode {
 
     }
 
+    public void dropPixel() {
+        stick.unlock();
+        sleep(300);
+    }
+
     public void stopDrive() {
         drivetrain.move(0, 0, 0);
         sleep(100);
@@ -150,83 +150,77 @@ public class testerblue extends LinearOpMode {
     // FORWARD AND BACKWARD
     public void backOne() {
         drivetrain.move(0,POWER, 0);
-        sleep(650);
-        stopDrive();
-    }
-
-    public void backDrop() {
-        drivetrain.move(0,POWER, 0);
-        sleep(800); // TODO: tune
+        sleep(1300);
         stopDrive();
     }
 
     public void backTwo() {
         drivetrain.move(0,POWER, 0);
-        sleep(1300); // TODO: tune
+        sleep(2200);
         stopDrive();
     }
     public void backFour() {
         drivetrain.move(0,POWER, 0);
-        sleep(2050);
+        sleep(3400); // TODO: tune
         stopDrive();
     }
     public void forwardOne() {
         drivetrain.move(0,-POWER, 0);
-        sleep(650);
+        sleep(1300);
         stopDrive();
     }
     public void forwardTwo() {
         drivetrain.move(0, -POWER, 0);
-        sleep(1300); // TODO: tune
+        sleep(2200);
         stopDrive();
     }
     public void forwardFour() {
         drivetrain.move(0,-POWER, 0);
-        sleep(2050);
+        sleep(3200); // TODO: tune
         stopDrive();
     }
     public void forwardOneEighth() {
         drivetrain.move(0,-POWER, 0);
-        sleep(200);
+        sleep(200); // TODO: tune
         stopDrive();
     }
     public void backOneEighth() {
         drivetrain.move(0,POWER, 0);
-        sleep(200);
+        sleep(200); // TODO: tune
         stopDrive();
     }
 
     // TURNING
     public void turnClockwise() {
         drivetrain.move(0,0, -POWER);
-        sleep(450);
+        sleep(965);
         stopDrive();
     }
     public void turnCounterClockwise() {
         drivetrain.move(0,0, POWER);
-        sleep(600); // TODO: tune
+        sleep(950);
         stopDrive();
     }
 
     // STRAFING
     public void rightOne() {
         drivetrain.move(-POWER, 0, 0);
-        sleep(550);
+        sleep(1800);
         stopDrive();
     }
     public void rightFour() {
         drivetrain.move(-POWER,0, 0);
-        sleep(1300); // TODO: tune
+        sleep(5200);
         stopDrive();
     }
     public void leftOne() {
         drivetrain.move(POWER, 0, 0);
-        sleep(800);
+        sleep(1800);
         stopDrive();
     }
-    public void leftFour() {
+    public void leftFour() { // NOTE: moves slightly forward
         drivetrain.move(POWER,0, 0);
-        sleep(1300); // TODO: tune
+        sleep(4600);
         stopDrive();
     }
 }
