@@ -41,7 +41,58 @@ public class tester extends LinearOpMode {
         stick.unlock();
         sleep(300);
 
+        // RED LEFT (new) - wasn't sure when to put stick.unlock() in any of these I'll need help w that.
+        // red-left-spike2
+        backOne();
+        forwardOne();
+        rightOne();
+        backTwo();
+        leftFour();
 
+        // red-left-spike1
+        backOne();
+        turnCounterClockwise();
+        backOneEighth();
+        forwardOneEighth();
+        rightOne();
+        backOne();
+        leftOne(); // i think this line and the next could be combined into a leftTwo() if we make one.
+        leftOne();
+        forwardFour();
+
+        // red-left-spike3
+        backOne();
+        turnClockwise();
+        backOneEighth();
+        forwardOneEighth();
+        leftOne();
+        forwardOne();
+        rightOne(); // i think this line and the next could be combined into a rightTwo()
+        rightOne();
+        backFour();
+
+        // RED RIGHT
+        // red-right-spike2
+        backOne();
+        forwardOne();
+        leftOne(); // i think this line and the next could be combined into a leftTwo()
+        leftOne();
+
+        // red-right-spike1
+        backOne();
+        turnCounterClockwise();
+        backOneEighth();
+        forwardOneEighth();
+        rightOne();
+        forwardTwo();
+
+        // red-right-spike3
+        backOne();
+        turnClockwise();
+        backOneEighth();
+        forwardOneEighth();
+        leftOne();
+        backTwo();
 
         //backTwo();
 
