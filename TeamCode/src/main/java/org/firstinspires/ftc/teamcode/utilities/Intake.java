@@ -13,7 +13,7 @@ public class Intake {
     Servo intakeRotator;
 
     public static double POWER = 0.3;
-    public static double REVERSE_POWER = -0.7;
+    public static double REVERSE_POWER = -1.0;
 
     public Intake(HardwareMap hmap) {
         this.intakeMotor = hmap.dcMotor.get(CONFIG.intake);
@@ -39,7 +39,7 @@ public class Intake {
     }
 
     public void noPower() {
-        //servoRotator.getController.pwmDisable();
+        intakeRotator.getController().pwmDisable();
     }
 
 

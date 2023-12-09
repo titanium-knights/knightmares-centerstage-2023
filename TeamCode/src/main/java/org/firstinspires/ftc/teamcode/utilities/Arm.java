@@ -83,7 +83,8 @@ public class Arm {
     // Returns lift position in degrees, robot centric (minimum is 0)
     public double getPosition(){
         // Initially gets back position in terms of encoder ticks, which converts to degrees
-        return (360* ((double) armMotor.getCurrentPosition())/ENCODER_TICKS);
+        // return (360* ((double) armMotor.getCurrentPosition())/ENCODER_TICKS);
+        return -armMotor.getCurrentPosition() / ENCODER_TICKS * 360;
 
     }
 
@@ -91,18 +92,14 @@ public class Arm {
         // takes the angle we want it to go to and makes sure the angle is within range
         // just in case wrong input
         // converts angle into encoder ticks and then runs to position
-        armMotor.setTargetPosition((int) (ENCODER_TICKS *angle/360));
+        armMotor.setTargetPosition((int) (ENCODER_TICKS *-angle/360));
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         // with run to position always positive power (setPower will be the one determining direction)
         // run to position is always in presets or else it'll be jittery
-        armMotor.setPower(-0.7);
+        armMotor.setPower(-0.3);
 
         return true; // to confirm that it runs
     }
-
-    public boolean toNeutral(){
-        return runToPosition(-25);
-    } //preset to wait until pixels taken in
 
     public boolean toPickUp(){ // preset for picking up pixels
         return runToPosition(0);
@@ -111,16 +108,16 @@ public class Arm {
     public boolean toDrop(){ // preset for dropping pixels
         final double x = MAX_LIMIT;
 
-        return runToPosition(-x);
+        return runToPosition(x);
     }
 
     public void toBackBoard(){ // manual drop
         armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setPower(true);
+        setPower(false);
     }
 
     public void toRobot(){ // manual pick up
         armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setPower(false);
+        setPower(true);
     }
 }

@@ -63,7 +63,7 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
         config.check();
-        //bay.maintain(arm);
+
 
         if (config.validate) {++validatecount;}
         if (validatecount > 5) {validate = true;}
@@ -77,26 +77,40 @@ public class Teleop extends OpMode {
         move(-x, y, turn, slowMode);
 
         //ARM
+        //bay.maintain(arm);
         if (config.armUpPreset > STICK_MARGIN) { //Right Trigger
             arm.toDrop();
-            bay.setDrop();
-            telemetry.addLine("Arm to drop preset");
+            if (arm.getPosition() >= 0 && arm.getPosition() <= 40) {
+                bay.disable();
+            } else {
+                bay.setDrop();
+            }
+            //arm.toBackBoard();
+            //bay.setDrop();
+            telemetry.addData("Arm pos:", arm.getPosition());
             telemetry.update();
 
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
+            bay.setPosition(1.0);
             arm.toPickUp();
-            bay.setPick();
-            telemetry.addLine("Arm to pickup preset");
-            telemetry.update();
+            if (arm.getPosition() > 140 && arm.getPosition() <= 150) {
+                bay.disable();
+            } else if (arm.getPosition() <= 140) {
+                bay.setPick();
+            }
 
+            //arm.toRobot();
+            //bay.setPick();
+            telemetry.addData("Arm pos:", arm.getPosition());
+            telemetry.update();
             state = true;
         }
 
         // bay
         if(config.bayClose){//Left Bumper
-            //Lower Arm and Close bay
-            arm.toPickUp();
+            //Close bay
+            arm.stop();
             while (arm.isBusy()); // wait
             bay.close();
         } else if (config.bayOpen){//right bumper
@@ -151,12 +165,12 @@ public class Teleop extends OpMode {
 
     public void intake(){
         if (config.intakeForward) {
-            intake.setZero();
+            intake.noPower();
             //bayRotator.getController().pwmDisable();
             intake.runIntake();
         }
         if (config.intakeReverse) {
-            intake.setZero();
+            intake.noPower();
             intake.runReverse();
         }
         if (config.intakeStop) {
