@@ -39,8 +39,71 @@ public class tester extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        // TODO: tune everything
-        // RED LEFT (new) - wasn't sure when to put stick.unlock() in any of these I'll need help w that.
+        // BLUE RIGHT
+        // blue-right-spike1
+//        backOne();
+//        rightOneEighth();
+//        turnCounterClockwise();
+//        backOneEighth();
+//        dropPixel();
+//        forwardOneEighth();
+//        leftOne();
+//        backOne();
+//        rightOneFourth();
+//        backOne();
+//        rightHalf();
+//        backTwo();
+
+        // blue-right-spike3
+//        backOne();
+//        turnClockwise();
+//        backOneSixteenth();
+//        dropPixel();
+//        forwardOneEighth();
+//        rightOne();
+//        forwardTwo();
+//        leftOne();
+//        forwardOne();
+
+        // blue-right-spike2
+//        backOne();
+//        dropPixel();
+//        forwardOneEighth();
+//        turnCounterClockwise();
+//        forwardOneEighth();
+//        leftOneHalf();
+//        backTwo();
+//        rightOneFourth();
+//        backOne();
+//        rightHalf();
+//        backTwo();
+
+        // BLUE LEFT
+        // blue-left-spike1
+//        backOne();
+//        turnCounterClockwise();
+//        backOneEighth();
+//        dropPixel();
+//        forwardOneEighth();
+//        rightOne();
+//        backTwo();
+
+        // blue-left-spike3
+//        backOne();
+//        turnClockwise();
+//        backOneSixteenth();
+//        dropPixel();
+//        forwardOneEighth();
+//        leftOne();
+//        forwardTwo();
+
+        // blue-left-spike2
+//        backOne();
+//        dropPixel();
+//        forwardOne();
+//        rightTwo();
+
+        // RED LEFT (new)
         // red-left-spike2
 //        backOne();
 //        dropPixel();
@@ -161,6 +224,12 @@ public class tester extends LinearOpMode {
         stopDrive();
     }
 
+    public void backOneSixteenth() {
+        drivetrain.move(0,POWER, 0);
+        sleep(150);
+        stopDrive();
+    }
+
     // TURNING
     public void turnClockwise() {
         drivetrain.move(0,0, -POWER);
@@ -174,6 +243,17 @@ public class tester extends LinearOpMode {
     }
 
     // STRAFING
+    public void rightOneEighth() {
+        drivetrain.move(-POWER, 0, 0);
+        sleep(200);
+        stopDrive();
+    }
+    public void rightOneFourth() {
+        drivetrain.move(-POWER, 0, 0);
+        sleep(400);
+        stopDrive();
+    }
+
     public void rightHalf() {
         drivetrain.move(-POWER, 0, 0);
         sleep(800);
@@ -184,18 +264,31 @@ public class tester extends LinearOpMode {
         sleep(1200);
         stopDrive();
     }
+
+    public void rightTwo() {
+        drivetrain.move(-POWER, 0, 0);
+        sleep(2600);
+        stopDrive();
+    }
     public void rightFour() {
         drivetrain.move(-POWER,0, 0);
         sleep(5200);
         stopDrive();
     }
-    public void leftOneHalf() {
+
+    public void leftHalf() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+    }
+
+    public void leftOne() {
         drivetrain.move(POWER, 0, 0);
         sleep(1200);
         stopDrive();
     }
 
-    public void leftOne() {
+    public void leftOneHalf() {
         drivetrain.move(POWER, 0, 0);
         sleep(1600);
         stopDrive();
