@@ -40,7 +40,7 @@ public class tester extends LinearOpMode {
         runtime.reset();
 
         // TODO: tune everything
-        // RED LEFT (new) - wasn't sure when to put stick.unlock() in any of these I'll need help w that.
+        // RED LEFT (new)
         // red-left-spike2
         backOne();
         stick.unlock();
@@ -98,7 +98,6 @@ public class tester extends LinearOpMode {
         forwardOneEighth();
         leftOne();
         backTwo();
-        backFour();
         //forwardFour();
 
 //        // RED LEFT /////////////////
