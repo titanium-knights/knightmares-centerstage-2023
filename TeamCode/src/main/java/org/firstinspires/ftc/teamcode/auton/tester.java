@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.utilities.Stick;
 public class tester extends LinearOpMode {
 
     MecanumDrive drivetrain;
+    Stick stick;
     public static int forward_time = 1100;
     public static int strafe_time = 4000;
     public final double POWER = 0.5;
@@ -30,17 +31,15 @@ public class tester extends LinearOpMode {
         Intake intake = new Intake(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
         plane.reset();
-        Stick stick = new Stick(hardwareMap);
+        stick = new Stick(hardwareMap);
         stick.lock();
+        intake.setUp();
 
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();
         runtime.reset();
 
-        // TODO: add this to auton path
-        stick.unlock();
-        sleep(300);
-
+        // TODO: tune everything
         // RED LEFT (new) - wasn't sure when to put stick.unlock() in any of these I'll need help w that.
         // red-left-spike2
         backOne();
@@ -99,20 +98,20 @@ public class tester extends LinearOpMode {
         forwardOneEighth();
         leftOne();
         backTwo();
-
-        //backTwo();
+        backFour();
+        //forwardFour();
 
 //        // RED LEFT /////////////////
 //        // red-left-spike2
 //        backTwo();
-//        stick.unlock();
+//        dropPixel();
 //        leftFour();
 //
 //        // red-left-spike1
 //        backOne();
 //        turnClockwise();
 //        forwardOneEighth();
-//        stick.unlock();
+//        dropPixel();
 //        backOneEighth();
 //        rightOne();
 //        backFour();
@@ -208,6 +207,11 @@ public class tester extends LinearOpMode {
 
     }
 
+    public void dropPixel() {
+        stick.unlock();
+        sleep(300);
+    }
+
     public void stopDrive() {
         drivetrain.move(0, 0, 0);
         sleep(100);
@@ -216,83 +220,77 @@ public class tester extends LinearOpMode {
     // FORWARD AND BACKWARD
     public void backOne() {
         drivetrain.move(0,POWER, 0);
-        sleep(650);
-        stopDrive();
-    }
-
-    public void backDrop() {
-        drivetrain.move(0,POWER, 0);
-        sleep(800); // TODO: tune
+        sleep(1300);
         stopDrive();
     }
 
     public void backTwo() {
         drivetrain.move(0,POWER, 0);
-        sleep(1300); // TODO: tune
+        sleep(2200);
         stopDrive();
     }
     public void backFour() {
         drivetrain.move(0,POWER, 0);
-        sleep(2050);
+        sleep(3400); // TODO: tune
         stopDrive();
     }
     public void forwardOne() {
         drivetrain.move(0,-POWER, 0);
-        sleep(650);
+        sleep(1300);
         stopDrive();
     }
     public void forwardTwo() {
         drivetrain.move(0, -POWER, 0);
-        sleep(1300); // TODO: tune
+        sleep(2200);
         stopDrive();
     }
     public void forwardFour() {
         drivetrain.move(0,-POWER, 0);
-        sleep(2050);
+        sleep(3200); // TODO: tune
         stopDrive();
     }
     public void forwardOneEighth() {
         drivetrain.move(0,-POWER, 0);
-        sleep(200);
+        sleep(200); // TODO: tune
         stopDrive();
     }
     public void backOneEighth() {
         drivetrain.move(0,POWER, 0);
-        sleep(200);
+        sleep(200); // TODO: tune
         stopDrive();
     }
 
     // TURNING
     public void turnClockwise() {
         drivetrain.move(0,0, -POWER);
-        sleep(450);
+        sleep(965);
         stopDrive();
     }
     public void turnCounterClockwise() {
         drivetrain.move(0,0, POWER);
-        sleep(600); // TODO: tune
+        sleep(950);
         stopDrive();
     }
 
     // STRAFING
     public void rightOne() {
         drivetrain.move(-POWER, 0, 0);
-        sleep(550);
+        sleep(1800);
         stopDrive();
     }
     public void rightFour() {
         drivetrain.move(-POWER,0, 0);
-        sleep(1300); // TODO: tune
+        sleep(5200);
         stopDrive();
     }
     public void leftOne() {
         drivetrain.move(POWER, 0, 0);
-        sleep(800);
+        sleep(1800);
         stopDrive();
     }
-    public void leftFour() {
+    public void leftFour() { // NOTE: moves slightly forward
         drivetrain.move(POWER,0, 0);
-        sleep(1300); // TODO: tune
+        sleep(4600);
         stopDrive();
     }
 }

@@ -50,4 +50,6 @@ public class Intake {
     public void setUp() {
         intakeRotator.setPosition(0.2);
     }
+
+    public void setUpUp() {intakeRotator.setPosition(0.0);}
 }
