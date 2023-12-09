@@ -85,26 +85,23 @@ public class Teleop extends OpMode {
             } else {
                 bay.setDrop();
             }
-            //arm.toBackBoard();
-            //bay.setDrop();
             telemetry.addData("Arm pos:", arm.getPosition());
             telemetry.update();
 
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
-            bay.setPosition(1.0);
             arm.toPickUp();
-            if (arm.getPosition() > 140 && arm.getPosition() <= 150) {
-                bay.disable();
-            } else if (arm.getPosition() <= 140) {
+            bay.disable();
+            if (arm.getPosition() <= 60) {
                 bay.setPick();
             }
-
-            //arm.toRobot();
-            //bay.setPick();
             telemetry.addData("Arm pos:", arm.getPosition());
             telemetry.update();
             state = true;
+        }
+
+        if (config.bayOpen && config.bayClose) { // right bumper and left bumper
+            bay.setPosition(1.0);
         }
 
         // bay
