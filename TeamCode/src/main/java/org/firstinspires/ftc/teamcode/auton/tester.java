@@ -44,6 +44,7 @@ public class tester extends LinearOpMode {
         // RED LEFT (new) - wasn't sure when to put stick.unlock() in any of these I'll need help w that.
         // red-left-spike2
         backOne();
+        stick.unlock();
         forwardOne();
         rightOne();
         backTwo();
@@ -53,6 +54,7 @@ public class tester extends LinearOpMode {
         backOne();
         turnCounterClockwise();
         backOneEighth();
+        stick.unlock();
         forwardOneEighth();
         rightOne();
         backOne();
@@ -64,6 +66,7 @@ public class tester extends LinearOpMode {
         backOne();
         turnClockwise();
         backOneEighth();
+        stick.unlock();
         forwardOneEighth();
         leftOne();
         forwardOne();
@@ -74,6 +77,7 @@ public class tester extends LinearOpMode {
         // RED RIGHT
         // red-right-spike2
         backOne();
+        stick.unlock();
         forwardOne();
         leftOne(); // i think this line and the next could be combined into a leftTwo()
         leftOne();
@@ -82,6 +86,7 @@ public class tester extends LinearOpMode {
         backOne();
         turnCounterClockwise();
         backOneEighth();
+        stick.unlock();
         forwardOneEighth();
         rightOne();
         forwardTwo();
@@ -90,6 +95,7 @@ public class tester extends LinearOpMode {
         backOne();
         turnClockwise();
         backOneEighth();
+        stick.unlock();
         forwardOneEighth();
         leftOne();
         backTwo();
