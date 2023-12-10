@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
+import org.firstinspires.ftc.teamcode.utilities.Stick;
 
 @Autonomous(name="BlueRight-DropPark", group="Linear OpMode")
 @Config
@@ -20,17 +21,19 @@ public class DropAndParkBlueRight extends DropAndPark {
         telemetry.addData("Initialized: ", "Hopefully");
         telemetry.update();
 
-        InitialVision vision = new InitialVision(hardwareMap, telemetry, "blue");
         ElapsedTime runtime = new ElapsedTime();
-        Bay bay = new Bay(hardwareMap);
-        PlaneLauncher plane = new PlaneLauncher(hardwareMap);
-        Intake intake = new Intake(hardwareMap);
-        //drivetrain.move() -y is forward, +x is right, +turn is counterclockwise robot centric
         drivetrain = new MecanumDrive(hardwareMap);
+        Intake intake = new Intake(hardwareMap);
+        PlaneLauncher plane = new PlaneLauncher(hardwareMap);
+        plane.reset();
+        stick = new Stick(hardwareMap);
+        stick.lock();
+        intake.setUp();
 
+        InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();
         runtime.reset();
-        int pos = vision.getPosition();
+        int pos = vis.getPosition();
 
         switch (pos) {
             case 1:
