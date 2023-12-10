@@ -3,33 +3,18 @@ package org.firstinspires.ftc.teamcode.auton.dropandpark;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.utilities.Arm;
-import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
-import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
-import org.firstinspires.ftc.teamcode.utilities.Intake;
-import org.firstinspires.ftc.teamcode.utilities.Stick;
 
 @Autonomous(name="RedLeft-DropPark", group="Linear OpMode")
 @Config
 public class DropAndParkRedLeft extends DropAndPark {
-    MecanumDrive drivetrain;
-    Stick stick;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        super.runOpMode();
         telemetry.addData("Initialized: ", "Hopefully");
         telemetry.update();
-
         ElapsedTime runtime = new ElapsedTime();
-        drivetrain = new MecanumDrive(hardwareMap);
-        Intake intake = new Intake(hardwareMap);
-        PlaneLauncher plane = new PlaneLauncher(hardwareMap);
-        stick = new Stick(hardwareMap);
-        Arm arm = new Arm(hardwareMap);
-        Bay bay = new Bay(hardwareMap);
 
         // setting up
         plane.reset();
@@ -42,6 +27,7 @@ public class DropAndParkRedLeft extends DropAndPark {
         waitForStart();
         runtime.reset();
         int pos = vis.getPosition();
+
 
         switch (pos) {
             case 1:
@@ -80,7 +66,7 @@ public class DropAndParkRedLeft extends DropAndPark {
                 arm.toPickUp();
                 break;
         }
-
+        //*/
         telemetry.addData("Run Time:", runtime);
         telemetry.update();
     }

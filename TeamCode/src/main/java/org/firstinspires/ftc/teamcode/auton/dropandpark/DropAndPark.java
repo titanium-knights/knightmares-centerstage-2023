@@ -2,12 +2,31 @@ package org.firstinspires.ftc.teamcode.auton.dropandpark;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.utilities.Arm;
+import org.firstinspires.ftc.teamcode.utilities.Bay;
+import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
 
 public abstract class DropAndPark extends LinearOpMode {
-    MecanumDrive drivetrain = new MecanumDrive(hardwareMap);
-    Stick stick = new Stick(hardwareMap);
+    MecanumDrive drivetrain;
+    Stick stick;
+    Intake intake;
+    PlaneLauncher plane;
+    Arm arm;
+    Bay bay;
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        drivetrain = new MecanumDrive(hardwareMap);
+        stick = new Stick(hardwareMap);
+        intake = new Intake(hardwareMap);
+        plane = new PlaneLauncher(hardwareMap);
+        arm = new Arm(hardwareMap);
+        bay = new Bay(hardwareMap);
+    }
+
     public final double POWER = 0.5;
 
     public void dropPixel() {
@@ -149,5 +168,4 @@ public abstract class DropAndPark extends LinearOpMode {
         sleep(5600);
         stopDrive();
     }
-
 }

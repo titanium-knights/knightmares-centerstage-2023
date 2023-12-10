@@ -15,20 +15,13 @@ import org.firstinspires.ftc.teamcode.utilities.Bay;
 @Autonomous(name="BlueLeft-DropPark", group="Linear OpMode")
 @Config
 public class DropAndParkBlueLeft extends DropAndPark {
-    MecanumDrive drivetrain;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        super.runOpMode();
         telemetry.addData("Initialized: ", "Hopefully");
         telemetry.update();
-
         ElapsedTime runtime = new ElapsedTime();
-        drivetrain = new MecanumDrive(hardwareMap);
-        Intake intake = new Intake(hardwareMap);
-        PlaneLauncher plane = new PlaneLauncher(hardwareMap);
-        stick = new Stick(hardwareMap);
-        Arm arm = new Arm(hardwareMap);
-        Bay bay = new Bay(hardwareMap);
 
         // setting up
         plane.reset();
