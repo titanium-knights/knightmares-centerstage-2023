@@ -4,6 +4,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.utilities.Arm;
+import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
@@ -25,10 +27,16 @@ public class DropAndParkRedLeft extends DropAndPark {
         drivetrain = new MecanumDrive(hardwareMap);
         Intake intake = new Intake(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
-        plane.reset();
         stick = new Stick(hardwareMap);
+        Arm arm = new Arm(hardwareMap);
+        Bay bay = new Bay(hardwareMap);
+
+        // setting up
+        plane.reset();
         stick.lock();
-        intake.setUp();
+        intake.setUpUp();
+        arm.drivingPos();
+        bay.setPick();
 
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();
@@ -46,6 +54,7 @@ public class DropAndParkRedLeft extends DropAndPark {
                 forwardTwo();
                 rightOne();
                 forwardOne();
+                arm.toPickUp();
                 break;
             case 3:
                 backOne();
@@ -55,6 +64,7 @@ public class DropAndParkRedLeft extends DropAndPark {
                 forwardOneEighth();
                 rightOne();
                 backFour();
+                arm.toPickUp();
                 break;
             case 2:
             default:
@@ -67,6 +77,7 @@ public class DropAndParkRedLeft extends DropAndPark {
                 forwardTwo();
                 rightOne();
                 forwardTwo();
+                arm.toPickUp();
                 break;
         }
 

@@ -52,4 +52,6 @@ public class Intake {
         intakeRotator.setPosition(0.35);
     }
 
+    public void setUpUp() {intakeRotator.setPosition(0.2);}
+
 }

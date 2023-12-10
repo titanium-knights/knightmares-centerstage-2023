@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
+import org.firstinspires.ftc.teamcode.utilities.Arm;
+import org.firstinspires.ftc.teamcode.utilities.Bay;
 
 @Autonomous(name="BlueLeft-DropPark", group="Linear OpMode")
 @Config
@@ -24,10 +26,16 @@ public class DropAndParkBlueLeft extends DropAndPark {
         drivetrain = new MecanumDrive(hardwareMap);
         Intake intake = new Intake(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
-        plane.reset();
         stick = new Stick(hardwareMap);
+        Arm arm = new Arm(hardwareMap);
+        Bay bay = new Bay(hardwareMap);
+
+        // setting up
+        plane.reset();
         stick.lock();
-        intake.setUp();
+        intake.setUpUp();
+        arm.drivingPos();
+        bay.setPick();
 
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();
@@ -43,6 +51,7 @@ public class DropAndParkBlueLeft extends DropAndPark {
                 forwardOneEighth();
                 rightOne();
                 backTwo();
+                arm.toPickUp();
                 break;
             case 3:
                 backOne();
@@ -52,6 +61,7 @@ public class DropAndParkBlueLeft extends DropAndPark {
                 forwardOneEighth();
                 leftOne();
                 forwardTwo();
+                arm.toPickUp();
                 break;
             case 2:
             default:
@@ -59,6 +69,7 @@ public class DropAndParkBlueLeft extends DropAndPark {
                 dropPixel();
                 forwardOne();
                 rightTwo();
+                arm.toPickUp();
                 break;
         }
 
