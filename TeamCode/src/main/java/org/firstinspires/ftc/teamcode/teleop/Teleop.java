@@ -55,6 +55,7 @@ public class Teleop extends OpMode {
         // setting up
         plane.reset();
         intake.setUp();
+        arm.drivingPos();
         bay.setPick();
 
         telemetry.setAutoClear(false);
@@ -87,14 +88,14 @@ public class Teleop extends OpMode {
             } else {
                 bay.setDrop();
             }
-            telemetry.addData("Arm pos:", arm.getPosition());
-            telemetry.update();
+//            telemetry.addData("Arm pos:", arm.getPosition());
+//            telemetry.update();
 
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
-            arm.toPickUp();
+            arm.drivingPos();
             bay.disable();
-            if (arm.getPosition() <= 60) {
+            if (arm.getPosition() <= 100) {
                 bay.setPick();
             }
             telemetry.addData("Arm pos:", arm.getPosition());
@@ -102,18 +103,21 @@ public class Teleop extends OpMode {
             state = true;
         }
 
-        if (config.bayOpen && config.bayClose) { // right bumper and left bumper
-            bay.setPosition(1.0);
-        }
 
         // bay
         if(config.bayClose){//Left Bumper
             //Close bay
             bay.close();
-            telemetry.addLine("yo");
+            if (arm.getPosition() <= 60) {
+                arm.drivingPos();
+            } else {
+                bay.setPosition(1.0);
+            }
         } else if (config.bayOpen){//right bumper
             bay.open();
-            telemetry.addLine("yoy");
+            if (arm.getPosition() <= 60) {
+                arm.toPickUp();
+            }
         }
 
 //        if (!arm.isBusy()) {
@@ -151,13 +155,6 @@ public class Teleop extends OpMode {
     }
 
     public void move(float x, float y, float turn, boolean slowMode){
-
-        if (x >= 0 || y >= 0 || turn >= 0) {
-            arm.drivingPos();
-        } else {
-            arm.toPickUp();
-        }
-
         // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= STICK_MARGIN) x = .0f;
         if (Math.abs(y) <= STICK_MARGIN) y = .0f;
@@ -177,7 +174,6 @@ public class Teleop extends OpMode {
         if (config.intakeReverse) {
             intake.runReverse();
             intake.noPower();
-
         }
         if (config.intakeStop) {
             intake.setUp();
