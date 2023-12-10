@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.auton.dropandpark;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.Bay;
@@ -13,9 +12,8 @@ import org.firstinspires.ftc.teamcode.utilities.Intake;
 
 @Autonomous(name="BlueRight-DropPark", group="Linear OpMode")
 @Config
-public class DropAndParkBlueRight extends LinearOpMode {
+public class DropAndParkBlueRight extends DropAndPark {
     MecanumDrive drivetrain;
-    final double POWER = 0.6;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,75 +33,48 @@ public class DropAndParkBlueRight extends LinearOpMode {
         int pos = vision.getPosition();
 
         switch (pos) {
-            case 2:
-                // SPIKE 2
-                drivetrain.move(0, POWER, 0);
-                sleep(1300); // guess #1
-                stopDrive();
-                intake.runReverse();
-                sleep(500);
-                intake.stop();
-                drivetrain.move(POWER, 0, 0);
-                sleep(4200);
-                stopDrive();
-                break;
             case 1:
-                // SPIKE 1
-                drivetrain.move(0, POWER, 0);
-                sleep(900);
-                stopDrive();
-                drivetrain.move(0, 0, -POWER);
-                sleep(550);
-                stopDrive();
-                drivetrain.move(0, -POWER, 0);
-                sleep(150);
-                stopDrive();
-                intake.runReverse();
-                sleep(500);
-                intake.stop();
-                drivetrain.move(0, POWER, 0);
-                sleep(150);
-                stopDrive();
-                drivetrain.move(POWER, 0, 0);
-                sleep(800);
-                stopDrive();
-                drivetrain.move(0, -POWER, 0);
-                sleep(4500); // guess #2
-                stopDrive();
+                backOne();
+                rightOneEighth();
+                turnCounterClockwise();
+                backOneEighth();
+                dropPixel();
+                forwardOneEighth();
+                leftOne();
+                backOne();
+                rightOneFourth();
+                backOne();
+                rightHalf();
+                backTwo();
                 break;
             case 3:
+                backOne();
+                turnClockwise();
+                backOneSixteenth();
+                dropPixel();
+                forwardOneEighth();
+                rightOne();
+                forwardTwo();
+                leftOne();
+                forwardOne();
+                break;
+            case 2:
             default:
-                // SPIKE 3
-                drivetrain.move(0, POWER, 0);
-                sleep(900);
-                stopDrive();
-                drivetrain.move(0, 0, POWER);
-                sleep(600);
-                stopDrive();
-                drivetrain.move(0, -POWER, 0);
-                sleep(150);
-                stopDrive();
-                intake.runReverse();
-                sleep(500);
-                intake.stop();
-                drivetrain.move(0, POWER, 0);
-                sleep(150);
-                stopDrive();
-                drivetrain.move(-POWER, 0, 0);
-                sleep(800);
-                stopDrive();
-                drivetrain.move(0, -POWER, 0);
-                sleep(4500); // guess #2
-                stopDrive();
+                backOne();
+                dropPixel();
+                forwardOneEighth();
+                turnCounterClockwise();
+                forwardOneEighth();
+                leftOneHalf();
+                backTwo();
+                rightOneFourth();
+                backOne();
+                rightHalf();
+                backTwo();
                 break;
         }
 
         telemetry.addData("Run Time:", runtime);
         telemetry.update();
-    }
-
-    public void stopDrive() {
-        drivetrain.move(0, 0, 0);
-        sleep(100);
     }
 }

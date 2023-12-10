@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.auton.cycler;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class BlueRight extends LinearOpMode {
     @Override
