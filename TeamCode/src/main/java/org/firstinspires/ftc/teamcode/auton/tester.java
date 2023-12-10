@@ -38,7 +38,7 @@ public class tester extends LinearOpMode {
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();
         runtime.reset();
-
+        int pos = vis.getPosition();
         // BLUE RIGHT
         // blue-right-spike1
 //        backOne();
