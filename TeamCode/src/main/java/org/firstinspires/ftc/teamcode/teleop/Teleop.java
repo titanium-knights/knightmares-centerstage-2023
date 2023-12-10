@@ -51,13 +51,15 @@ public class Teleop extends OpMode {
         this.plane = new PlaneLauncher(hardwareMap);
         this.intake = new Intake(hardwareMap);
         this.config = new TeleopConfig(gamepad1, gamepad2);
-        plane.reset();
 
+        // setting up
+        plane.reset();
         intake.setUp();
+        bay.setPick();
 
         telemetry.setAutoClear(false);
         telemetry.update();
-        bay.setPick();
+
     }
 
     @Override
@@ -107,11 +109,11 @@ public class Teleop extends OpMode {
         // bay
         if(config.bayClose){//Left Bumper
             //Close bay
-            arm.stop();
-            while (arm.isBusy()); // wait
             bay.close();
+            telemetry.addLine("yo");
         } else if (config.bayOpen){//right bumper
             bay.open();
+            telemetry.addLine("yoy");
         }
 
 //        if (!arm.isBusy()) {
@@ -150,6 +152,12 @@ public class Teleop extends OpMode {
 
     public void move(float x, float y, float turn, boolean slowMode){
 
+        if (x >= 0 || y >= 0 || turn >= 0) {
+            arm.drivingPos();
+        } else {
+            arm.toPickUp();
+        }
+
         // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= STICK_MARGIN) x = .0f;
         if (Math.abs(y) <= STICK_MARGIN) y = .0f;
@@ -158,20 +166,24 @@ public class Teleop extends OpMode {
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = (slowMode ? slowPower : normalPower);
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
+
     }
 
     public void intake(){
         if (config.intakeForward) {
-            intake.noPower();
-            //bayRotator.getController().pwmDisable();
             intake.runIntake();
+            intake.noPower();
         }
         if (config.intakeReverse) {
-            intake.noPower();
             intake.runReverse();
+            intake.noPower();
+
         }
         if (config.intakeStop) {
             intake.setUp();
+            intake.stop();
+        }
+        if (config.intakeNeutral) {
             intake.stop();
         }
     }

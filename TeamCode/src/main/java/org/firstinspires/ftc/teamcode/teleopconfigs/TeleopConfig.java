@@ -29,6 +29,7 @@ public class TeleopConfig {
     public boolean intakeForward;
     public boolean intakeReverse;
     public boolean intakeStop;
+    public boolean intakeNeutral;
     public boolean validate; //prevents plane and pullup
 
     public TeleopConfig(Gamepad gamepad1, Gamepad gamepad2) {
@@ -53,6 +54,7 @@ public class TeleopConfig {
         intakeForward = this.gamepad1.dpad_right;
         intakeReverse = this.gamepad1.dpad_left;
         intakeStop = this.gamepad1.a;
+        intakeNeutral = this.gamepad1.b;
     }
 
 

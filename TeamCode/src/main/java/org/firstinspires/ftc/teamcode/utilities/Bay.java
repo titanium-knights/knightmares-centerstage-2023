@@ -20,10 +20,10 @@ public class Bay {
     // TODO: ensure that open and close are not reversed
     // TODO: tune values
     public void open() {
-        bayOpener.setPosition(0.4);
+        bayOpener.setPosition(0.0);
     }
     public void close() {
-        bayOpener.setPosition(0.5);
+        bayOpener.setPosition(0.35);
     }
 
     // gets position of the bayRotator initially in servo angle and then converts it to degrees, robot centric
@@ -41,7 +41,7 @@ public class Bay {
     public void setOne() {bayRotator.setPosition(1);}
     // rotates back to drop position
     public void setPick() {bayRotator.setPosition(0.85);} // 270/300
-    public void setDrop() {bayRotator.setPosition(0.3);} // 120/300
+    public void setDrop() {bayRotator.setPosition(0.25);} // 120/300
 
     public void disable() {
         bayRotator.getController().pwmDisable();

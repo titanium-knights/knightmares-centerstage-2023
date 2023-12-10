@@ -111,6 +111,10 @@ public class Arm {
         return runToPosition(x);
     }
 
+    public boolean drivingPos() {
+        return runToPosition(10);
+    }
+
     public void toBackBoard(){ // manual drop
         armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setPower(false);
