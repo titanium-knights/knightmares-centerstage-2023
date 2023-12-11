@@ -5,12 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
-import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
-import org.firstinspires.ftc.teamcode.utilities.Intake;
-import org.firstinspires.ftc.teamcode.utilities.Stick;
-import org.firstinspires.ftc.teamcode.utilities.Arm;
-import org.firstinspires.ftc.teamcode.utilities.Bay;
 
 @Autonomous(name="BlueLeft-DropPark", group="Linear OpMode")
 @Config

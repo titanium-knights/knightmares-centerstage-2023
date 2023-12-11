@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.teleopconfigs.TeleopConfig;
 import org.firstinspires.ftc.teamcode.utilities.Bay;
-import org.firstinspires.ftc.teamcode.utilities.Arm;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
@@ -18,7 +17,6 @@ public class Teleop extends OpMode {
 
     MecanumDrive drive;
     Bay bay;
-    Arm arm;
     PlaneLauncher plane;
     PullUp pullup;
     Intake intake;
@@ -46,7 +44,6 @@ public class Teleop extends OpMode {
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
         this.bay = new Bay(hardwareMap);
-        this.arm = new Arm(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
         this.intake = new Intake(hardwareMap);
@@ -55,7 +52,6 @@ public class Teleop extends OpMode {
         // setting up
         // plane.reset();
         intake.setUpUp();
-        arm.drivingPos();
         bay.setPick();
 
         telemetry.setAutoClear(false);
@@ -77,47 +73,21 @@ public class Teleop extends OpMode {
         float turn = config.turn;
         move(-x, y, turn);
 
-        //ARM
-        //bay.maintain(arm);
-        if (config.armUpPreset > STICK_MARGIN) { //Right Trigger
-            arm.toDrop();
-            if (arm.getPosition() >= 0 && arm.getPosition() <= 40) {
-                bay.disable();
-            } else {
-                bay.setDrop();
-            }
-//            telemetry.addData("Arm pos:", arm.getPosition());
-//            telemetry.update();
-
-            state = true;
-        } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
-            arm.drivingPos();
-            if (arm.getPosition() <= 100 && arm.getPosition() > 60) {
-                bay.disable();
-            }
-            if (arm.getPosition() <= 60) {
-                bay.setPick();
-            }
-            telemetry.addData("Arm pos:", arm.getPosition());
-            telemetry.update();
-            state = true;
-        }
-
-
         // bay
         if(config.bayClose){//Left Bumper
             //Close bay
             bay.close();
-            if (arm.getPosition() <= 60) {
-                arm.drivingPos();
-            } else {
-                bay.setPosition(1.0);
-            }
+//            if (arm.getPosition() <= 60) {
+//                arm.drivingPos();
+//            }
+//            else {
+//                bay.setPosition(1.0);
+//            }
         } else if (config.bayOpen){//right bumper
             bay.open();
-            if (arm.getPosition() <= 60) {
-                arm.toPickUp();
-            }
+//            if (arm.getPosition() <= 60) {
+//                arm.toPickUp();
+//            }
         }
 
 //        if (!arm.isBusy()) {

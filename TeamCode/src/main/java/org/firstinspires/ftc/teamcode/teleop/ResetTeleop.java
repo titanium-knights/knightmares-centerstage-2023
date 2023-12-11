@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.utilities.Bay;
-import org.firstinspires.ftc.teamcode.utilities.Arm;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
@@ -17,7 +16,6 @@ public class ResetTeleop extends OpMode {
 
     MecanumDrive drive;
     Bay bay;
-    Arm lift;
     PullUp pullup;
     PlaneLauncher plane;
     Intake intake;
@@ -26,7 +24,6 @@ public class ResetTeleop extends OpMode {
     public void init() {
         this.drive = new MecanumDrive(hardwareMap);
         this.bay = new Bay(hardwareMap);
-        this.lift = new Arm(hardwareMap);
         this.pullup = new PullUp(hardwareMap);
         this.plane = new PlaneLauncher(hardwareMap);
         this.intake = new Intake(hardwareMap);
@@ -35,18 +32,6 @@ public class ResetTeleop extends OpMode {
     public void loop() {
         float armUp = gamepad1.left_trigger;
         float armDown = gamepad1.right_trigger;
-
-        if (armUp > 0) {
-            lift.toBackBoard();
-            state = false;
-            telemetry.addData("Up", lift.getPosition());
-        } else if (armDown > 0) {
-            lift.toRobot();
-            state = false;
-            telemetry.addData("Down", lift.getPosition());
-        } else if (!state){
-            lift.stop();
-        }
 
 //         bay rotate
         if (gamepad1.y) {
