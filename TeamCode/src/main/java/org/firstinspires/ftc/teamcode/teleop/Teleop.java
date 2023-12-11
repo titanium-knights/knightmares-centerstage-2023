@@ -70,14 +70,12 @@ public class Teleop extends OpMode {
 
         if (config.validate) {++validatecount;}
         if (validatecount > 5) {validate = true;}
-        //slow mode toggle
-        if (config.slowMode) {slowMode = !slowMode;}
 
         //DRIVE
         float x = config.x_movement;
         float y = config.y_movement;
         float turn = config.turn;
-        move(-x, y, turn, slowMode);
+        move(-x, y, turn);
 
         //ARM
         //bay.maintain(arm);
@@ -94,8 +92,10 @@ public class Teleop extends OpMode {
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
             arm.drivingPos();
-            bay.disable();
-            if (arm.getPosition() <= 100) {
+            if (arm.getPosition() <= 100 && arm.getPosition() > 60) {
+                bay.disable();
+            }
+            if (arm.getPosition() <= 60) {
                 bay.setPick();
             }
             telemetry.addData("Arm pos:", arm.getPosition());
@@ -130,11 +130,13 @@ public class Teleop extends OpMode {
         if (config.pullupUpManual && validate) { //dpad up
             pullup.manualRightUp();
             pullup.manualLeftUp();
+            intake.setUpUp();
             telemetry.addData("pullup Manual Up", pullup.getPosition()[0]);
             telemetry.update();
         } else if (config.pullupDownManual && validate) { //dpad down
             pullup.manualRightDown();
             pullup.manualLeftDown();
+            intake.setUpUp();
             telemetry.addData("pullup Manual Down", pullup.getPosition()[0]);
             telemetry.update();
 
@@ -154,7 +156,7 @@ public class Teleop extends OpMode {
 
     }
 
-    public void move(float x, float y, float turn, boolean slowMode){
+    public void move(float x, float y, float turn){
         // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= STICK_MARGIN) x = .0f;
         if (Math.abs(y) <= STICK_MARGIN) y = .0f;

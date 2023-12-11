@@ -32,7 +32,7 @@ public class DropAndParkRedRight extends DropAndPark {
         arm.drivingPos();
         bay.setPick();
 
-        InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
+        InitialVision vis = new InitialVision(hardwareMap, telemetry, "red");
         waitForStart();
         runtime.reset();
         int pos = vis.getPosition();

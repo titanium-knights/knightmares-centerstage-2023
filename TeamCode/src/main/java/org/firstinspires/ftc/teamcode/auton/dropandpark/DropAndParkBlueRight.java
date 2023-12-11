@@ -45,10 +45,9 @@ public class DropAndParkBlueRight extends DropAndPark {
                 forwardOneEighth();
                 leftOne();
                 backOne();
-                rightOneFourth();
                 backOne();
-                rightHalf();
                 backTwo();
+                rightHalf();
                 arm.toPickUp();
                 break;
             case 3:
@@ -59,8 +58,8 @@ public class DropAndParkBlueRight extends DropAndPark {
                 forwardOneEighth();
                 rightOne();
                 forwardTwo();
-                leftOne();
                 forwardOne();
+                leftHalf();
                 arm.toPickUp();
                 break;
             case 2:
@@ -72,10 +71,9 @@ public class DropAndParkBlueRight extends DropAndPark {
                 forwardOneEighth();
                 leftOneHalf();
                 backTwo();
-                rightOneFourth();
                 backOne();
-                rightHalf();
                 backTwo();
+                rightHalf();
                 arm.toPickUp();
                 break;
         }

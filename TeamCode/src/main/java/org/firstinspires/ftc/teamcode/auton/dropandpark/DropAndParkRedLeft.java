@@ -23,7 +23,7 @@ public class DropAndParkRedLeft extends DropAndPark {
         arm.drivingPos();
         bay.setPick();
 
-        InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
+        InitialVision vis = new InitialVision(hardwareMap, telemetry, "red");
         waitForStart();
         runtime.reset();
         int pos = vis.getPosition();
@@ -33,13 +33,15 @@ public class DropAndParkRedLeft extends DropAndPark {
             case 1:
                 backOne();
                 turnCounterClockwise();
+                intake.setUpUp();
                 backOneEighth();
                 dropPixel();
-                forwardOneEighth();
+                backOneEighth();
                 leftOne();
-                forwardTwo();
-                rightOne();
+                leftHalf();
+                forwardFour();
                 forwardOne();
+                rightOne();
                 arm.toPickUp();
                 break;
             case 3:
@@ -50,6 +52,7 @@ public class DropAndParkRedLeft extends DropAndPark {
                 forwardOneEighth();
                 rightOne();
                 backFour();
+                leftHalf();
                 arm.toPickUp();
                 break;
             case 2:
@@ -61,8 +64,8 @@ public class DropAndParkRedLeft extends DropAndPark {
                 backTwo();
                 turnCounterClockwise();
                 forwardTwo();
-                rightOne();
                 forwardTwo();
+                rightHalf();
                 arm.toPickUp();
                 break;
         }
