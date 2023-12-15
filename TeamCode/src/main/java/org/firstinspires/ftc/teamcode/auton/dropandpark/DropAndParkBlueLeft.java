@@ -4,17 +4,12 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.auton.AutonMethods;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
-import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
-import org.firstinspires.ftc.teamcode.utilities.Intake;
-import org.firstinspires.ftc.teamcode.utilities.Stick;
-import org.firstinspires.ftc.teamcode.utilities.Arm;
-import org.firstinspires.ftc.teamcode.utilities.Bay;
 
 @Autonomous(name="BlueLeft-DropPark", group="Linear OpMode")
 @Config
-public class DropAndParkBlueLeft extends DropAndPark {
+public class DropAndParkBlueLeft extends AutonMethods {
 
     @Override
     public void runOpMode() throws InterruptedException {

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auton.dropandpark;
+package org.firstinspires.ftc.teamcode.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -9,13 +9,13 @@ import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
 
-public abstract class DropAndPark extends LinearOpMode {
-    MecanumDrive drivetrain;
-    Stick stick;
-    Intake intake;
-    PlaneLauncher plane;
-    Arm arm;
-    Bay bay;
+public abstract class AutonMethods extends LinearOpMode {
+    public MecanumDrive drivetrain;
+    public Stick stick;
+    public Intake intake;
+    public PlaneLauncher plane;
+    public Arm arm;
+    public Bay bay;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -70,11 +70,6 @@ public abstract class DropAndPark extends LinearOpMode {
     public void forwardTwo() {
         drivetrain.move(0, -POWER, 0);
         sleep(2200);
-        stopDrive();
-    }
-    public void forwardFour() { // turns slightly left
-        drivetrain.move(0,-POWER, 0);
-        sleep(3500);
         stopDrive();
     }
     public void forwardOneEighth() {
@@ -134,17 +129,6 @@ public abstract class DropAndPark extends LinearOpMode {
         sleep(2600);
         stopDrive();
     }
-    public void rightFour() {
-        drivetrain.move(-POWER,0, 0);
-        sleep(5200);
-        stopDrive();
-    }
-
-    public void leftHalf() {
-        drivetrain.move(POWER, 0, 0);
-        sleep(800);
-        stopDrive();
-    }
 
     public void leftOne() {
         drivetrain.move(POWER, 0, 0);
@@ -163,6 +147,59 @@ public abstract class DropAndPark extends LinearOpMode {
         sleep(2600);
         stopDrive();
     }
+
+    public void paintPixel() { // TODO: figure out how this works
+        bay.disable();
+        sleep(100);
+        arm.toDrop();
+        sleep(500);
+        bay.setDrop();
+        sleep(100);
+        bay.open();
+        sleep(100);
+    }
+
+    public void returnInit() { // TODO: figure out if this even works
+        bay.close();
+        bay.setPosition(1.0);
+        arm.drivingPos();
+        bay.disable();
+        if (arm.getPosition() <= 60) {
+            bay.setPick();
+        }
+        arm.toPickUp();
+        sleep(100);
+    }
+
+    public void backThree() { // TODO: tune this
+        drivetrain.move(0,POWER, 0);
+        sleep(3000);
+        stopDrive();
+    }
+
+    public void forwardThree() { // TODO: tune this value
+        drivetrain.move(0, -POWER, 0);
+        sleep(3200);
+        stopDrive();
+    }
+
+    public void forwardFour() { // turns slightly left
+        drivetrain.move(0,-POWER, 0);
+        sleep(3500);
+        stopDrive();
+    }
+    public void rightFour() {
+        drivetrain.move(-POWER,0, 0);
+        sleep(5200);
+        stopDrive();
+    }
+
+    public void leftHalf() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(800);
+        stopDrive();
+    }
+
     public void leftFour() { // NOTE: moves slightly forward
         drivetrain.move(POWER,0, 0);
         sleep(5600);
