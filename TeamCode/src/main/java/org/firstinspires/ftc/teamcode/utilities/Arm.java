@@ -106,7 +106,7 @@ public class Arm {
     }
 
     public boolean toDrop(){ // preset for dropping pixels
-        final double x = MAX_LIMIT;
+        final double x = 120;
 
         return runToPosition(x);
     }
