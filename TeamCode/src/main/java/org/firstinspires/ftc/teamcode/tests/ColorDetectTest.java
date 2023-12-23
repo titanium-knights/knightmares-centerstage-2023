@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.ColorDetect;
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 @Autonomous(name="ColorDetectTest", group="Linear OpMode")
 @Config
@@ -25,7 +25,7 @@ public class ColorDetectTest extends LinearOpMode {
 
         final double POWER = 0.85;
         ElapsedTime runtime = new ElapsedTime();
-        MecanumDrive drivetrain = new MecanumDrive(hardwareMap);
+        SimpleMecanumDrive drivetrain = new SimpleMecanumDrive(hardwareMap);
 
         waitForStart();
         runtime.reset();

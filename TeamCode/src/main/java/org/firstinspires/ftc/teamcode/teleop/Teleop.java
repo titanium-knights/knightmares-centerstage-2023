@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.teleopconfigs.TeleopConfig;
 import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.Arm;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 
@@ -16,7 +16,7 @@ public class Teleop extends OpMode {
 
     // we are declaring subsystems here:
 
-    MecanumDrive drive;
+    SimpleMecanumDrive drive;
     Bay bay;
     Arm arm;
     PlaneLauncher plane;
@@ -44,7 +44,7 @@ public class Teleop extends OpMode {
 
     //runs once, setup function
     public void init() {
-        this.drive = new MecanumDrive(hardwareMap);
+        this.drive = new SimpleMecanumDrive(hardwareMap);
         this.bay = new Bay(hardwareMap);
         this.arm = new Arm(hardwareMap);
         this.pullup = new PullUp(hardwareMap);

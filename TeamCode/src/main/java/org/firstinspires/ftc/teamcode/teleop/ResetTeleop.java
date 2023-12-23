@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.Arm;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 
@@ -15,7 +15,7 @@ public class ResetTeleop extends OpMode {
 
     final float STICK_MARGIN = 0.2f;
 
-    MecanumDrive drive;
+    SimpleMecanumDrive drive;
     Bay bay;
     Arm lift;
     PullUp pullup;
@@ -24,7 +24,7 @@ public class ResetTeleop extends OpMode {
     boolean state = false;
 
     public void init() {
-        this.drive = new MecanumDrive(hardwareMap);
+        this.drive = new SimpleMecanumDrive(hardwareMap);
         this.bay = new Bay(hardwareMap);
         this.lift = new Arm(hardwareMap);
         this.pullup = new PullUp(hardwareMap);

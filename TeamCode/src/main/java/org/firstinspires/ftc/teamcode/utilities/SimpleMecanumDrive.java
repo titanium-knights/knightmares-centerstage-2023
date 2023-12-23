@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class MecanumDrive {
+public class SimpleMecanumDrive {
 
-    public MecanumDrive(HardwareMap hmap) {
+    public SimpleMecanumDrive(HardwareMap hmap) {
         fl = hmap.get(DcMotor.class, CONFIG.FRONT_LEFT);
         fr = hmap.get(DcMotor.class, CONFIG.FRONT_RIGHT);
         bl = hmap.get(DcMotor.class, CONFIG.BACK_LEFT);

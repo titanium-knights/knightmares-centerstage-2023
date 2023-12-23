@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
 
@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.utilities.Stick;
 @Config
 public class tester extends LinearOpMode {
 
-    MecanumDrive drivetrain;
+    SimpleMecanumDrive drivetrain;
     Stick stick;
     public static int forward_time = 1100;
     public static int strafe_time = 4000;
@@ -27,7 +27,7 @@ public class tester extends LinearOpMode {
         telemetry.update();
 
         ElapsedTime runtime = new ElapsedTime();
-        drivetrain = new MecanumDrive(hardwareMap);
+        drivetrain = new SimpleMecanumDrive(hardwareMap);
         Intake intake = new Intake(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
         plane.reset();

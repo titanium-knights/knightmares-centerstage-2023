@@ -7,13 +7,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 @Autonomous(name="JustParkRedLeft", group="Linear OpMode")
 @Config
 public class RedLeftPusher extends LinearOpMode {
 
-    MecanumDrive drivetrain;
+    SimpleMecanumDrive drivetrain;
     public static int forward_time = 925;
     public static int strafe_time = 4000;
     @Override
@@ -24,7 +24,7 @@ public class RedLeftPusher extends LinearOpMode {
         final double POWER = 0.85;
 
         ElapsedTime runtime = new ElapsedTime();
-        drivetrain = new MecanumDrive(hardwareMap);
+        drivetrain = new SimpleMecanumDrive(hardwareMap);
         Intake intake = new Intake(hardwareMap);
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();

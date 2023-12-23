@@ -5,12 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.utilities.Arm;
 import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
 
 public abstract class AutonMethods extends LinearOpMode {
-    public MecanumDrive drivetrain;
+    public SimpleMecanumDrive drivetrain;
     public Stick stick;
     public Intake intake;
     public PlaneLauncher plane;
@@ -19,7 +19,7 @@ public abstract class AutonMethods extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        drivetrain = new MecanumDrive(hardwareMap);
+        drivetrain = new SimpleMecanumDrive(hardwareMap);
         stick = new Stick(hardwareMap);
         intake = new Intake(hardwareMap);
         plane = new PlaneLauncher(hardwareMap);

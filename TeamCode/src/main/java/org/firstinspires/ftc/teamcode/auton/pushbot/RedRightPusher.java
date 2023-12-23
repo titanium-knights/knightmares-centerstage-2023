@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.utilities.MecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 //Red Right Side
 @Autonomous(name="JustParkRedRight", group="Linear OpMode")
@@ -19,7 +19,7 @@ public class RedRightPusher extends LinearOpMode {
 
         final double POWER = 0.85;
         ElapsedTime runtime = new ElapsedTime();
-        MecanumDrive drivetrain = new MecanumDrive(hardwareMap);
+        SimpleMecanumDrive drivetrain = new SimpleMecanumDrive(hardwareMap);
 
         waitForStart();
         runtime.reset();
