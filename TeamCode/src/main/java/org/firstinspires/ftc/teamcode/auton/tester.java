@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
+import org.firstinspires.ftc.teamcode.utilities.Arm;
 
 @Autonomous(name="tester", group="Linear OpMode")
 @Config
@@ -30,134 +31,29 @@ public class tester extends LinearOpMode {
         drivetrain = new SimpleMecanumDrive(hardwareMap);
         Intake intake = new Intake(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
+        Arm arm = new Arm(hardwareMap);
         plane.reset();
         stick = new Stick(hardwareMap);
         stick.lock();
-        intake.setUp();
+        //intake.setUp();
+        intake.deleteWhenDone();
+        arm.drivingPos();
 
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
         waitForStart();
         runtime.reset();
         int pos = vis.getPosition();
-        // BLUE RIGHT
-        // blue-right-spike1
-//        backOne();
-//        rightOneEighth();
-//        turnCounterClockwise();
-//        backOneEighth();
-//        dropPixel();
-//        forwardOneEighth();
-//        leftOne();
-//        backOne();
-//        rightOneFourth();
-//        backOne();
-//        rightHalf();
-//        backTwo();
 
-        // blue-right-spike3
-//        backOne();
-//        turnClockwise();
-//        backOneSixteenth();
-//        dropPixel();
-//        forwardOneEighth();
-//        rightOne();
-//        forwardTwo();
-//        leftOne();
-//        forwardOne();
-
-        // blue-right-spike2
-//        backOne();
-//        dropPixel();
-//        forwardOneEighth();
-//        turnCounterClockwise();
-//        forwardOneEighth();
-//        leftOneHalf();
-//        backTwo();
-//        rightOneFourth();
-//        backOne();
-//        rightHalf();
-//        backTwo();
-
-        // BLUE LEFT
-        // blue-left-spike1
-//        backOne();
-//        turnCounterClockwise();
-//        backOneEighth();
-//        dropPixel();
-//        forwardOneEighth();
-//        rightOne();
-//        backTwo();
-
-        // blue-left-spike3
-//        backOne();
-//        turnClockwise();
-//        backOneSixteenth();
-//        dropPixel();
-//        forwardOneEighth();
-//        leftOne();
-//        forwardTwo();
-
-        // blue-left-spike2
-//        backOne();
-//        dropPixel();
-//        forwardOne();
-//        rightTwo();
-
-        // RED LEFT (new)
-        // red-left-spike2
-//        backOne();
-//        dropPixel();
-//        forwardOne();
-//        rightHalf();
-//        backTwo();
-//        turnCounterClockwise();
-//        forwardTwo();
-//        rightOne();
-//        forwardTwo();
-
-//
-//        // red-left-spike1
-//        backOne();
-//        turnCounterClockwise();
-//        backOneEighth();
-//        dropPixel();
-//        forwardOneEighth();
-//        leftOne();
-//        forwardTwo();
-//        rightOne();
-//        forwardOne();
-//
-//        // red-left-spike3
-//        backOne();
-//        turnClockwise();
-//        backOneEighth();
-//        dropPixel();
-//        forwardOneEighth();
-//        rightOne();
-//        backFour();
-//
-//        // RED RIGHT
-//        // red-right-spike2
-//        backOne();
-//        dropPixel();
-//        forwardOneEighth();
-//        leftTwo();
-//
-//        // red-right-spike1
-//        backOne();
-//        turnCounterClockwise();
-//        backOneEighth();
-//        dropPixel();
-//        forwardOneHalf();
-//
-//        // red-right-spike3
-//        backOne();
-//        turnClockwise();
-//        backOneEighth();
-//        dropPixel();
-//        forwardOneEighth();
-//        leftOne();
-//        backTwo();
+        backOne();
+        turnCounterClockwise();
+        backOneEighth();
+        dropPixel();
+        forwardOneEighth();
+        leftOne();
+        backThree();
+        rightOne();
+        rightOneEighth();
+        backHalf();
 
         telemetry.addData("Status", "Run Time: " + runtime);
         telemetry.addLine("Please work thanks! ");
@@ -176,6 +72,11 @@ public class tester extends LinearOpMode {
     }
 
     // FORWARD AND BACKWARD
+    public void backHalf() {
+        drivetrain.move(0,POWER, 0);
+        sleep(800);
+        stopDrive();
+    }
     public void backOne() {
         drivetrain.move(0,POWER, 0);
         sleep(1250);
@@ -185,6 +86,11 @@ public class tester extends LinearOpMode {
     public void backTwo() {
         drivetrain.move(0,POWER, 0);
         sleep(2000);
+        stopDrive();
+    }
+    public void backThree() { // TODO: tune this and update
+        drivetrain.move(0,POWER, 0);
+        sleep(3200);
         stopDrive();
     }
     public void backFour() { // turns slightly right
@@ -261,7 +167,7 @@ public class tester extends LinearOpMode {
     }
     public void rightOne() {
         drivetrain.move(-POWER, 0, 0);
-        sleep(1200);
+        sleep(1300); // TODO: update this
         stopDrive();
     }
 
@@ -284,7 +190,7 @@ public class tester extends LinearOpMode {
 
     public void leftOne() {
         drivetrain.move(POWER, 0, 0);
-        sleep(1200);
+        sleep(1300); //TODO: update this in auton methods
         stopDrive();
     }
 

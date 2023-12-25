@@ -54,4 +54,6 @@ public class Intake {
 
     public void setUpUp() {intakeRotator.setPosition(0.25);} // 0.2 before
 
+    public void deleteWhenDone() {intakeRotator.setPosition(0.0);}
+
 }

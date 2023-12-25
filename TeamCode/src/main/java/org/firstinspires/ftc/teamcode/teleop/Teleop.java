@@ -94,7 +94,7 @@ public class Teleop extends OpMode {
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
             arm.drivingPos();
-            if (arm.getPosition() <= 100 && arm.getPosition() >= 60) {
+            if (arm.getPosition() <= 100 && arm.getPosition() >= 80) {
                 bay.disable();
             } else {
                 bay.setPick();
@@ -170,7 +170,7 @@ public class Teleop extends OpMode {
     public void intake(){
         if (config.intakeForward) {
             intake.runIntake();
-            intake.noPower();
+            intake.setZero();
         }
         if (config.intakeReverse) {
             intake.runReverse();
