@@ -34,6 +34,28 @@ public abstract class AutonMethods extends LinearOpMode {
         sleep(300);
     }
 
+    public void caseOne() {
+        backOne();
+        turnCounterClockwise();
+        backOneEighth();
+        dropPixel();
+        forwardOneEighth();
+    }
+
+    public void caseThree() {
+        backOne();
+        turnClockwise();
+        backOneEighth();
+        dropPixel();
+        forwardOneEighth();
+    }
+
+    public void caseTwo() {
+        backOne();
+        dropPixel();
+        forwardOneEighth();
+    }
+
     public void stopDrive() {
         drivetrain.move(0, 0, 0);
         sleep(100);
@@ -127,6 +149,12 @@ public abstract class AutonMethods extends LinearOpMode {
     public void rightTwo() {
         drivetrain.move(-POWER, 0, 0);
         sleep(2600);
+        stopDrive();
+    }
+
+    public void leftOneEighth() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(200); // TODO: tune
         stopDrive();
     }
 

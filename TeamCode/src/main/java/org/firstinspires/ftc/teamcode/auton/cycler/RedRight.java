@@ -32,14 +32,30 @@ public class RedRight extends AutonMethods {
 
         switch (pos) {
             case 1:
-
+                caseOne();
+                turnClockwise();
+                turnClockwise();
+                backOne();
+                leftOneEighth();
+                paintPixel();
+                returnInit();
                 break;
             case 3:
-
+                caseThree();
+                rightOne();
+                backOne();
+                leftOne();
+                leftHalf();
+                paintPixel();
+                returnInit();
                 break;
             case 2:
             default:
-
+                caseTwo();
+                turnClockwise();
+                backOne();
+                paintPixel();
+                returnInit();
                 break;
         }
 

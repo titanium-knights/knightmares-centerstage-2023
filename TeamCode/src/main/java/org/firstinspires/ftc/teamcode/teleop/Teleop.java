@@ -55,7 +55,7 @@ public class Teleop extends OpMode {
         // setting up
         // plane.reset();
         intake.setUpUp();
-        arm.drivingPos();
+        //arm.drivingPos();
         bay.setPick();
 
         telemetry.setAutoClear(false);

@@ -32,14 +32,30 @@ public class BlueLeft extends AutonMethods {
 
         switch (pos) {
             case 1:
-
+                caseOne();
+                leftOne();
+                backOne();
+                rightOne();
+                rightHalf();
+                paintPixel();
+                returnInit();
                 break;
             case 3:
-
+                caseThree();
+                turnClockwise();
+                turnClockwise();
+                backOne();
+                leftOneEighth();
+                paintPixel();
+                returnInit();
                 break;
             case 2:
             default:
-
+                caseTwo();
+                turnCounterClockwise();
+                backOne();
+                paintPixel();
+                returnInit();
                 break;
         }
 

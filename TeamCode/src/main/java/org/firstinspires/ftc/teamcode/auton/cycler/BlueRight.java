@@ -32,11 +32,7 @@ public class BlueRight extends AutonMethods {
 
         switch (pos) {
             case 1:
-                backOne();
-                turnCounterClockwise();
-                backOneEighth();
-                dropPixel();
-                forwardOneEighth();
+                caseOne();
                 leftOne();
                 backThree();
                 rightOne();
@@ -45,11 +41,7 @@ public class BlueRight extends AutonMethods {
                 returnInit();
                 break;
             case 3:
-                backOne();
-                turnClockwise();
-                backOneEighth();
-                dropPixel();
-                forwardOneEighth();
+                caseThree();
                 rightOne();
                 forwardThree();
                 turnClockwise();
@@ -61,9 +53,7 @@ public class BlueRight extends AutonMethods {
                 break;
             case 2:
             default:
-                backOne();
-                dropPixel();
-                forwardOneEighth();
+                caseTwo();
                 turnCounterClockwise();
                 forwardOneEighth();
                 leftOne();
