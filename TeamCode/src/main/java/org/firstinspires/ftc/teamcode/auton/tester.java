@@ -51,9 +51,11 @@ public class tester extends LinearOpMode {
         bay.disable();
         sleep(100);
         arm.toDrop();
-        sleep(2000);
+        sleep(1000);
         bay.setDrop();
-        sleep(2000);
+        sleep(1000);
+        arm.toDrop();
+        sleep(1000);
         bay.open();
         sleep(500);
 
