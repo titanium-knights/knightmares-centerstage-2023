@@ -47,6 +47,10 @@ public class Bay {
         bayRotator.getController().pwmDisable();
     }
 
+    public void enable() {
+        bayRotator.getController().pwmEnable();
+    }
+
     public void maintain(Arm arm){
         if (arm.getPosition() >= 0 && arm.getPosition() <= 102) {
             bayRotator.getController().pwmDisable();
