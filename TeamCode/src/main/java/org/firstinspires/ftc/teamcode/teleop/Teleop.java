@@ -55,7 +55,7 @@ public class Teleop extends OpMode {
         // setting up
         // plane.reset();
         intake.setUpUp();
-        //arm.drivingPos();
+        arm.drivingPos();
         bay.setPick();
 
         telemetry.setAutoClear(false);
@@ -95,6 +95,10 @@ public class Teleop extends OpMode {
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
             arm.drivingPos();
             if (arm.getPosition() <= 100 && arm.getPosition() >= 80) {
+                bay.disable();
+            } else if (arm.getPosition() < 80 && arm.getPosition() >= 70) {
+                bay.setPick();
+            } else if (arm.getPosition() < 70 && arm.getPosition() > 0) {
                 bay.disable();
             } else {
                 bay.setPick();

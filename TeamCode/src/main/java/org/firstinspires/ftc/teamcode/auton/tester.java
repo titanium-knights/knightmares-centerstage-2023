@@ -36,7 +36,7 @@ public class tester extends LinearOpMode {
         stick = new Stick(hardwareMap);
         stick.lock();
         //intake.setUp();
-        intake.deleteWhenDone();
+
         arm.drivingPos();
 
         InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
