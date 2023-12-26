@@ -48,7 +48,14 @@ public class tester extends LinearOpMode {
         runtime.reset();
         int pos = vis.getPosition();
 
-        paintPixel();
+        bay.disable();
+        sleep(100);
+        arm.toDrop();
+        sleep(2000);
+        bay.setDrop();
+        sleep(2000);
+        bay.open();
+        sleep(500);
 
         telemetry.addData("Status", "Run Time: " + runtime);
         telemetry.addLine("Please work thanks! ");
