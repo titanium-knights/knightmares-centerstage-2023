@@ -11,12 +11,15 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
 import org.firstinspires.ftc.teamcode.utilities.Arm;
+import org.firstinspires.ftc.teamcode.utilities.Bay;
 
 @Autonomous(name="tester", group="Linear OpMode")
 @Config
 public class tester extends LinearOpMode {
 
     SimpleMecanumDrive drivetrain;
+    Arm arm;
+    Bay bay;
     Stick stick;
     public static int forward_time = 1100;
     public static int strafe_time = 4000;
@@ -32,6 +35,7 @@ public class tester extends LinearOpMode {
         Intake intake = new Intake(hardwareMap);
         PlaneLauncher plane = new PlaneLauncher(hardwareMap);
         Arm arm = new Arm(hardwareMap);
+        Bay bay = new Bay(hardwareMap);
         plane.reset();
         stick = new Stick(hardwareMap);
         stick.lock();
@@ -44,16 +48,7 @@ public class tester extends LinearOpMode {
         runtime.reset();
         int pos = vis.getPosition();
 
-        backOne();
-        turnCounterClockwise();
-        backOneEighth();
-        dropPixel();
-        forwardOneEighth();
-        leftOne();
-        backThree();
-        rightOne();
-        rightOneEighth();
-        backHalf();
+        paintPixel();
 
         telemetry.addData("Status", "Run Time: " + runtime);
         telemetry.addLine("Please work thanks! ");
@@ -209,5 +204,28 @@ public class tester extends LinearOpMode {
         drivetrain.move(POWER,0, 0);
         sleep(5600);
         stopDrive();
+    }
+
+    public void paintPixel() { // TODO: figure out how this works
+        bay.disable();
+        sleep(100);
+        arm.toDrop();
+        sleep(500);
+        bay.setDrop();
+        sleep(100);
+        bay.open();
+        sleep(100);
+    }
+
+    public void returnInit() { // TODO: figure out if this even works
+        bay.close();
+        bay.setPosition(1.0);
+        arm.drivingPos();
+        bay.disable();
+        if (arm.getPosition() <= 60) {
+            bay.setPick();
+        }
+        arm.toPickUp();
+        sleep(100);
     }
 }

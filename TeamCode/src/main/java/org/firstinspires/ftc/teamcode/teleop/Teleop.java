@@ -56,7 +56,7 @@ public class Teleop extends OpMode {
         // plane.reset();
         intake.setUpUp();
         arm.drivingPos();
-        bay.setPick();
+        bay.setPosition(0.92);
 
         telemetry.setAutoClear(false);
         telemetry.update();
@@ -94,13 +94,16 @@ public class Teleop extends OpMode {
             state = true;
         } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
             arm.drivingPos();
-            if (arm.getPosition() <= 100 && arm.getPosition() >= 80) {
-                bay.disable();
-            } else if (arm.getPosition() < 80 && arm.getPosition() >= 70) {
-                bay.setPick();
-            } else if (arm.getPosition() < 70 && arm.getPosition() > 0) {
-                bay.disable();
-            } else {
+//            if (arm.getPosition() <= 100 && arm.getPosition() >= 80) {
+//                bay.disable();
+//            } else if (arm.getPosition() < 80 && arm.getPosition() >= 70) {
+//                bay.setPick();
+//            } else if (arm.getPosition() < 70 && arm.getPosition() > 0) {
+//                bay.disable();
+//            } else {
+//                bay.setPick();
+//            }
+            if (arm.getPosition() <= 10) {
                 bay.setPick();
             }
             telemetry.addData("Arm pos:", arm.getPosition());
@@ -115,14 +118,18 @@ public class Teleop extends OpMode {
             bay.close();
             if (arm.getPosition() <= 60) {
                 arm.drivingPos();
+                bay.setPosition(0.92);
             } else {
-                bay.setPosition(0.90);
+                bay.setPosition(0.97);
             }
+
         } else if (config.bayOpen){//right bumper
             bay.open();
             if (arm.getPosition() <= 60) {
                 arm.toPickUp();
+                bay.setPick();
             }
+
         }
 
 //        if (!arm.isBusy()) {

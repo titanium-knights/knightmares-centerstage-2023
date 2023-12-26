@@ -40,7 +40,7 @@ public class Bay {
     public void setZero() {bayRotator.setPosition(0);}
     public void setOne() {bayRotator.setPosition(1);}
     // rotates back to drop position
-    public void setPick() {bayRotator.setPosition(0.85);} // 0.92
+    public void setPick() {bayRotator.setPosition(0.87);} // 0.92
     public void setDrop() {bayRotator.setPosition(0.3);} // 120/300
 
     public void disable() {
