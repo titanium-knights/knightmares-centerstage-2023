@@ -11,7 +11,7 @@ public class Intake {
     Servo intakeRotator;
 
     public static double POWER = 0.3;
-    public static double REVERSE_POWER = -0.6;
+    public static double REVERSE_POWER = -0.7; // TODO: add barriers for intake
 
     public Intake(HardwareMap hmap) {
         this.intakeMotor = hmap.dcMotor.get(CONFIG.intake);

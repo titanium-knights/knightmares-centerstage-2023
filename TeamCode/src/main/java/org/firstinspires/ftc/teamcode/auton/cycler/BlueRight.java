@@ -21,7 +21,7 @@ public class BlueRight extends AutonMethods {
         // setting up
         plane.reset();
         stick.lock();
-        intake.setUpUp();
+        intake.setUp();
         arm.drivingPos();
         bay.setPick();
 
@@ -35,8 +35,8 @@ public class BlueRight extends AutonMethods {
                 caseOne();
                 leftOne();
                 backThree();
-                rightOne();
-                rightOneEighth();
+                rightOneHalf();
+                backHalf();
                 paintPixel();
                 returnInit();
                 break;
@@ -48,17 +48,19 @@ public class BlueRight extends AutonMethods {
                 turnClockwise();
                 rightHalf();
                 rightOneFourth();
+                backHalf();
                 paintPixel();
                 returnInit();
                 break;
             case 2:
             default:
                 caseTwo();
-                turnCounterClockwise();
-                forwardOneEighth();
                 leftOne();
-                backThree();
-                rightOne();
+                backOne();
+                turnCounterClockwise();
+                backFour();
+                rightOneHalf();
+                backHalf();
                 paintPixel();
                 returnInit();
                 break;

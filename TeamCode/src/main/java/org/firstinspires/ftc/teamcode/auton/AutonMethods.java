@@ -29,40 +29,19 @@ public abstract class AutonMethods extends LinearOpMode {
 
     public final double POWER = 0.5;
 
-    public void dropPixel() {
-        stick.unlock();
-        sleep(300);
-    }
-
-    public void caseOne() {
-        backOne();
-        turnCounterClockwise();
-        backOneEighth();
-        dropPixel();
-        forwardOneEighth();
-    }
-
-    public void caseThree() {
-        backOne();
-        turnClockwise();
-        backOneEighth();
-        dropPixel();
-        forwardOneEighth();
-    }
-
-    public void caseTwo() {
-        backOne();
-        dropPixel();
-        forwardOneEighth();
-    }
-
     public void stopDrive() {
         drivetrain.move(0, 0, 0);
         sleep(100);
     }
 
-    // FORWARD AND BACKWARD
-    public void backOne() {
+    // FORWARD AND BACKWARD ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void backOneee() { // slightly more than backOne
+        drivetrain.move(0,POWER, 0);
+        sleep(1450);
+        stopDrive();
+    }
+
+    public void backOne () {
         drivetrain.move(0,POWER, 0);
         sleep(1250);
         stopDrive();
@@ -75,7 +54,17 @@ public abstract class AutonMethods extends LinearOpMode {
     }
     public void backFour() { // turns slightly right
         drivetrain.move(0,POWER, 0);
-        sleep(3500);
+        sleep(4000);
+        stopDrive();
+    }
+    public void backHalf() {
+        drivetrain.move(0,POWER, 0);
+        sleep(1000);
+        stopDrive();
+    }
+    public void forwardHalf() {
+        drivetrain.move(0,-POWER, 0);
+        sleep(900);
         stopDrive();
     }
     public void forwardOne() {
@@ -84,24 +73,49 @@ public abstract class AutonMethods extends LinearOpMode {
         stopDrive();
     }
     public void forwardOneHalf() {
-        drivetrain.move(0,-POWER, 0);
+        drivetrain.move(0, -POWER, 0);
         sleep(1800);
         stopDrive();
     }
-
     public void forwardTwo() {
         drivetrain.move(0, -POWER, 0);
         sleep(2200);
         stopDrive();
     }
-    public void forwardOneEighth() {
+    public void forwardFour() { // turns slightly left
         drivetrain.move(0,-POWER, 0);
-        sleep(300);
+        sleep(3500);
         stopDrive();
     }
+    public void forwardOneFourth() {
+        drivetrain.move(0,-POWER, 0);
+        sleep(450);
+        stopDrive();
+    }
+    public void forwardOneEighth() {
+        drivetrain.move(0,-POWER, 0);
+        sleep(360);
+        stopDrive();
+    }
+    public void forwardThree() { // TODO: tune this value
+        drivetrain.move(0, -POWER, 0);
+        sleep(3900);
+        stopDrive();
+    }
+    public void backThree() { // TODO: tune this
+        drivetrain.move(0,POWER, 0);
+        sleep(3900);
+        stopDrive();
+    }
+
     public void backOneEighth() {
         drivetrain.move(0,POWER, 0);
-        sleep(300);
+        sleep(360);
+        stopDrive();
+    }
+    public void backOneFourth() {
+        drivetrain.move(0,POWER, 0);
+        sleep(450);
         stopDrive();
     }
 
@@ -111,19 +125,19 @@ public abstract class AutonMethods extends LinearOpMode {
         stopDrive();
     }
 
-    // TURNING
+    // TURNING ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void turnClockwise() {
         drivetrain.move(0,0, -POWER);
-        sleep(830);
+        sleep(890);
         stopDrive();
     }
     public void turnCounterClockwise() {
         drivetrain.move(0,0, POWER);
-        sleep(925);
+        sleep(1150);
         stopDrive();
     }
 
-    // STRAFING
+    // STRAFING ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void rightOneEighth() {
         drivetrain.move(-POWER, 0, 0);
         sleep(200);
@@ -137,83 +151,23 @@ public abstract class AutonMethods extends LinearOpMode {
 
     public void rightHalf() {
         drivetrain.move(-POWER, 0, 0);
-        sleep(800);
+        sleep(1500);
         stopDrive();
     }
     public void rightOne() {
         drivetrain.move(-POWER, 0, 0);
-        sleep(1200);
+        sleep(1500);
+        stopDrive();
+    }
+    public void rightOneHalf() {
+        drivetrain.move(-POWER, 0, 0);
+        sleep(3000);
         stopDrive();
     }
 
     public void rightTwo() {
         drivetrain.move(-POWER, 0, 0);
         sleep(2600);
-        stopDrive();
-    }
-
-    public void leftOneEighth() {
-        drivetrain.move(POWER, 0, 0);
-        sleep(200); // TODO: tune
-        stopDrive();
-    }
-
-    public void leftOne() {
-        drivetrain.move(POWER, 0, 0);
-        sleep(1200);
-        stopDrive();
-    }
-
-    public void leftOneHalf() {
-        drivetrain.move(POWER, 0, 0);
-        sleep(1600);
-        stopDrive();
-    }
-
-    public void leftTwo() {
-        drivetrain.move(POWER, 0, 0);
-        sleep(2600);
-        stopDrive();
-    }
-
-    public void paintPixel() { // TODO: figure out how this works
-        bay.disable();
-        sleep(100);
-        arm.toDrop();
-        sleep(500);
-        bay.setDrop();
-        sleep(100);
-        bay.open();
-        sleep(100);
-    }
-
-    public void returnInit() { // TODO: figure out if this even works
-        bay.close();
-        bay.setPosition(1.0);
-        arm.drivingPos();
-        bay.disable();
-        if (arm.getPosition() <= 60) {
-            bay.setPick();
-        }
-        arm.toPickUp();
-        sleep(100);
-    }
-
-    public void backThree() { // TODO: tune this
-        drivetrain.move(0,POWER, 0);
-        sleep(3000);
-        stopDrive();
-    }
-
-    public void forwardThree() { // TODO: tune this value
-        drivetrain.move(0, -POWER, 0);
-        sleep(3200);
-        stopDrive();
-    }
-
-    public void forwardFour() { // turns slightly left
-        drivetrain.move(0,-POWER, 0);
-        sleep(3500);
         stopDrive();
     }
     public void rightFour() {
@@ -232,5 +186,85 @@ public abstract class AutonMethods extends LinearOpMode {
         drivetrain.move(POWER,0, 0);
         sleep(5600);
         stopDrive();
+    }
+
+    public void leftOneEighth() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(200); // TODO: tune
+        stopDrive();
+    }
+
+    public void leftOne() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(2000);
+        stopDrive();
+    }
+
+    public void leftOneHalf() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(1600);
+        stopDrive();
+    }
+
+    public void leftOneFourth() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(400);
+        stopDrive();
+    }
+
+    public void leftTwo() {
+        drivetrain.move(POWER, 0, 0);
+        sleep(2600);
+        stopDrive();
+    }
+
+    // SCORING /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void caseOne() {
+        backOneee();
+        turnCounterClockwise();
+        backOneFourth();
+        dropPixel();
+        forwardOneFourth();
+    }
+
+    public void caseThree() {
+        backOneee();
+        turnClockwise();
+        backOneEighth();
+        dropPixel();
+        forwardOneEighth();
+    }
+
+    public void caseTwo() {
+        backOneee();
+        dropPixel();
+        forwardOneEighth();
+    }
+    public void dropPixel() {
+        stick.unlock();
+        sleep(300);
+    }
+    public void paintPixel() {
+        intake.setZero();
+        sleep(200);
+        arm.toDrop();
+        sleep(2000);
+        bay.setDrop();
+        sleep(2000);
+        bay.open();
+        sleep(500);
+    }
+
+    public void returnInit() {
+        bay.close();
+        sleep(200);
+        bay.setPosition(1.0);
+        sleep(200);
+        arm.drivingPos();
+        sleep(2000);
+        arm.toPickUp();
+        sleep(500);
+        bay.setPick();
+        sleep(200);
     }
 }

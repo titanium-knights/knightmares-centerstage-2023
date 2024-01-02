@@ -34,7 +34,7 @@ public class BlueLeft extends AutonMethods {
             case 1:
                 caseOne();
                 leftOne();
-                backOne();
+                backTwo();
                 rightOne();
                 rightHalf();
                 paintPixel();
@@ -44,7 +44,7 @@ public class BlueLeft extends AutonMethods {
                 caseThree();
                 turnClockwise();
                 turnClockwise();
-                backOne();
+                backTwo();
                 leftOneEighth();
                 paintPixel();
                 returnInit();
@@ -53,7 +53,7 @@ public class BlueLeft extends AutonMethods {
             default:
                 caseTwo();
                 turnCounterClockwise();
-                backOne();
+                backTwo();
                 paintPixel();
                 returnInit();
                 break;

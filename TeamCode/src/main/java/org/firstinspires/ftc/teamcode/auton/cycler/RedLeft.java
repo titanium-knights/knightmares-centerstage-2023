@@ -33,32 +33,34 @@ public class RedLeft extends AutonMethods {
         switch (pos) {
             case 1:
                 caseOne();
-                rightOne();
-                backThree();
                 leftOne();
-                leftOneEighth();
+                forwardThree();
+                turnClockwise();
+                turnClockwise();
+                leftHalf();
+                leftOneFourth();
+                backHalf();
                 paintPixel();
                 returnInit();
                 break;
             case 3:
                 caseThree();
-                leftOne();
-                forwardThree();
-                turnClockwise();
-                turnClockwise();
-                leftOne();
+                rightOne();
+                backThree();
                 leftOneHalf();
+                backHalf();
                 paintPixel();
                 returnInit();
                 break;
             case 2:
             default:
                 caseTwo();
-                turnClockwise();
-                forwardOneEighth();
                 rightOne();
-                backThree();
-                leftOne();
+                backOne();
+                turnClockwise();
+                backFour();
+                leftOneHalf();
+                backHalf();
                 paintPixel();
                 returnInit();
                 break;

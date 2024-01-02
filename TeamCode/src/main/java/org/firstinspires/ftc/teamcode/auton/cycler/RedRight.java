@@ -35,7 +35,7 @@ public class RedRight extends AutonMethods {
                 caseOne();
                 turnClockwise();
                 turnClockwise();
-                backOne();
+                backTwo();
                 leftOneEighth();
                 paintPixel();
                 returnInit();
@@ -43,7 +43,7 @@ public class RedRight extends AutonMethods {
             case 3:
                 caseThree();
                 rightOne();
-                backOne();
+                backTwo();
                 leftOne();
                 leftHalf();
                 paintPixel();
@@ -53,7 +53,7 @@ public class RedRight extends AutonMethods {
             default:
                 caseTwo();
                 turnClockwise();
-                backOne();
+                backTwo();
                 paintPixel();
                 returnInit();
                 break;
