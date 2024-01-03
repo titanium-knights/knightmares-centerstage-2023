@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.rr.trajectorysequence.sequencesegment;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryMarker;
 
+import org.firstinspires.ftc.teamcode.rr.trajectorysequence.sequencesegment.SequenceSegment;
+
 import java.util.List;
 
 public final class WaitSegment extends SequenceSegment {

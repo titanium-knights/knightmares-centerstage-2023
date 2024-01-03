@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.rr.trajectorysequence.sequencesegment;
 
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
+import org.firstinspires.ftc.teamcode.rr.trajectorysequence.sequencesegment.SequenceSegment;
+
 import java.util.Collections;
 
 public final class TrajectorySegment extends SequenceSegment {
