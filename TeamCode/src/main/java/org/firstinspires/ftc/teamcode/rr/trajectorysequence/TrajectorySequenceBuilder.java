@@ -19,7 +19,6 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAcceleration
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.acmerobotics.roadrunner.util.Angle;
 
-import org.firstinspires.ftc.teamcode.rr.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.rr.trajectorysequence.sequencesegment.SequenceSegment;
 import org.firstinspires.ftc.teamcode.rr.trajectorysequence.sequencesegment.TrajectorySegment;
 import org.firstinspires.ftc.teamcode.rr.trajectorysequence.sequencesegment.TurnSegment;
