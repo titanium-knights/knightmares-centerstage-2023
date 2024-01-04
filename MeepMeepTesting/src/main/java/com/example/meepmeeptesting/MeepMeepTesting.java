@@ -16,10 +16,10 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-35.5, 60, Math.toRadians(90)))
-                                .back(10)
-                                .splineTo(new Vector2d(-38, 24), Math.toRadians(-10))
+                                .back(28)
                                 // drop pixel
-                                .splineTo(new Vector2d(-35, 5), Math.toRadians(0))
+                                .back(20)
+                                .turn(Math.toRadians(90))
                                 .back(70)
                                 .splineTo(new Vector2d(50, 38), Math.toRadians(0))
                                 .build()

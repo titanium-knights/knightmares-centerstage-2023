@@ -52,19 +52,39 @@ public class Mudasir extends LinearOpMode {
                 .build();
 
 
-        Trajectory toPaint = drive.trajectoryBuilder(new Pose2d())
+        Trajectory toPaint_1 = drive.trajectoryBuilder(new Pose2d())
                 .splineTo(new Vector2d(-35, 5), Math.toRadians(0))
                 .back(70)
                 .splineTo(new Vector2d(50, 38), Math.toRadians(0))
                 .build();
 
-        Trajectory toImaginaryPoint = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(10)
+        Trajectory toPaint = drive.trajectoryBuilder(new Pose2d())
+                .back(70)
+                .splineTo(new Vector2d(50, 38), Math.toRadians(0))
+                .build();
+
+        Trajectory toDropA_3 = drive.trajectoryBuilder(new Pose2d())
+                .back(30)
+                .build();
+
+        Trajectory toDropB_3 = drive.trajectoryBuilder(new Pose2d())
+                .back(5)
+                .build();
+
+        Trajectory toDropC_3 = drive.trajectoryBuilder(new Pose2d())
                 .forward(5)
                 .build();
 
-        Trajectory doSomethingElse = drive.trajectoryBuilder(toImaginaryPoint.end())
-                .splineTo(new Vector2d(20, 9), Math.toRadians(45))
+        Trajectory toDropD_3 = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(5)
+                .build();
+
+        Trajectory toDropA_2 = drive.trajectoryBuilder(new Pose2d())
+                .back(28)
+                .build();
+
+        Trajectory toDropB_2 = drive.trajectoryBuilder(new Pose2d())
+                .back(20)
                 .build();
 
         waitForStart();
@@ -79,16 +99,30 @@ public class Mudasir extends LinearOpMode {
             case 1:
                 drive.followTrajectory(toDrop_1);
                 dropPixel();
-                drive.followTrajectory(toPaint);
+                drive.followTrajectory(toPaint_1);
                 paintPixel();
                 returnInit();
                 break;
             case 3:
-
+                drive.followTrajectory(toDropA_3);
+                drive.turn(Math.toRadians(90));
+                drive.followTrajectory(toDropB_3);
+                drive.followTrajectory(toDropC_3);
+                drive.followTrajectory(toDropD_3);
+                dropPixel();
+                drive.followTrajectory(toPaint);
+                paintPixel();
+                returnInit();
                 break;
             case 2:
             default:
-
+                drive.followTrajectory(toDropA_2);
+                dropPixel();
+                drive.followTrajectory(toDropB_2);
+                drive.turn(Math.toRadians(90));
+                drive.followTrajectory(toPaint);
+                paintPixel();
+                returnInit();
                 break;
         }
 
