@@ -121,7 +121,7 @@ public class MudasirRR extends LinearOpMode {
                 paintPixel();
                 returnInit();
                 break;
-            case 2:??
+            case 2:
             default:
                 drive.followTrajectory(toDropA_2);
                 dropPixel();
