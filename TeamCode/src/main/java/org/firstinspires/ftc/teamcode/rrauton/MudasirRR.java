@@ -6,18 +6,16 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.teamcode.rr.drive.SampleMecanumDrive;
 
+import org.firstinspires.ftc.teamcode.rr.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.Arm;
 import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
-import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
-import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
-import org.firstinspires.ftc.teamcode.utilities.Arm;
 
-@Autonomous(name="MudasirBlueRight", group="Autonomous")
-public class Mudasir extends LinearOpMode {
+@Autonomous(name="MudasirRedRight", group="Autonomous")
+public class MudasirRR extends LinearOpMode {
 
     public SampleMecanumDrive drive;
     public Stick stick;
@@ -30,7 +28,7 @@ public class Mudasir extends LinearOpMode {
     public void createHardware(HardwareMap hmap) {
         drive = new SampleMecanumDrive(hmap);
         stick = new Stick(hmap);
-        vision = new InitialVision(hmap, telemetry, "blue"); //TODO: remember to change to blue for blue side
+        vision = new InitialVision(hmap, telemetry, "red"); //TODO: remember to change to blue for blue side
         arm = new Arm(hmap);
         stick = new Stick(hardwareMap);
         intake = new Intake(hardwareMap);
@@ -43,40 +41,44 @@ public class Mudasir extends LinearOpMode {
         waitForStart();
 
         //TODO check this value
-        Pose2d startPose = new Pose2d(-35.5, 60, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(11.5, -60, Math.toRadians(-90));
         drive.setPoseEstimate(startPose);
 
-        Trajectory toDrop_1 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory toDrop_3 = drive.trajectoryBuilder(new Pose2d())
                 .back(10)
                 .splineTo(new Vector2d(-38, 24), Math.toRadians(-10))
                 .build();
 
 
-        Trajectory toPaint_1 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory toPaint_3 = drive.trajectoryBuilder(new Pose2d())
                 .splineTo(new Vector2d(-35, 5), Math.toRadians(0))
                 .back(70)
                 .splineTo(new Vector2d(50, 38), Math.toRadians(0))
                 .build();
 
         Trajectory toPaint = drive.trajectoryBuilder(new Pose2d())
-                .back(70)
-                .splineTo(new Vector2d(50, 38), Math.toRadians(0))
+                .back(10)
+                .splineTo(new Vector2d(50, -38), Math.toRadians(0))
                 .build();
 
-        Trajectory toDropA_3 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory toDropA_1 = drive.trajectoryBuilder(new Pose2d())
                 .back(30)
                 .build();
 
-        Trajectory toDropB_3 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory toDropB_1 = drive.trajectoryBuilder(new Pose2d())
                 .back(5)
                 .build();
 
-        Trajectory toDropC_3 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory toDropC_1 = drive.trajectoryBuilder(new Pose2d())
                 .forward(5)
                 .build();
 
-        Trajectory toDropD_3 = drive.trajectoryBuilder(new Pose2d())
-                .strafeLeft(5)
+        Trajectory toDropD_1 = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(20)
+                .build();
+
+        Trajectory toDropA_3 = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(20)
                 .build();
 
         Trajectory toDropA_2 = drive.trajectoryBuilder(new Pose2d())
@@ -84,42 +86,47 @@ public class Mudasir extends LinearOpMode {
                 .build();
 
         Trajectory toDropB_2 = drive.trajectoryBuilder(new Pose2d())
-                .back(20)
+                .forward(20)
                 .build();
 
         waitForStart();
 
         if(isStopRequested()) return;
 
-        InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
+        InitialVision vis = new InitialVision(hardwareMap, telemetry, "red");
         waitForStart();
         int pos = vis.getPosition();
 
         switch (pos) {
             case 1:
-                drive.followTrajectory(toDrop_1);
-                dropPixel();
-                drive.followTrajectory(toPaint_1);
-                paintPixel();
-                returnInit();
-                break;
-            case 3:
-                drive.followTrajectory(toDropA_3);
+                drive.followTrajectory(toDropA_1);
                 drive.turn(Math.toRadians(90));
-                drive.followTrajectory(toDropB_3);
-                drive.followTrajectory(toDropC_3);
-                drive.followTrajectory(toDropD_3);
+                drive.followTrajectory(toDropB_1);
                 dropPixel();
+                drive.followTrajectory(toDropC_1);
+                drive.followTrajectory(toDropA_3);
+                drive.turn(Math.toRadians(180));
                 drive.followTrajectory(toPaint);
                 paintPixel();
                 returnInit();
                 break;
-            case 2:
+            case 3:
+                drive.followTrajectory(toDropA_1);
+                drive.turn(Math.toRadians(-90));
+                drive.followTrajectory(toDropB_1);
+                dropPixel();
+                drive.followTrajectory(toDropC_1);
+                drive.followTrajectory(toDropD_1);
+                drive.followTrajectory(toPaint);
+                paintPixel();
+                returnInit();
+                break;
+            case 2:??
             default:
                 drive.followTrajectory(toDropA_2);
                 dropPixel();
                 drive.followTrajectory(toDropB_2);
-                drive.turn(Math.toRadians(90));
+                drive.turn(Math.toRadians(-90));
                 drive.followTrajectory(toPaint);
                 paintPixel();
                 returnInit();
