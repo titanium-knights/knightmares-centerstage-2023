@@ -61,68 +61,22 @@ public class ergo extends LinearOpMode {
         Pose2d startPose = new Pose2d(-35.5, 60, Math.toRadians(STARTANGLE));
         drive.setPoseEstimate(startPose);
 
-        Trajectory spot2 = drive.trajectoryBuilder(new Pose2d())
-                .addDisplacementMarker(()->{
-                    stick.lock();
-                    intake.setUpUp();
-                    arm.drivingPos();
-                    bay.setPick();
-                })
-                .forward(24)
-//                .splineToConstantHeading(new Vector2d(-35.5, 25), Math.toRadians(ANGLEONE))
+        Trajectory moveOne = drive.trajectoryBuilder(new Pose2d())
+                .back(35)
                 .addDisplacementMarker(this::dropPixel)
-//                .splineToLinearHeading(new Pose2d(38, 25), Math.toRadians(ANGLEDOS))
-//                .splineToConstantHeading(new Vector2d(38, 50), Math.toRadians(ANGLETRES))
-//                .addDisplacementMarker(this::paintPixel)
                 .build();
 
-
-//        Trajectory toPaint_1 = drive.trajectoryBuilder(new Pose2d())
-//                .splineTo(new Vector2d(-35, 5), Math.toRadians(0))
-//                .back(70)
-//                .splineTo(new Vector2d(50, 38), Math.toRadians(0))
-//                .build();
-//
-//        Trajectory toPaint = drive.trajectoryBuilder(new Pose2d())
-//                .back(70)
-//                .splineTo(new Vector2d(50, 38), Math.toRadians(0))
-//                .build();
-//
-//        Trajectory toDropA_3 = drive.trajectoryBuilder(new Pose2d())
-//                .back(30)
-//                .build();
-//
-//        Trajectory toDropB_3 = drive.trajectoryBuilder(new Pose2d())
-//                .back(5)
-//                .build();
-//
-//        Trajectory toDropC_3 = drive.trajectoryBuilder(new Pose2d())
-//                .forward(5)
-//                .build();
-//
-//        Trajectory toDropD_3 = drive.trajectoryBuilder(new Pose2d())
-//                .strafeLeft(5)
-//                .build();
-//
-//        Trajectory toDropA_2 = drive.trajectoryBuilder(new Pose2d())
-//                .back(28)
-//                .build();
-//
-//        Trajectory toDropB_2 = drive.trajectoryBuilder(new Pose2d())
-//                .back(20)
-//                .build();
+        Trajectory toSpotOne = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(12)
+                .build();
 
         waitForStart();
 
         if(isStopRequested()) return;
+        int pos = vision.getPosition();
 
+        drive.followTrajectory(moveOne);
 
-        drive.followTrajectory(spot2);
-//        drive.followTrajectory(toPaint_1);
-//        dropPixel();
-//        drive.followTrajectory(toPaint_1);
-//        paintPixel();
-        // returnInit();
     }
     public void dropPixel() {
         stick.unlock();
