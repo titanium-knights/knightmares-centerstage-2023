@@ -20,7 +20,7 @@ public class Bay {
     // TODO: ensure that open and close are not reversed
     // TODO: tune values
     public void open() {
-        bayOpener.setPosition(0.15);
+        bayOpener.setPosition(0.0);
     }
     public void close() {
         bayOpener.setPosition(0.35);
