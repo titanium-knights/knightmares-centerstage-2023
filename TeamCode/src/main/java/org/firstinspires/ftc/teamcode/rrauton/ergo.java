@@ -61,9 +61,6 @@ public class ergo extends LinearOpMode {
         Pose2d startPose = new Pose2d(-35.5, 60, Math.toRadians(STARTANGLE));
         drive.setPoseEstimate(startPose);
 
-        StandardTrackingWheelLocalizer localizer = new StandardTrackingWheelLocalizer(hardwareMap, new ArrayList<>(), new ArrayList<>());
-        localizer.setPoseEstimate(startPose);
-
         Trajectory spot2 = drive.trajectoryBuilder(new Pose2d())
                 .addDisplacementMarker(()->{
                     stick.lock();
@@ -72,7 +69,6 @@ public class ergo extends LinearOpMode {
                     bay.setPick();
                 })
                 .forward(24)
-                .splineToLinearHeading(new Pose2d())
 //                .splineToConstantHeading(new Vector2d(-35.5, 25), Math.toRadians(ANGLEONE))
                 .addDisplacementMarker(this::dropPixel)
 //                .splineToLinearHeading(new Pose2d(38, 25), Math.toRadians(ANGLEDOS))
