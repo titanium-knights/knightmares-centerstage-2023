@@ -9,11 +9,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.rr.drive.SampleMecanumDrive;
 
+import org.firstinspires.ftc.teamcode.rr.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
 import org.firstinspires.ftc.teamcode.utilities.Arm;
+
+import java.util.ArrayList;
 
 @Config
 @Autonomous(name="ergo", group="Autonomous")
@@ -58,6 +61,9 @@ public class ergo extends LinearOpMode {
         Pose2d startPose = new Pose2d(-35.5, 60, Math.toRadians(STARTANGLE));
         drive.setPoseEstimate(startPose);
 
+        StandardTrackingWheelLocalizer localizer = new StandardTrackingWheelLocalizer(hardwareMap, new ArrayList<>(), new ArrayList<>());
+        localizer.setPoseEstimate(startPose);
+
         Trajectory spot2 = drive.trajectoryBuilder(new Pose2d())
                 .addDisplacementMarker(()->{
                     stick.lock();
@@ -65,9 +71,11 @@ public class ergo extends LinearOpMode {
                     arm.drivingPos();
                     bay.setPick();
                 })
-                .splineToConstantHeading(new Vector2d(-35.5, 25), Math.toRadians(ANGLEONE))
+                .forward(24)
+                .splineToLinearHeading(new Pose2d())
+//                .splineToConstantHeading(new Vector2d(-35.5, 25), Math.toRadians(ANGLEONE))
                 .addDisplacementMarker(this::dropPixel)
-                .splineToLinearHeading(new Pose2d(38, 25), Math.toRadians(ANGLEDOS))
+//                .splineToLinearHeading(new Pose2d(38, 25), Math.toRadians(ANGLEDOS))
 //                .splineToConstantHeading(new Vector2d(38, 50), Math.toRadians(ANGLETRES))
 //                .addDisplacementMarker(this::paintPixel)
                 .build();
