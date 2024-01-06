@@ -23,6 +23,7 @@ public class MudasirRR extends LinearOpMode {
     public Arm arm;
     public Intake intake;
     public Bay bay;
+    public int rot = 76; // intended to be 90 but the turn overturns it
     //TODO etc. etc., and add to the createHardware method
 
     public void createHardware(HardwareMap hmap) {
@@ -38,55 +39,67 @@ public class MudasirRR extends LinearOpMode {
     @Override
     public void runOpMode() {
         createHardware(hardwareMap);
+        stick.lock();
+        intake.setUpUp();
+        arm.drivingPos();
+        bay.setPick();
         waitForStart();
 
         //TODO check this value
         Pose2d startPose = new Pose2d(11.5, -60, Math.toRadians(-90));
         drive.setPoseEstimate(startPose);
 
-        Trajectory toDrop_3 = drive.trajectoryBuilder(new Pose2d())
-                .back(10)
-                .splineTo(new Vector2d(-38, 24), Math.toRadians(-10))
+        drive.setPoseEstimate(startPose);
+
+        Trajectory toSpotTwo = drive.trajectoryBuilder(new Pose2d())
+                .back(32)
+                .addDisplacementMarker(this::dropPixel)
                 .build();
 
-
-        Trajectory toPaint_3 = drive.trajectoryBuilder(new Pose2d())
-                .splineTo(new Vector2d(-35, 5), Math.toRadians(0))
-                .back(70)
-                .splineTo(new Vector2d(50, 38), Math.toRadians(0))
+        Trajectory backToDropPixel = drive.trajectoryBuilder(new Pose2d())
+                .back(32)
                 .build();
 
-        Trajectory toPaint = drive.trajectoryBuilder(new Pose2d())
-                .back(10)
-                .splineTo(new Vector2d(50, -38), Math.toRadians(0))
+        Trajectory dropPixel = drive.trajectoryBuilder(new Pose2d())
+                .back(8)
+                .addDisplacementMarker(this::dropPixel)
+                .build();
+        Trajectory forwardFromPixel = drive.trajectoryBuilder(new Pose2d())
+                .forward(8)
                 .build();
 
-        Trajectory toDropA_1 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory backOne = drive.trajectoryBuilder(new Pose2d())
+                .back(20)
+                .build();
+
+        Trajectory backOnee = drive.trajectoryBuilder(new Pose2d())
                 .back(30)
                 .build();
-
-        Trajectory toDropB_1 = drive.trajectoryBuilder(new Pose2d())
-                .back(5)
+        Trajectory forwardOne = drive.trajectoryBuilder(new Pose2d())
+                .forward(30)
                 .build();
-
-        Trajectory toDropC_1 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory backThree = drive.trajectoryBuilder(new Pose2d())
+                .back(82)
+                .build();
+        Trajectory rightOne = drive.trajectoryBuilder(new Pose2d()) // must be between 44 and 30
+                .strafeRight(35)
+                .build();
+        Trajectory rightOneHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(44)
+                .build();
+        Trajectory leftOne = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(35)
+                .build();
+        Trajectory leftOneHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(44)
+                .build();
+        Trajectory toPaint = drive.trajectoryBuilder(new Pose2d())
+                .back(20)
+                .addDisplacementMarker(this::paintPixel)
+                .addDisplacementMarker(this::returnInit)
+                .build();
+        Trajectory forwardFromToPaint = drive.trajectoryBuilder(new Pose2d())
                 .forward(5)
-                .build();
-
-        Trajectory toDropD_1 = drive.trajectoryBuilder(new Pose2d())
-                .strafeLeft(20)
-                .build();
-
-        Trajectory toDropA_3 = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(20)
-                .build();
-
-        Trajectory toDropA_2 = drive.trajectoryBuilder(new Pose2d())
-                .back(28)
-                .build();
-
-        Trajectory toDropB_2 = drive.trajectoryBuilder(new Pose2d())
-                .forward(20)
                 .build();
 
         waitForStart();
@@ -99,44 +112,44 @@ public class MudasirRR extends LinearOpMode {
 
         switch (pos) {
             case 1:
-                drive.followTrajectory(toDropA_1);
-                drive.turn(Math.toRadians(90));
-                drive.followTrajectory(toDropB_1);
-                dropPixel();
-                drive.followTrajectory(toDropC_1);
-                drive.followTrajectory(toDropA_3);
-                drive.turn(Math.toRadians(180));
+                drive.followTrajectory(backToDropPixel);
+                drive.turn(Math.toRadians(rot));
+                drive.followTrajectory(dropPixel);
+                drive.followTrajectory(forwardFromPixel);
+                drive.turn(Math.toRadians(rot));
+                drive.turn(Math.toRadians(rot));
+                drive.followTrajectory(backOnee);
                 drive.followTrajectory(toPaint);
-                paintPixel();
-                returnInit();
+                drive.followTrajectory(forwardFromToPaint);
+                drive.followTrajectory(leftOneHalf);
+                drive.followTrajectory(backOne);
                 break;
             case 3:
-                drive.followTrajectory(toDropA_1);
-                drive.turn(Math.toRadians(-90));
-                drive.followTrajectory(toDropB_1);
-                dropPixel();
-                drive.followTrajectory(toDropC_1);
-                drive.followTrajectory(toDropD_1);
+                drive.followTrajectory(backToDropPixel);
+                drive.turn(Math.toRadians(-rot));
+                drive.followTrajectory(dropPixel);
+                drive.followTrajectory(backOne);
                 drive.followTrajectory(toPaint);
-                paintPixel();
-                returnInit();
+                drive.followTrajectory(forwardFromToPaint);
+                drive.followTrajectory(leftOne);
+                drive.followTrajectory(backOne);
                 break;
             case 2:
             default:
-                drive.followTrajectory(toDropA_2);
-                dropPixel();
-                drive.followTrajectory(toDropB_2);
-                drive.turn(Math.toRadians(-90));
+                drive.followTrajectory(toSpotTwo);
+                drive.followTrajectory(forwardFromPixel);
+                drive.turn(Math.toRadians(-rot));
+                drive.followTrajectory(backOnee);
                 drive.followTrajectory(toPaint);
-                paintPixel();
-                returnInit();
+                drive.followTrajectory(forwardFromToPaint);
+                drive.followTrajectory(leftOne);
+                drive.followTrajectory(backOne);
                 break;
         }
 
     }
     public void dropPixel() {
         stick.unlock();
-        sleep(300);
     }
     public void paintPixel() {
         intake.setZero();

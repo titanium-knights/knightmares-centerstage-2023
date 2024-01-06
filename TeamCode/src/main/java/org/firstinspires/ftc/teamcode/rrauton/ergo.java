@@ -34,6 +34,7 @@ public class ergo extends LinearOpMode {
     public Arm arm;
     public Intake intake;
     public Bay bay;
+    public int rot = 76; // intended to be 90 but the turn overturns it
     //TODO etc. etc., and add to the createHardware method
 
     public void createHardware(HardwareMap hmap) {
@@ -45,8 +46,6 @@ public class ergo extends LinearOpMode {
         intake = new Intake(hardwareMap);
         bay = new Bay(hardwareMap);
     }
-
-
 
     @Override
     public void runOpMode() {
@@ -61,26 +60,74 @@ public class ergo extends LinearOpMode {
         Pose2d startPose = new Pose2d(-35.5, 60, Math.toRadians(STARTANGLE));
         drive.setPoseEstimate(startPose);
 
-        Trajectory moveOne = drive.trajectoryBuilder(new Pose2d())
-                .back(35)
+        Trajectory toSpotTwo = drive.trajectoryBuilder(new Pose2d())
+                .back(32)
                 .addDisplacementMarker(this::dropPixel)
                 .build();
 
-        Trajectory toSpotOne = drive.trajectoryBuilder(new Pose2d())
-                .strafeLeft(12)
+        Trajectory backToDropPixel = drive.trajectoryBuilder(new Pose2d())
+                .back(32)
                 .build();
+
+        Trajectory dropPixel = drive.trajectoryBuilder(new Pose2d())
+                .back(8)
+                .addDisplacementMarker(this::dropPixel)
+                .build();
+        Trajectory forwardFromPixel = drive.trajectoryBuilder(new Pose2d())
+                .forward(8)
+                .build();
+
+        Trajectory backOne = drive.trajectoryBuilder(new Pose2d())
+                .back(20)
+                .build();
+
+        Trajectory backOnee = drive.trajectoryBuilder(new Pose2d())
+                .back(30)
+                .build();
+        Trajectory forwardOne = drive.trajectoryBuilder(new Pose2d())
+                .forward(30)
+                .build();
+        Trajectory backThree = drive.trajectoryBuilder(new Pose2d())
+                .back(82)
+                .build();
+        Trajectory rightOne = drive.trajectoryBuilder(new Pose2d()) // must be between 44 and 30
+                        .strafeRight(35)
+                                .build();
+        Trajectory rightOneHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(44)
+                .build();
+        Trajectory leftOne = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(35)
+                .build();
+        Trajectory leftOneHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(44)
+                .build();
+        Trajectory toPaint = drive.trajectoryBuilder(new Pose2d())
+                        .back(20)
+                                .addDisplacementMarker(this::paintPixel)
+                                        .addDisplacementMarker(this::returnInit)
+                                                .build();
+        Trajectory forwardFromToPaint = drive.trajectoryBuilder(new Pose2d())
+                        .forward(5)
+                                .build();
 
         waitForStart();
 
         if(isStopRequested()) return;
-        int pos = vision.getPosition();
 
-        drive.followTrajectory(moveOne);
+        int pos = vision.getPosition();
+        drive.followTrajectory(backToDropPixel);
+        drive.turn(Math.toRadians(-rot));
+        drive.followTrajectory(dropPixel);
+        drive.followTrajectory(backOne);
+        drive.followTrajectory(toPaint);
+        drive.followTrajectory(forwardFromToPaint);
+        drive.followTrajectory(leftOne);
+        drive.followTrajectory(backOne);
 
     }
     public void dropPixel() {
         stick.unlock();
-        sleep(300);
     }
     public void paintPixel() {
         intake.setZero();
