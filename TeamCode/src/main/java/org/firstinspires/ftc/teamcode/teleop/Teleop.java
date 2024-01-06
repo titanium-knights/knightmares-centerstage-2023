@@ -181,18 +181,14 @@ public class Teleop extends OpMode {
     public void intake(){
         if (config.intakeForward) {
             intake.runIntake();
-            intake.setZero();
-        }
-        if (config.intakeReverse) {
-            intake.runReverse();
             intake.noPower();
         }
         if (config.intakeStop) {
-            intake.setUp();
             intake.stop();
         }
-        if (config.intakeNeutral) {
+        if (config.intakeReverse) { // right dpad
             intake.stop();
+            intake.setUp();
         }
     }
 
