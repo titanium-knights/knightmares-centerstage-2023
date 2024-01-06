@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 
+@Config
 @TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
 
@@ -156,7 +158,7 @@ public class Teleop extends OpMode {
         }
 
         if (config.planeRelease && validate) { //X
-            plane.set();
+            plane.reset();
             telemetry.addData("pos: ", plane.getPosition());
             telemetry.update();
         }
@@ -180,15 +182,24 @@ public class Teleop extends OpMode {
 
     public void intake(){
         if (config.intakeForward) {
-            intake.runIntake();
+//            intake.powerBack();
+//            intake.setZero();
             intake.noPower();
+            intake.runIntake();
+//            intake.setUp();
+//            intake.runIntake();
         }
         if (config.intakeStop) {
             intake.stop();
+            intake.setUp();
         }
         if (config.intakeReverse) { // right dpad
-            intake.stop();
-            intake.setUp();
+//            intake.powerBack();
+//            intake.setZero();
+            intake.noPower();
+            intake.runReverse();
+//            intake.stop();
+//            intake.setUp();
         }
     }
 

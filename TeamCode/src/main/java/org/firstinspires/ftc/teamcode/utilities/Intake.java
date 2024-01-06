@@ -25,12 +25,12 @@ public class Intake {
     }
 
     public void runIntake() {
-        setZero();
+
         intakeMotor.setPower(POWER);
     }
 
     public void runReverse(){
-        setZero();
+
         intakeMotor.setPower(REVERSE_POWER);
     }
 
@@ -39,13 +39,15 @@ public class Intake {
     }
 
     public void noPower() {
-
         intakeRotator.getController().pwmDisable();
     }
 
+    public void powerBack() {
+        intakeRotator.getController().pwmDisable();
+    }
 
     public void setZero() {
-        intakeRotator.setPosition(0.46);
+        intakeRotator.setPosition(0.56); //formerly 0.46
     }
 
     public void setUp() {
