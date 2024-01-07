@@ -121,19 +121,19 @@ public class Teleop extends OpMode {
             if (arm.getPosition() <= 60) {
                 arm.drivingPos();
                 bay.setPosition(0.92);
-                intake.stop();
-                intake.setUp();
+//                intake.stop();
+//                intake.setUp();
             } else {
                 bay.setPosition(0.97);
             }
 
         } else if (config.bayOpen){//right bumper
             bay.open();
-            intake.noPower();
-            intake.runIntake();
             if (arm.getPosition() <= 60) {
                 arm.toPickUp();
                 bay.setPick();
+//                intake.noPower();
+//                intake.runIntake();
             }
 
         }
