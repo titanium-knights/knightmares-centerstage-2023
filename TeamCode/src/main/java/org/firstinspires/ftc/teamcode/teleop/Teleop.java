@@ -116,8 +116,6 @@ public class Teleop extends OpMode {
                 if (arm.getPosition() <= 60) {
                     arm.drivingPos();
                     bay.setPosition(0.92);
-                } else {
-                    bay.setPosition(0.97);
                 }
                 open = false;
             } else if (open == false) { // if bay is closed, open

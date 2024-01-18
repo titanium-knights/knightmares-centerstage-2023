@@ -121,6 +121,7 @@ public class Arm {
         }
     }
     public void pickPreset(Bay bay) {
+        bay.setPosition(0.97);
         drivingPos();
         if (getPosition() <= 10) {
             bay.setPick();
