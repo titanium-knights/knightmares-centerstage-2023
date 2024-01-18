@@ -59,16 +59,15 @@ public class PullUp {
         pullUpMotor2.setTargetPosition(position);
     }
 
-    public void liftUp() {
+    public void reachUp() {
         setTargetPosition(topHeight);
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         // run to position is always in presets or else itll be jittery
         setPower(0.9);
-
     }
 
-    public void liftDown() {
+    public void liftUp() {
         setTargetPosition(0);
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);

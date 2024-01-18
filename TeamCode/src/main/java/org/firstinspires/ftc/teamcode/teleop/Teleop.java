@@ -26,11 +26,13 @@ public class Teleop extends OpMode {
     Intake intake;
     TeleopConfig config;
 
+
+
     //Set normal power constant to 1, no point in slowing the robot down
     final double normalPower = 1;
 
     // in case of joystick drift, ignore very small values
-    final float STICK_MARGIN = 0.2f;
+    final float STICK_MARGIN = 0.5f;
 
     //Treat this as a multiplier so u could make finer adjustments in slowmode by moving the stick just a little bit
     final double slowPower = 0.3;
@@ -43,6 +45,14 @@ public class Teleop extends OpMode {
     boolean validate = false;
     //makes validate button have to be pressed for a while before features enabled
     int validatecount = 0;
+
+    // keeps track if bay is open
+    boolean open = false;
+
+    // hooked = true means that the pullup is hooked, hooked = false means that pullup is not hooked
+    boolean hooked = false;
+
+    boolean armUp = false;
 
     //runs once, setup function
     public void init() {
@@ -82,89 +92,104 @@ public class Teleop extends OpMode {
         move(-x, y, turn, slowMode);
 
         //ARM
-        //bay.maintain(arm);
         if (config.armUpPreset > STICK_MARGIN) { //Right Trigger
-            arm.toDrop();
-            if (arm.getPosition() >= 0 && arm.getPosition() <= 40) {
-                bay.disable();
-            } else {
-                bay.setDrop();
+            if (armUp == false) {
+                arm.dropPreset(bay);
+                telemetry.addData("Arm pos:", arm.getPosition());
+                telemetry.update();
+                state = true;
+                armUp = true;
+            } else if (armUp == true) {
+                arm.pickPreset(bay);
+                telemetry.addData("Arm pos:", arm.getPosition());
+                telemetry.update();
+                state = true;
+                armUp = false;
             }
-            telemetry.addData("Arm pos:", arm.getPosition());
-            telemetry.update();
-
-            state = true;
-        } else if (config.armDownPreset > STICK_MARGIN) { //Left Trigger
-            arm.drivingPos();
-//            if (arm.getPosition() <= 100 && arm.getPosition() >= 80) {
-//                bay.disable();
-//            } else if (arm.getPosition() < 80 && arm.getPosition() >= 70) {
-//                bay.setPick();
-//            } else if (arm.getPosition() < 70 && arm.getPosition() > 0) {
-//                bay.disable();
-//            } else {
-//                bay.setPick();
-//            }
-            if (arm.getPosition() <= 10) {
-                bay.setPick();
-            }
-            telemetry.addData("Arm pos:", arm.getPosition());
-            telemetry.update();
-            state = true;
         }
 
-
-        // bay
-        if(config.bayClose){//Left Bumper
-            //Close bay
-            bay.close();
-            if (arm.getPosition() <= 60) {
-                arm.drivingPos();
-                bay.setPosition(0.92);
+        if (config.bayClose) { // left bumper
+            if (open == true) { // if bay is open, close
+                bay.close();
                 intake.stop();
                 intake.setUp();
-            } else {
-                bay.setPosition(0.97);
+                if (arm.getPosition() <= 60) {
+                    arm.drivingPos();
+                    bay.setPosition(0.92);
+                } else {
+                    bay.setPosition(0.97);
+                }
+                open = false;
+            } else if (open == false) { // if bay is closed, open
+                bay.open();
+                intake.noPower();
+                intake.runIntake();
+                if (arm.getPosition() <= 60) {
+                    arm.toPickUp();
+                    bay.setPick();
+                }
+                open = true;
             }
-
-        } else if (config.bayOpen){//right bumper
-            bay.open();
-            intake.noPower();
-            intake.runIntake();
-            if (arm.getPosition() <= 60) {
-                arm.toPickUp();
-                bay.setPick();
-            }
-
         }
 
-//        if (!arm.isBusy()) {
-//            state = false;
-//            telemetry.addData("stopped", arm.getPosition());
-//            telemetry.update();
+//
+//        // bay
+//        if(config.bayClose){//Left Bumper
+//            //Close bay
+//            bay.close();
+//            if (arm.getPosition() <= 60) {
+//                arm.drivingPos();
+//                bay.setPosition(0.92);
+//                intake.stop();
+//                intake.setUp();
+//            } else {
+//                bay.setPosition(0.97);
+//            }
+//
+//        } else if (config.bayOpen){//right bumper
+//            bay.open();
+//            intake.noPower();
+//            intake.runIntake();
+//            if (arm.getPosition() <= 60) {
+//                arm.toPickUp();
+//                bay.setPick();
+//            }
+//
 //        }
 
-        // pullUp manual
-        if (config.pullupUpManual && validate) { //dpad up
-            pullup.manualRightUp();
-            pullup.manualLeftUp();
-            telemetry.addData("pullup Manual Up", pullup.getPosition()[0]);
-            telemetry.update();
-        } else if (config.pullupDownManual && validate) { //dpad down
-            pullup.manualRightDown();
-            pullup.manualLeftDown();
-            telemetry.addData("pullup Manual Down", pullup.getPosition()[0]);
-            telemetry.update();
-
-        } else if (!pullup.isBusy1()) {
-            pullup.stopRight();
-            pullup.stopLeft();
-        }
+//        // pullUp manual
+//        if (config.pullupUpManual && validate) { //dpad up
+//            pullup.liftUp();
+////            pullup.manualRightUp();
+////            pullup.manualLeftUp();
+//            telemetry.addData("pullup Manual Up", pullup.getPosition()[0]);
+//            telemetry.update();
+//        } else if (config.pullupDownManual && validate) { //dpad down
+//            pullup.manualRightDown();
+//            pullup.manualLeftDown();
+//            telemetry.addData("pullup Manual Down", pullup.getPosition()[0]);
+//            telemetry.update();
+//
+//        } else if (!pullup.isBusy1()) {
+//            pullup.stopRight();
+//            pullup.stopLeft();
+//        }
 
         if (config.planeRelease && validate) { //X
             plane.reset();
             telemetry.addData("pos: ", plane.getPosition());
             telemetry.update();
+        }
+
+        // pullup preset
+        if (config.pullupUpManual && validate) {
+            if (hooked == false) {
+                pullup.reachUp();
+                hooked = true;
+            } else if (hooked == true) {
+                pullup.liftUp();
+                hooked = false;
+            }
         }
 
 
@@ -186,24 +211,16 @@ public class Teleop extends OpMode {
 
     public void intake(){
         if (config.intakeForward) {
-//            intake.powerBack();
-//            intake.setZero();
             intake.noPower();
             intake.runIntake();
-//            intake.setUp();
-//            intake.runIntake();
         }
         if (config.intakeStop) {
             intake.stop();
             intake.setUp();
         }
         if (config.intakeReverse) { // right dpad
-//            intake.powerBack();
-//            intake.setZero();
             intake.noPower();
             intake.runReverse();
-//            intake.stop();
-//            intake.setUp();
         }
     }
 
