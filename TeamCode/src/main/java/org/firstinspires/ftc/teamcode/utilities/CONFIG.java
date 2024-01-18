@@ -34,4 +34,6 @@ public class CONFIG {
     public static String intakeRotator = "intakeRotator";
 
     public static String stick = "stick";
+
+    public static String slide = "slide";
 }
