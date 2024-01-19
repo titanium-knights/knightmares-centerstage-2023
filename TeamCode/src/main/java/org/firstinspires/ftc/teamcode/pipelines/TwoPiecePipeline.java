@@ -18,12 +18,14 @@ public class TwoPiecePipeline extends OpenCvPipeline {
 
     private final Telemetry telemetry;
 
-    //tentative RGB values for RED and BLUE
     public static Scalar RED_HIGH = new Scalar(255, 0, 0);
     public static Scalar BLUE_HIGH = new Scalar(0, 0, 255);
     public static Scalar RED_LOW = new Scalar(200, 0, 0);
     public static Scalar BLUE_LOW = new Scalar(0, 0, 200);
 
+
+    public static double min_blue_score = 30;
+    public static double min_red_score = 30;
     // store the color we're looking for (i.e. team color) as its index in the channels array
     public int colorNum;
 
@@ -32,7 +34,7 @@ public class TwoPiecePipeline extends OpenCvPipeline {
 
     // the three places we might end up
     public enum Locations {
-        ONE, TWO, THREE
+        TWO, THREE, ONE
     }
 
     // the location we actually want to go to
@@ -72,10 +74,8 @@ public class TwoPiecePipeline extends OpenCvPipeline {
             Mat section = croppedSections[i];
             double[] avg = Core.mean(section).val;
             int want = (int) avg[colorNum];
-            int unWanted = (int) ((avg[getOppColor()]/2 + avg[1])/1.5);
+            int unWanted = (int) ((avg[getOppColor()]/2 + avg[1])/2);
             scores[i] = want - unWanted;
-            telemetry.addLine("want="+want+"unwant="+unWanted);
-            telemetry.update();
         }
 
         for (int i=0;i<scores.length;i++) {
@@ -84,19 +84,35 @@ public class TwoPiecePipeline extends OpenCvPipeline {
             if (scores[i] > scores[maxIndex]) maxIndex = i;
         }
 
+        if (scores[maxIndex] < getMinScore()) {
+            telemetry.addLine("min score = "+getMinScore());
+            maxIndex = 2;
+        }
         location = Locations.values()[maxIndex];
+
         telemetry.addData("Chose position: ", maxIndex);
         telemetry.update();
 
 
         final int THICKNESS = 7;
+        if (maxIndex !=2)
         Imgproc.rectangle(
                 input,
                 rect_points.get(maxIndex * 2),
                 rect_points.get(2 * maxIndex + 1),
                 new Scalar(35, 123, 113),
                 THICKNESS);
-
+        else {
+            Imgproc.putText(
+                    input,
+                    "ONE",
+                    new Point(0, 200),
+                    3,
+                    12,
+                    new Scalar(0,255,0),
+                    67
+            );
+        }
         return input;
     }
 
@@ -134,5 +150,9 @@ public class TwoPiecePipeline extends OpenCvPipeline {
      * */
     public int getOppColor() {
         return colorNum == 0 ? 2 : 0;
+    }
+
+    private double getMinScore() {
+        return colorNum == 0 ? min_red_score : min_blue_score;
     }
 }
