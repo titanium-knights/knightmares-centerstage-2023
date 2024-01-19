@@ -59,9 +59,9 @@ public class ResetTeleop extends OpMode {
         }
 
         if (gamepad1.left_bumper){
-            pullup.liftUp();
+            pullup.reachUp();
         } else if (gamepad1.right_bumper){
-            pullup.liftDown();
+            pullup.liftUp();
         }
 
 
