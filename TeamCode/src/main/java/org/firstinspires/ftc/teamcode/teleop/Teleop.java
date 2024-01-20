@@ -42,6 +42,7 @@ public class Teleop extends OpMode {
     int validatecount = 0;
 
     public enum LiftState {
+        INTAKE_RUNNING,
         LIFT_DRIVING_POS,
         LIFT_TO_DROP,
         BAY_TO_DROP,
@@ -50,12 +51,6 @@ public class Teleop extends OpMode {
         LIFT_TO_PICKUP
     };
     LiftState liftState = LiftState.LIFT_DRIVING_POS;
-
-    public enum IntakeState {
-        BAY_OPEN,
-        BAY_CLOSE
-    }
-    IntakeState intakestate = IntakeState.BAY_CLOSE;
 
     public enum PullUpState {
         NEUTRAL,
@@ -100,11 +95,33 @@ public class Teleop extends OpMode {
 
         //ARM
         switch (liftState) {
-            case LIFT_DRIVING_POS:
+            case INTAKE_RUNNING:
+                if (Math.abs(arm.getPosition() - 0) < 2 && config.intake) {
+                    bay.close();
+                    bay.setPosition(0.92);
+                    intake.stop();
+                    arm.drivingPos();
+                    liftState = LiftState.LIFT_DRIVING_POS;
+                }
                 if (config.lift) {
                     bay.close();
+                    bay.setPosition(0.92);
+                    intake.stop();
                     arm.toDrop();
                     liftState = LiftState.LIFT_TO_DROP;
+                }
+                break;
+            case LIFT_DRIVING_POS:
+                if (config.lift) {
+                    arm.toDrop();
+                    liftState = LiftState.LIFT_TO_DROP;
+                }
+                if (Math.abs(arm.getPosition() - 10) < 2 && config.intake) {
+                    bay.open();
+                    bay.setPick();
+                    intake.runIntake();
+                    arm.toPickUp();
+                    liftState = LiftState.INTAKE_RUNNING;
                 }
                 break;
             case LIFT_TO_DROP:
@@ -122,8 +139,8 @@ public class Teleop extends OpMode {
             case LIFT_DROPPING:
                 if (config.lift) {
                     bay.close();
-                    bay.setPosition(0.92);
-                    arm.runToPosition(70);
+                    bay.setPosition(0.97);
+                    arm.runToPosition(100);
                     liftState = LiftState.LIFT_TO_PICKUP;
                 }
                 break;
@@ -137,6 +154,7 @@ public class Teleop extends OpMode {
                 liftState = LiftState.LIFT_DRIVING_POS;
         }
 
+        //PLANE LAUNCHER
         if (config.planeRelease && validate) {
             plane.reset();
             telemetry.addData("pos: ", plane.getPosition());
@@ -147,13 +165,15 @@ public class Teleop extends OpMode {
         switch (pullupstate) {
             case NEUTRAL:
                 if (config.pullup && validate) {
-                    pullup.reachUp();
+                    pullup.manualLeftUp();
+                    pullup.manualRightUp();
                     pullupstate = PullUpState.REACH_UP;
                 }
                 break;
             case REACH_UP:
                 if (config.pullup) {
-                    pullup.liftUp();
+                    pullup.manualLeftDown();
+                    pullup.manualRightDown();
                     intake.setUpUp();
                     pullupstate = PullUpState.NEUTRAL;
                 }
@@ -161,33 +181,6 @@ public class Teleop extends OpMode {
             default:
                 pullupstate = PullUpState.NEUTRAL;
         }
-
-
-        //INTAKE
-        switch (intakestate) {
-            case BAY_CLOSE:
-                if (config.intake) {
-                    arm.toPickUp();
-                    bay.open();
-                    intake.noPower();
-                    intake.runIntake();
-                    intakestate = IntakeState.BAY_OPEN;
-                }
-                break;
-            case BAY_OPEN:
-                if (config.intake) {
-                    arm.drivingPos();
-                    bay.close();
-                    intake.noPower();
-                    intake.stop();
-                    intakestate = IntakeState.BAY_CLOSE;
-                }
-                break;
-            default:
-                intakestate = IntakeState.BAY_CLOSE;
-        }
-
-
 
     }
 
