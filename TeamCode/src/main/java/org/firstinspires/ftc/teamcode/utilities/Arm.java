@@ -4,7 +4,6 @@ import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.teamcode.utilities.Bay;
 
 public class Arm {
     DcMotor armMotor;
@@ -110,22 +109,6 @@ public class Arm {
         final double x = 135;
 
         return runToPosition(x);
-    }
-
-    public void dropPreset(Bay bay) {
-        toDrop();
-        if (getPosition() >= 0 && getPosition() <= 40) {
-            bay.disable();
-        } else {
-            bay.setDrop();
-        }
-    }
-    public void pickPreset(Bay bay) {
-        bay.setPosition(0.97);
-        drivingPos();
-        if (getPosition() <= 10) {
-            bay.setPick();
-        }
     }
 
     public boolean drivingPos() {

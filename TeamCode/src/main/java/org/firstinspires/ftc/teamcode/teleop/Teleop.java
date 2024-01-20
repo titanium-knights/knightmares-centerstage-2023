@@ -34,25 +34,35 @@ public class Teleop extends OpMode {
     // in case of joystick drift, ignore very small values
     final float STICK_MARGIN = 0.5f;
 
-    //Treat this as a multiplier so u could make finer adjustments in slowmode by moving the stick just a little bit
-    final double slowPower = 0.3;
-
-    boolean slowMode = false;
-    //whether or not a preset is currently running
-    boolean state = false;
 
     //Prevents irreversible things such as pullup and plane launcher from running before this button is pressed
     boolean validate = false;
+
     //makes validate button have to be pressed for a while before features enabled
     int validatecount = 0;
 
-    // keeps track if bay is open
-    boolean open = false;
+    public enum LiftState {
+        LIFT_DRIVING_POS,
+        LIFT_TO_DROP,
+        BAY_TO_DROP,
+        LIFT_DROPPING,
+        BAY_RETRACTED,
+        LIFT_TO_PICKUP
+    };
+    LiftState liftState = LiftState.LIFT_DRIVING_POS;
 
-    // hooked = true means that the pullup is hooked, hooked = false means that pullup is not hooked
-    boolean hooked = false;
+    public enum IntakeState {
+        BAY_OPEN,
+        BAY_CLOSE
+    }
+    IntakeState intakestate = IntakeState.BAY_CLOSE;
 
-    boolean armUp = false;
+    public enum PullUpState {
+        NEUTRAL,
+        REACH_UP,
+        PULL_UP
+    }
+    PullUpState pullupstate = PullUpState.NEUTRAL;
 
     //runs once, setup function
     public void init() {
@@ -65,8 +75,7 @@ public class Teleop extends OpMode {
         this.config = new TeleopConfig(gamepad1, gamepad2);
 
         // setting up
-        // plane.reset();
-        intake.setUpUp();
+        intake.setZero(); // TODO: may need to tune
         arm.drivingPos();
         bay.setPosition(0.92);
 
@@ -79,56 +88,133 @@ public class Teleop extends OpMode {
     public void loop() {
         config.check();
 
-
+        //VALIDATE
         if (config.validate) {++validatecount;}
         if (validatecount > 5) {validate = true;}
-        //slow mode toggle
-        if (config.slowMode) {slowMode = !slowMode;}
 
         //DRIVE
         float x = config.x_movement;
         float y = config.y_movement;
         float turn = config.turn;
-        move(-x, y, turn, slowMode);
+        move(-x, y, turn);
 
         //ARM
-        if (config.armUpPreset > STICK_MARGIN) { //Right Trigger
-            if (armUp == false) {
-                arm.dropPreset(bay);
-                telemetry.addData("Arm pos:", arm.getPosition());
-                telemetry.update();
-                state = true;
-                armUp = true;
-            } else if (armUp == true) {
-                arm.pickPreset(bay);
-                telemetry.addData("Arm pos:", arm.getPosition());
-                telemetry.update();
-                state = true;
-                armUp = false;
-            }
+        switch (liftState) {
+            case LIFT_DRIVING_POS:
+                if (config.lift) {
+                    bay.close();
+                    arm.toDrop();
+                    liftState = LiftState.LIFT_TO_DROP;
+                }
+                break;
+            case LIFT_TO_DROP:
+                if (Math.abs(arm.getPosition() - 135) < 10) {
+                    bay.setDrop();
+                    liftState = LiftState.BAY_TO_DROP;
+                }
+                break;
+            case BAY_TO_DROP:
+                if (config.bay) {
+                    bay.open();
+                    liftState = liftState.LIFT_DROPPING;
+                }
+                break;
+            case LIFT_DROPPING:
+                if (config.lift) {
+                    bay.close();
+                    bay.setPosition(0.92);
+                    arm.runToPosition(70);
+                    liftState = LiftState.LIFT_TO_PICKUP;
+                }
+                break;
+            case LIFT_TO_PICKUP:
+                if (Math.abs(arm.getPosition() - 90) < 10) {
+                    arm.drivingPos();
+                    liftState = LiftState.LIFT_DRIVING_POS;
+                }
+                break;
+            default:
+                liftState = LiftState.LIFT_DRIVING_POS;
         }
 
-        if (config.bayClose) { // left bumper
-            if (open == true) { // if bay is open, close
-                bay.close();
-                intake.stop();
-                intake.setUp();
-                if (arm.getPosition() <= 60) {
-                    arm.drivingPos();
-                    bay.setPosition(0.92);
-                }
-                open = false;
-            } else if (open == false) { // if bay is closed, open
-                bay.open();
-                intake.noPower();
-                intake.runIntake();
-                if (arm.getPosition() <= 60) {
-                    arm.toPickUp();
-                    bay.setPick();
-                }
-                open = true;
-            }
+        if (config.planeRelease && validate) {
+            plane.reset();
+            telemetry.addData("pos: ", plane.getPosition());
+            telemetry.update();
         }
+
+        //PULL UP
+        switch (pullupstate) {
+            case NEUTRAL:
+                if (config.pullup && validate) {
+                    pullup.reachUp();
+                    pullupstate = PullUpState.REACH_UP;
+                }
+                break;
+            case REACH_UP:
+                if (config.pullup) {
+                    pullup.liftUp();
+                    intake.setUpUp();
+                    pullupstate = PullUpState.NEUTRAL;
+                }
+                break;
+            default:
+                pullupstate = PullUpState.NEUTRAL;
+        }
+
+
+        //INTAKE
+        switch (intakestate) {
+            case BAY_CLOSE:
+                if (config.intake) {
+                    arm.toPickUp();
+                    bay.open();
+                    intake.noPower();
+                    intake.runIntake();
+                    intakestate = IntakeState.BAY_OPEN;
+                }
+                break;
+            case BAY_OPEN:
+                if (config.intake) {
+                    arm.drivingPos();
+                    bay.close();
+                    intake.noPower();
+                    intake.stop();
+                    intakestate = IntakeState.BAY_CLOSE;
+                }
+                break;
+            default:
+                intakestate = IntakeState.BAY_CLOSE;
+        }
+
+
+
+    }
+
+    public void move(float x, float y, float turn) {
+        // if the stick movement is negligible, set STICK_MARGIN to 0
+        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
+        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
+        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
+
+        //Notation of a ? b : c means if a is true do b, else do c.
+        double multiplier = normalPower;
+        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+// OLD CODE
+
 
 //
 //        // bay
@@ -173,54 +259,51 @@ public class Teleop extends OpMode {
 //            pullup.stopLeft();
 //        }
 
-        if (config.planeRelease && validate) { //X
-            plane.reset();
-            telemetry.addData("pos: ", plane.getPosition());
-            telemetry.update();
-        }
+//        if (config.validate) { //Right Trigger
+//            if (armUp == false) {
+//                intake.noPower();
+//                arm.dropPreset(bay);
+//                telemetry.addData("Arm pos:", arm.getPosition());
+//                telemetry.update();
+//                state = true;
+//                armUp = true;
+//            } else if (armUp == true) {
+//                arm.pickPreset(bay);
+//                telemetry.addData("Arm pos:", arm.getPosition());
+//                telemetry.update();
+//                state = true;
+//                armUp = false;
+//            }
+//        }
 
-        // pullup preset
-        if (config.pullupUpManual && validate) {
-            if (hooked == false) {
-                pullup.reachUp();
-                hooked = true;
-            } else if (hooked == true) {
-                pullup.liftUp();
-                hooked = false;
-            }
-        }
+//        if (config.intakeStop) { // left bumper
+//            if (open == true) { // if bay is open, close
+//                bay.close();
+//                intake.stop();
+//                intake.setUp();
+//                if (arm.getPosition() <= 60) {
+//                    arm.drivingPos();
+//                    bay.setPosition(0.92);
+//                }
+//                open = false;
+//            } else if (open == false) { // if bay is closed, open
+//                bay.open();
+//                intake.noPower();
+//                intake.runIntake();
+//                if (arm.getPosition() <= 60) {
+//                    arm.toPickUp();
+//                    bay.setPick();
+//                }
+//                open = true;
+//            }
+//        }
 
-
-        intake(); //dpad right = forward, left = reverse, a = stop
-
-    }
-
-    public void move(float x, float y, float turn, boolean slowMode){
-        // if the stick movement is negligible, set STICK_MARGIN to 0
-        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
-        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
-        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
-
-        //Notation of a ? b : c means if a is true do b, else do c.
-        double multiplier = (slowMode ? slowPower : normalPower);
-        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
-
-    }
-
-    public void intake(){
-        if (config.intakeForward) {
-            intake.noPower();
-            intake.runIntake();
-        }
-        if (config.intakeStop) {
-            intake.stop();
-            intake.setUp();
-        }
-        if (config.intakeReverse) { // right dpad
-            intake.noPower();
-            intake.runReverse();
-        }
-    }
-
-
-}
+//       if (config.pullupUpManual && validate) {
+//            if (hooked == false) {
+//                pullup.reachUp();
+//                hooked = true;
+//            } else if (hooked == true) {
+//                pullup.liftUp();
+//                hooked = false;
+//            }
+//        }
