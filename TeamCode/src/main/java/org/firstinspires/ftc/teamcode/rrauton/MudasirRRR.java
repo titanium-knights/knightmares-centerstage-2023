@@ -134,28 +134,14 @@ public class MudasirRRR extends LinearOpMode {
         switch (pos) {
             case 1:
                 drive.followTrajectory(backToDropPixel);
-                drive.turn(Math.toRadians(-rot));
+                drive.turn(Math.toRadians(rot));
                 drive.followTrajectory(dropPixel);
-                drive.followTrajectory(forwardFromPixel);
-                drive.turn(Math.toRadians(rot));
                 drive.followTrajectory(backOne);
-                drive.turn(Math.toRadians(rot));
-                drive.followTrajectory(backOne);
-                drive.followTrajectory(rightOneHalf);
+                drive.followTrajectory(rightOne);
                 drive.followTrajectory(toPaint);
                 drive.followTrajectory(forwardFromToPaint);
-                drive.followTrajectory(rightOneHalf);
+                drive.followTrajectory(rightOne);
                 drive.followTrajectory(backOneCloseBackDrop);
-
-//                drive.followTrajectory(backToDropPixel);
-//                drive.turn(Math.toRadians(rot));
-//                drive.followTrajectory(dropPixel);
-//                drive.followTrajectory(backOne);
-//                drive.followTrajectory(rightOne);
-//                drive.followTrajectory(toPaint);
-//                drive.followTrajectory(forwardFromToPaint);
-//                drive.followTrajectory(rightOne);
-//                drive.followTrajectory(backOneCloseBackDrop);
                 break;
             case 3:
                 drive.followTrajectory(backToDropPixel);
