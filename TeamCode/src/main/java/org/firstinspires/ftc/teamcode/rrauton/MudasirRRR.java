@@ -66,11 +66,11 @@ public class MudasirRRR extends LinearOpMode {
                 .addDisplacementMarker(this::dropPixel)
                 .build();
         Trajectory forwardFromPixel = drive.trajectoryBuilder(new Pose2d())
-                .forward(8)
+                .forward(9)
                 .build();
 
         Trajectory backOne = drive.trajectoryBuilder(new Pose2d())
-                .back(20)
+                .back(25)
                 .build();
 
         Trajectory backOnee = drive.trajectoryBuilder(new Pose2d())
@@ -87,6 +87,12 @@ public class MudasirRRR extends LinearOpMode {
                 .build();
         Trajectory rightOneHalf = drive.trajectoryBuilder(new Pose2d())
                 .strafeRight(44)
+                .build();
+        Trajectory leftHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(23)
+                .build();
+        Trajectory rightHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(23)
                 .build();
         Trajectory leftOne = drive.trajectoryBuilder(new Pose2d())
                 .strafeLeft(35)
@@ -110,6 +116,9 @@ public class MudasirRRR extends LinearOpMode {
         Trajectory rightOneHalfCloseBackDrop = drive.trajectoryBuilder(new Pose2d())
                 .addDisplacementMarker(this::liftArm)
                 .strafeRight(44)
+                .build();
+        Trajectory rightTwo = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(60)
                 .build();
         Trajectory rightTwoCloseBackDrop = drive.trajectoryBuilder(new Pose2d())
                 .addDisplacementMarker(this::liftArm)
@@ -136,6 +145,8 @@ public class MudasirRRR extends LinearOpMode {
                 drive.followTrajectory(backToDropPixel);
                 drive.turn(Math.toRadians(rot));
                 drive.followTrajectory(dropPixel);
+                drive.followTrajectory(forwardFromPixel);
+                drive.followTrajectory(leftHalf);
                 drive.followTrajectory(backOne);
                 drive.followTrajectory(rightOne);
                 drive.followTrajectory(toPaint);
@@ -149,10 +160,8 @@ public class MudasirRRR extends LinearOpMode {
                 drive.followTrajectory(dropPixel);
                 drive.followTrajectory(forwardFromPixel);
                 drive.turn(Math.toRadians(rot));
-                drive.followTrajectory(backOne);
                 drive.turn(Math.toRadians(rot));
                 drive.followTrajectory(backOne);
-                drive.followTrajectory(rightOneHalf);
                 drive.followTrajectory(toPaint);
                 drive.followTrajectory(forwardFromToPaint);
                 drive.followTrajectory(rightOneHalf);
@@ -203,7 +212,10 @@ public class MudasirRRR extends LinearOpMode {
         arm.drivingPos();
     }
     public void dropArm() {
+        bay.setPick();
+        sleep(200);
         arm.toPickUp();
+        sleep(200);
     }
 
 }

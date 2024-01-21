@@ -56,7 +56,7 @@ public class MudasirR extends LinearOpMode {
                 .build();
 
         Trajectory backToDropPixel = drive.trajectoryBuilder(new Pose2d())
-                .back(33)
+                .back(24)
                 .build();
 
         Trajectory dropPixel = drive.trajectoryBuilder(new Pose2d())
@@ -114,6 +114,12 @@ public class MudasirR extends LinearOpMode {
                 .back(20)
                 .addDisplacementMarker(this::dropArm)
                 .build();
+        Trajectory leftHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(23)
+                .build();
+        Trajectory rightHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(23)
+                .build();
 
         if(isStopRequested()) return;
 
@@ -126,10 +132,10 @@ public class MudasirR extends LinearOpMode {
                 drive.followTrajectory(dropPixel);
                 drive.followTrajectory(forwardFromPixel);
                 drive.turn(Math.toRadians(-rot));
-                drive.followTrajectory(backOne);
+                drive.followTrajectory(backOnee);
                 drive.turn(Math.toRadians(-rot));
                 drive.followTrajectory(backThree);
-                drive.followTrajectory(leftOne);
+                drive.followTrajectory(leftHalf);
                 drive.followTrajectory(toPaint);
                 break;
             case 3:
@@ -138,7 +144,7 @@ public class MudasirR extends LinearOpMode {
                 drive.followTrajectory(dropPixel);
                 drive.followTrajectory(forwardFromPixel);
                 drive.turn(Math.toRadians(rot));
-                drive.followTrajectory(backOne);
+                drive.followTrajectory(backOnee);
                 drive.turn(Math.toRadians(-rot));
                 drive.followTrajectory(backThree);
                 drive.followTrajectory(leftOne);
@@ -187,7 +193,10 @@ public class MudasirR extends LinearOpMode {
         arm.drivingPos();
     }
     public void dropArm() {
+        bay.setPick();
+        sleep(200);
         arm.toPickUp();
+        sleep(200);
     }
 
 }

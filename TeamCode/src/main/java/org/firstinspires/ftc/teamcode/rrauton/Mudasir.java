@@ -58,7 +58,7 @@ public class Mudasir extends LinearOpMode {
                 .build();
 
         Trajectory backToDropPixel = drive.trajectoryBuilder(new Pose2d())
-                .back(33)
+                .back(24)
                 .build();
 
         Trajectory dropPixel = drive.trajectoryBuilder(new Pose2d())
@@ -102,7 +102,6 @@ public class Mudasir extends LinearOpMode {
         Trajectory forwardFromToPaint = drive.trajectoryBuilder(new Pose2d())
                 .forward(5)
                 .build();
-
         Trajectory rightOneCloseBackDrop = drive.trajectoryBuilder(new Pose2d())
                 .addDisplacementMarker(this::liftArm)
                 .strafeRight(35)
@@ -117,6 +116,12 @@ public class Mudasir extends LinearOpMode {
                 .back(20)
                 .addDisplacementMarker(this::dropArm)
                 .build();
+        Trajectory leftHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(23)
+                .build();
+        Trajectory rightHalf = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(23)
+                .build();
 
         if(isStopRequested()) return;
 
@@ -129,12 +134,11 @@ public class Mudasir extends LinearOpMode {
                 drive.followTrajectory(dropPixel);
                 drive.followTrajectory(forwardFromPixel);
                 drive.turn(Math.toRadians(-rot));
-                drive.followTrajectory(backOne);
+                drive.followTrajectory(backOnee);
                 drive.turn(Math.toRadians(rot));
                 drive.followTrajectory(backThree);
                 drive.followTrajectory(rightOne);
                 drive.followTrajectory(toPaint);
-
                 break;
             case 3:
                 drive.followTrajectory(backToDropPixel);
@@ -145,9 +149,8 @@ public class Mudasir extends LinearOpMode {
                 drive.followTrajectory(backOne);
                 drive.turn(Math.toRadians(rot));
                 drive.followTrajectory(backThree);
-                drive.followTrajectory(rightOne);
+                drive.followTrajectory(rightHalf);
                 drive.followTrajectory(toPaint);
-
                 break;
             case 2:
             default:
@@ -157,7 +160,6 @@ public class Mudasir extends LinearOpMode {
                 drive.followTrajectory(backThree);
                 drive.followTrajectory(rightOne);
                 drive.followTrajectory(toPaint);
-
                 break;
         }
 
@@ -194,6 +196,9 @@ public class Mudasir extends LinearOpMode {
         arm.drivingPos();
     }
     public void dropArm() {
+        bay.setPick();
+        sleep(200);
         arm.toPickUp();
+        sleep(200);
     }
 }
