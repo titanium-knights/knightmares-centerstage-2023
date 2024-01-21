@@ -161,12 +161,13 @@ public class TwoPiecePipeline extends OpenCvPipeline {
     @Override
     public void init(Mat input) {
         // Rectangle coordinates (upper left [A] and bottom right [B]) for the three cropped sections
-        //this code just currently splits into three equal sections
+        //this code just currently splits into two equal sections
+
+        //TODO: consider tuning these values based on where the cube appears
+        // rather than a straight split
         rect_points.add(new Point(0, 0));
         rect_points.add(new Point(input.cols()/2.0, input.rows()));
         rect_points.add(new Point(input.cols()/2.0, 0));
-//        rect_points.add(new Point(2*input.cols()/3.0, input.rows()));
-//        rect_points.add(new Point(2*input.cols()/3.0, 0));
         rect_points.add(new Point(input.cols(), input.rows()));
 
         // initialize the dos cropped sections
