@@ -24,8 +24,8 @@ public class TwoPiecePipeline extends OpenCvPipeline {
     public static Scalar BLUE_LOW = new Scalar(0, 0, 200);
 
 
-    public static double min_blue_score = 30;
-    public static double min_red_score = 30;
+    public static double min_blue_score = 20;
+    public static double min_red_score = 20;
     // store the color we're looking for (i.e. team color) as its index in the channels array
     public int colorNum;
 
@@ -67,7 +67,7 @@ public class TwoPiecePipeline extends OpenCvPipeline {
 
     public int getScore(double[] rgb) {
         int want = (int) rgb[colorNum];
-        int unWanted = (int) (rgb[getOppColor()] * 0.38);
+        int unWanted = (int) (rgb[getOppColor()] * 0.35);
         int green = (int) (rgb[1] * 0.15);
 
         return want - green - unWanted;
