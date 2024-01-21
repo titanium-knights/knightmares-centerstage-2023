@@ -15,13 +15,14 @@ import org.firstinspires.ftc.teamcode.utilities.PlaneLauncher;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
 import org.firstinspires.ftc.teamcode.utilities.Arm;
+import org.firstinspires.ftc.teamcode.utilities.TwoPieceVision;
 
 @Autonomous(name="MudasirBlueRight", group="Autonomous")
 public class Mudasir extends LinearOpMode {
 
     public SampleMecanumDrive drive;
     public Stick stick;
-    public InitialVision vision;
+    public TwoPieceVision vision;
     public Arm arm;
     public Intake intake;
     public Bay bay;
@@ -31,7 +32,7 @@ public class Mudasir extends LinearOpMode {
     public void createHardware(HardwareMap hmap) {
         drive = new SampleMecanumDrive(hmap);
         stick = new Stick(hmap);
-        vision = new InitialVision(hmap, telemetry, "blue"); //TODO: remember to change to blue for blue side
+        vision = new TwoPieceVision(hmap, telemetry, "blue"); //TODO: remember to change to blue for blue side
         arm = new Arm(hmap);
         stick = new Stick(hardwareMap);
         intake = new Intake(hardwareMap);
