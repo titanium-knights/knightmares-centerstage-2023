@@ -139,7 +139,7 @@ public class Teleop extends OpMode {
             case LIFT_DROPPING:
                 if (config.lift > 0.0f) {
                     bay.close();
-                    bay.setPosition(0.97);
+                    bay.setPosition(0.92);
                     arm.runToPosition(100);
                     liftState = LiftState.LIFT_TO_PICKUP;
                 }
