@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.utilities.Bay;
 import org.firstinspires.ftc.teamcode.utilities.InitialVision;
 import org.firstinspires.ftc.teamcode.utilities.Intake;
 import org.firstinspires.ftc.teamcode.utilities.Stick;
+import org.firstinspires.ftc.teamcode.utilities.TwoPieceVision;
 
 @Config
 @Autonomous(name="pain", group="Autonomous")
@@ -21,7 +22,7 @@ public class panik extends LinearOpMode {
 
     public SampleMecanumDrive drive;
     public Stick stick;
-    public InitialVision vision;
+    public TwoPieceVision vision;
     public Arm arm;
     public Intake intake;
     public Bay bay;
@@ -31,7 +32,7 @@ public class panik extends LinearOpMode {
     public void createHardware(HardwareMap hmap) {
         drive = new SampleMecanumDrive(hmap);
         stick = new Stick(hmap);
-        vision = new InitialVision(hmap, telemetry, "blue"); //TODO: remember to change to red for blue side
+        vision = new TwoPieceVision(hmap, telemetry, "blue"); //TODO: remember to change to red for blue side
         arm = new Arm(hmap);
         stick = new Stick(hardwareMap);
         intake = new Intake(hardwareMap);
