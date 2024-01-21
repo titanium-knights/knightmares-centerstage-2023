@@ -61,12 +61,12 @@ public class ergo extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory toSpotTwo = drive.trajectoryBuilder(new Pose2d())
-                .back(32)
+                .back(33)
                 .addDisplacementMarker(this::dropPixel)
                 .build();
 
         Trajectory backToDropPixel = drive.trajectoryBuilder(new Pose2d())
-                .back(32)
+                .back(33)
                 .build();
 
         Trajectory dropPixel = drive.trajectoryBuilder(new Pose2d())
@@ -110,20 +110,34 @@ public class ergo extends LinearOpMode {
         Trajectory forwardFromToPaint = drive.trajectoryBuilder(new Pose2d())
                         .forward(5)
                                 .build();
+        Trajectory rightOneCloseBackDrop = drive.trajectoryBuilder(new Pose2d())
+                .addDisplacementMarker(this::liftArm)
+                .strafeRight(35)
+                .build();
+
+        Trajectory leftOneCloseBackBackDrop = drive.trajectoryBuilder(new Pose2d())
+                .addDisplacementMarker(this::liftArm)
+                .strafeLeft(35)
+                .build();
+
+        Trajectory backOneCloseBackDrop = drive.trajectoryBuilder(new Pose2d())
+                        .back(20)
+                                .addDisplacementMarker(this::dropArm)
+                                        .build();
 
         waitForStart();
 
         if(isStopRequested()) return;
 
         int pos = vision.getPosition();
-        drive.followTrajectory(backToDropPixel);
-        drive.turn(Math.toRadians(-rot));
-        drive.followTrajectory(dropPixel);
-        drive.followTrajectory(backOne);
+        drive.followTrajectory(toSpotTwo);
+        drive.followTrajectory(forwardFromPixel);
+        drive.turn(Math.toRadians(rot));
+        drive.followTrajectory(backOnee);
         drive.followTrajectory(toPaint);
         drive.followTrajectory(forwardFromToPaint);
-        drive.followTrajectory(leftOne);
-        drive.followTrajectory(backOne);
+        drive.followTrajectory(rightOneCloseBackDrop);
+        drive.followTrajectory(backOneCloseBackDrop);
 
     }
     public void dropPixel() {
@@ -131,6 +145,8 @@ public class ergo extends LinearOpMode {
     }
     public void paintPixel() {
         intake.setZero();
+        sleep(200);
+        bay.setPosition(0.97);
         sleep(200);
         arm.toDrop();
         sleep(2000);
@@ -142,14 +158,21 @@ public class ergo extends LinearOpMode {
     public void returnInit() {
         bay.close();
         sleep(200);
-        bay.setPosition(1.0);
+        bay.setPosition(0.97);
         sleep(200);
         arm.drivingPos();
         sleep(2000);
-        arm.toPickUp();
-        sleep(500);
         bay.setPick();
         sleep(200);
+        arm.toPickUp();
+        sleep(500);
     }
+    public void liftArm() {
+        arm.drivingPos();
+    }
+    public void dropArm() {
+        arm.toPickUp();
+    }
+
 
 }

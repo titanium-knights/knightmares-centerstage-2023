@@ -96,14 +96,14 @@ public class Teleop extends OpMode {
         //ARM
         switch (liftState) {
             case INTAKE_RUNNING:
-                if (Math.abs(arm.getPosition() - 0) < 2 && config.intake) {
+                if (Math.abs(arm.getPosition() - 0) < 2 && config.bay > 0.0f) {
                     bay.close();
                     bay.setPosition(0.92);
                     intake.stop();
                     arm.drivingPos();
                     liftState = LiftState.LIFT_DRIVING_POS;
                 }
-                if (config.lift) {
+                if (config.lift > 0.0f) {
                     bay.close();
                     bay.setPosition(0.92);
                     intake.stop();
@@ -112,11 +112,11 @@ public class Teleop extends OpMode {
                 }
                 break;
             case LIFT_DRIVING_POS:
-                if (config.lift) {
+                if (config.lift > 0.0f) {
                     arm.toDrop();
                     liftState = LiftState.LIFT_TO_DROP;
                 }
-                if (Math.abs(arm.getPosition() - 10) < 2 && config.intake) {
+                if (Math.abs(arm.getPosition() - 10) < 2 && config.bay > 0.0f) {
                     bay.open();
                     bay.setPick();
                     intake.runIntake();
@@ -131,13 +131,13 @@ public class Teleop extends OpMode {
                 }
                 break;
             case BAY_TO_DROP:
-                if (config.bay) {
+                if (config.bay > 0.0f) {
                     bay.open();
                     liftState = liftState.LIFT_DROPPING;
                 }
                 break;
             case LIFT_DROPPING:
-                if (config.lift) {
+                if (config.lift > 0.0f) {
                     bay.close();
                     bay.setPosition(0.97);
                     arm.runToPosition(100);

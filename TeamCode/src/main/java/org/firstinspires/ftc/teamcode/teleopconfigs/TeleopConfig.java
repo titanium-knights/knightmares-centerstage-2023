@@ -9,8 +9,8 @@ public class TeleopConfig {
     public float x_movement;
     public float y_movement;
     public float turn;
-    public boolean bay;
-    public boolean lift;
+    public float bay;
+    public float lift;
     public boolean pullup;
     public boolean updateTelemetry;
     public boolean planeRelease;
@@ -31,12 +31,14 @@ public class TeleopConfig {
         // endgame stuff: validate must be pushed with corresponding button to work
         validate = this.gamepad1.x;
         planeRelease = this.gamepad1.dpad_right;
-        pullup = this.gamepad1.dpad_up; // press to extend, press again to pull up. **also folds intake in so it is not touching the ground
+        pullup = this.gamepad1.dpad_up;
+        // ^^press to extend, press again to pull up. **also folds intake in so it is not touching the ground
 
         // for pixels
-        lift = this.gamepad1.y; // to move the lift up and down, automatically controls bay rotator
-        bay = this.gamepad1.a; // to release pixel when the lift is at the dropping position
-        intake = this.gamepad1.b; // activates/deactivates intake, sets bay to according position at the same time
+        lift = this.gamepad1.right_trigger; // to move the lift up and down, automatically controls bay rotator
+        bay = this.gamepad1.left_trigger;
+        // ^^to release pixel when the lift is at the dropping position
+        // ^^when lift is at bottom, it opens/closes bay and activates/deactivates intake at the same time
 
         // other
         updateTelemetry = this.gamepad1.back;
