@@ -67,8 +67,8 @@ public class TwoPiecePipeline extends OpenCvPipeline {
 
     public int getScore(double[] rgb) {
         int want = (int) rgb[colorNum];
-        int unWanted = (int) (rgb[getOppColor()] * 0.8);
-        int green = (int) (rgb[1] * 0.35);
+        int unWanted = (int) (rgb[getOppColor()] * 0.38);
+        int green = (int) (rgb[1] * 0.15);
 
         return want - green - unWanted;
     }
