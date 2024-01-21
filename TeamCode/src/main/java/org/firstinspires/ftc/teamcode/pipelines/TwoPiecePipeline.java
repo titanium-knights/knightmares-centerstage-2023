@@ -65,6 +65,14 @@ public class TwoPiecePipeline extends OpenCvPipeline {
         return location;
     }
 
+    public int getScore(double[] rgb) {
+        int want = (int) rgb[colorNum];
+        int unWanted = (int) (rgb[getOppColor()] * 0.8);
+        int green = (int) (rgb[1] * 0.35);
+
+        return want - green - unWanted;
+    }
+
     @Override
     public Mat processFrame(Mat input) {
         int maxIndex = 0;
@@ -73,9 +81,8 @@ public class TwoPiecePipeline extends OpenCvPipeline {
         for (int i=0;i<croppedSections.length;i++) {
             Mat section = croppedSections[i];
             double[] avg = Core.mean(section).val;
-            int want = (int) avg[colorNum];
-            int unWanted = (int) ((avg[getOppColor()]/2 + avg[1])/2);
-            scores[i] = want - unWanted;
+
+            scores[i] = getScore(avg);
         }
 
         for (int i=0;i<scores.length;i++) {
@@ -90,29 +97,28 @@ public class TwoPiecePipeline extends OpenCvPipeline {
         }
         location = Locations.values()[maxIndex];
 
-        telemetry.addData("Chose position: ", maxIndex);
+        telemetry.addData("Chose position: ", location.name());
         telemetry.update();
 
 
         final int THICKNESS = 7;
-        if (maxIndex !=2)
-        Imgproc.rectangle(
+
+//        Imgproc.rectangle(
+//                input,
+//                rect_points.get(maxIndex * 2),
+//                rect_points.get(2 * maxIndex + 1),
+//                new Scalar(35, 123, 113),
+//                THICKNESS);
+
+        Imgproc.putText(
                 input,
-                rect_points.get(maxIndex * 2),
-                rect_points.get(2 * maxIndex + 1),
-                new Scalar(35, 123, 113),
-                THICKNESS);
-        else {
-            Imgproc.putText(
-                    input,
-                    "ONE",
-                    new Point(0, 200),
-                    3,
-                    12,
-                    new Scalar(0,255,0),
-                    67
-            );
-        }
+                location.name(),
+                new Point(50, 200),
+                3,
+                12,
+                new Scalar(36,105,39),
+                67
+        );
         return input;
     }
 
