@@ -26,6 +26,41 @@ public class TwoPiecePipeline extends OpenCvPipeline {
 
     public static double min_blue_score = 20;
     public static double min_red_score = 20;
+
+    // weights for scoring
+
+    /**
+     * <p>
+     * the following explanation will assume that this pipeline is running
+     * for red, although it will work the same way for either color. WANT
+     * indicates red in this case, and UNWANT will indicate blue. If the
+     * pipeline were running for blue, WANT => blueness, and UNWANT => redness.
+     * </p> <br>
+     * <p>
+     * The weights below can be used to change how scoring occurs. For example,
+     * WANT_WEIGHT = 1 ensures that 100% of the redness is factored into the score
+     * It is likely that you should not need to adjust the WANT weight.
+     * </p><br/><p>
+     * UNWANT_WEIGHT = 0.35 implies that 35% of the blue value will be subtracted
+     * from the score. Raise this value if you find that colors with a higher
+     * blue value are also triggering the red pipeline (i.e., purples, whites, etc.)
+     * You can also lower this value if you find that scores are going too low in areas
+     * that should be red. If all scores are going to low values, then you can just
+     * lower the minimum_red_score and minimum_blue_score
+     * </p><br/><p>
+     * GREEN_WEIGHT = 0.15 means that 15% of the green value will be subtracted from
+     * the score. This value can probably be changed a bit more liberally than the
+     * UNWANT_WEIGHT. Raise it if you find that colors with a mix of red and green
+     * (e.g. white, brown, look up "rgb color picker" on google) are triggering the
+     * system with a higher score. Lower it if scores are becoming abnormally low for
+     * some sections which visually appear red.
+     * </p>
+     */
+
+    public static double WANT_WEIGHT = 1.0;
+    public static double UNWANT_WEIGHT = 0.35;
+    public static double GREEN_WEIGHT = 0.15;
+
     // store the color we're looking for (i.e. team color) as its index in the channels array
     public int colorNum;
 
@@ -40,10 +75,10 @@ public class TwoPiecePipeline extends OpenCvPipeline {
     // the location we actually want to go to
     public volatile Locations location = Locations.ONE;
 
-    // for the 3 sections
+    // for the 2 sections
     private final Mat[] croppedSections = new Mat[2];
 
-    //instantiate the object with telemetry and a color, which defaults to RED
+    //instantiate the object with telemetry and a color, which defaults to blue
     // this is the constructor that will be used by easy openCV sim
     public TwoPiecePipeline(Telemetry telemetry) {
         this(telemetry, "blue");
@@ -57,6 +92,7 @@ public class TwoPiecePipeline extends OpenCvPipeline {
         else {
             this.colorNum = 0;
             telemetry.addLine("Invalid color, defaulting to red");
+            telemetry.update();
         }
     }
 
@@ -66,9 +102,9 @@ public class TwoPiecePipeline extends OpenCvPipeline {
     }
 
     public int getScore(double[] rgb) {
-        int want = (int) rgb[colorNum];
-        int unWanted = (int) (rgb[getOppColor()] * 0.35);
-        int green = (int) (rgb[1] * 0.15);
+        int want = (int) (rgb[colorNum] * WANT_WEIGHT);
+        int unWanted = (int) (rgb[getOppColor()] * UNWANT_WEIGHT);
+        int green = (int) (rgb[1] * GREEN_WEIGHT);
 
         return want - green - unWanted;
     }
