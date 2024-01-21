@@ -24,8 +24,8 @@ public class TwoPiecePipeline extends OpenCvPipeline {
     public static Scalar BLUE_LOW = new Scalar(0, 0, 200);
 
 
-    public static double min_blue_score = 20;
-    public static double min_red_score = 20;
+    public static double min_blue_score = 26;
+    public static double min_red_score = 25;
 
     // weights for scoring
 
