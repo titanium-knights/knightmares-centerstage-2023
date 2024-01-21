@@ -50,8 +50,6 @@ public class MudasirRRR extends LinearOpMode {
         Pose2d startPose = new Pose2d(11.5, 60, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
 
-        drive.setPoseEstimate(startPose);
-
         Trajectory toSpotTwo = drive.trajectoryBuilder(new Pose2d())
                 .back(35)
                 .addDisplacementMarker(this::dropPixel)
@@ -103,13 +101,10 @@ public class MudasirRRR extends LinearOpMode {
                 .forward(5)
                 .build();
 
-        waitForStart();
 
         if(isStopRequested()) return;
 
-        InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
-        waitForStart();
-        int pos = vis.getPosition();
+        int pos = vision.getPosition();
 
         switch (pos) {
             case 1:

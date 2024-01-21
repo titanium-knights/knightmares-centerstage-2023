@@ -103,13 +103,9 @@ public class Mudasir extends LinearOpMode {
                 .forward(5)
                 .build();
 
-        waitForStart();
-
         if(isStopRequested()) return;
 
-        InitialVision vis = new InitialVision(hardwareMap, telemetry, "blue");
-        waitForStart();
-        int pos = vis.getPosition();
+        int pos = vision.getPosition();
 
         switch (pos) {
             case 1:
