@@ -16,7 +16,7 @@ public class PipelineTester extends LinearOpMode {
 //    public void init() {}
     @Override
     public void runOpMode() {
-        TwoPieceVision vis = new TwoPieceVision(hardwareMap, telemetry, "red");
+        TwoPieceVision vis = new TwoPieceVision(hardwareMap, telemetry, "blue");
         telemetry.setAutoClear(false);
 
         while (!isStopRequested()) {
