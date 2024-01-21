@@ -53,12 +53,12 @@ public class Mudasir extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory toSpotTwo = drive.trajectoryBuilder(new Pose2d())
-                .back(33)
+                .back(35) // 33 orig
                 .addDisplacementMarker(this::dropPixel)
                 .build();
 
         Trajectory backToDropPixel = drive.trajectoryBuilder(new Pose2d())
-                .back(24)
+                .back(26) // 24 orig
                 .build();
 
         Trajectory dropPixel = drive.trajectoryBuilder(new Pose2d())
