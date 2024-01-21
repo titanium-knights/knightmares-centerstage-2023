@@ -149,10 +149,10 @@ public class TwoPiecePipeline extends OpenCvPipeline {
         Imgproc.putText(
                 input,
                 location.name(),
-                new Point(50, 200),
+                new Point(50, 230),
                 3,
-                12,
-                new Scalar(36,105,39),
+                10,
+                new Scalar(136,125,39),
                 67
         );
         return input;
@@ -162,12 +162,12 @@ public class TwoPiecePipeline extends OpenCvPipeline {
     public void init(Mat input) {
         // Rectangle coordinates (upper left [A] and bottom right [B]) for the three cropped sections
         //this code just currently splits into two equal sections
-
+    
         //TODO: consider tuning these values based on where the cube appears
         // rather than a straight split
-        rect_points.add(new Point(0, 0));
+        rect_points.add(new Point(0, 0.33 * input.rows()));
         rect_points.add(new Point(input.cols()/2.0, input.rows()));
-        rect_points.add(new Point(input.cols()/2.0, 0));
+        rect_points.add(new Point(input.cols()/2.0, 0.33  * input.rows()));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   * input.rows()));
         rect_points.add(new Point(input.cols(), input.rows()));
 
         // initialize the dos cropped sections
