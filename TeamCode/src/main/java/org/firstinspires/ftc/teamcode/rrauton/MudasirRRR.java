@@ -24,7 +24,9 @@ public class MudasirRRR extends LinearOpMode {
     public Arm arm;
     public Intake intake;
     public Bay bay;
-    public int rot = 76; // intended to be 90 but the turn overturns it
+    public int rot = 99; // intended to be 90 but the turn overturns it
+    // 76 if full battery
+    // 100 if at very low battery
     //TODO etc. etc., and add to the createHardware method
 
     public void createHardware(HardwareMap hmap) {
@@ -104,6 +106,14 @@ public class MudasirRRR extends LinearOpMode {
                 .addDisplacementMarker(this::liftArm)
                 .strafeRight(35)
                 .build();
+        Trajectory rightOneHalfCloseBackDrop = drive.trajectoryBuilder(new Pose2d())
+                .addDisplacementMarker(this::liftArm)
+                .strafeRight(44)
+                .build();
+        Trajectory rightTwoCloseBackDrop = drive.trajectoryBuilder(new Pose2d())
+                .addDisplacementMarker(this::liftArm)
+                .strafeRight(60)
+                .build();
 
         Trajectory leftOneCloseBackBackDrop = drive.trajectoryBuilder(new Pose2d())
                 .addDisplacementMarker(this::liftArm)
@@ -128,8 +138,8 @@ public class MudasirRRR extends LinearOpMode {
                 drive.followTrajectory(backOne);
                 drive.followTrajectory(toPaint);
                 drive.followTrajectory(forwardFromToPaint);
-                drive.followTrajectory(rightOne);
-                drive.followTrajectory(backOne);
+                drive.followTrajectory(rightTwoCloseBackDrop);
+                drive.followTrajectory(backOneCloseBackDrop);
                 break;
             case 3:
                 drive.followTrajectory(backToDropPixel);
@@ -141,8 +151,8 @@ public class MudasirRRR extends LinearOpMode {
                 drive.followTrajectory(backOnee);
                 drive.followTrajectory(toPaint);
                 drive.followTrajectory(forwardFromToPaint);
-                drive.followTrajectory(rightOneHalf);
-                drive.followTrajectory(backOne);
+                drive.followTrajectory(rightOneHalfCloseBackDrop);
+                drive.followTrajectory(backOneCloseBackDrop);
                 break;
             case 2:
             default:
@@ -152,8 +162,8 @@ public class MudasirRRR extends LinearOpMode {
                 drive.followTrajectory(backOnee);
                 drive.followTrajectory(toPaint);
                 drive.followTrajectory(forwardFromToPaint);
-                drive.followTrajectory(rightOne);
-                drive.followTrajectory(backOne);
+                drive.followTrajectory(rightOneCloseBackDrop);
+                drive.followTrajectory(backOneCloseBackDrop);
                 break;
         }
 

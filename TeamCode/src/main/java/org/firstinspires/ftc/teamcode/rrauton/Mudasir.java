@@ -102,6 +102,7 @@ public class Mudasir extends LinearOpMode {
         Trajectory forwardFromToPaint = drive.trajectoryBuilder(new Pose2d())
                 .forward(5)
                 .build();
+
         Trajectory rightOneCloseBackDrop = drive.trajectoryBuilder(new Pose2d())
                 .addDisplacementMarker(this::liftArm)
                 .strafeRight(35)
