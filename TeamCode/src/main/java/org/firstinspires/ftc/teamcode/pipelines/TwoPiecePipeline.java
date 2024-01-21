@@ -167,7 +167,7 @@ public class TwoPiecePipeline extends OpenCvPipeline {
         // rather than a straight split
         rect_points.add(new Point(0, 0.33 * input.rows()));
         rect_points.add(new Point(input.cols()/2.0, input.rows()));
-        rect_points.add(new Point(input.cols()/2.0, 0.33  * input.rows()));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   * input.rows()));
+        rect_points.add(new Point(input.cols()/2.0, 0.33  * input.rows()));
         rect_points.add(new Point(input.cols(), input.rows()));
 
         // initialize the dos cropped sections
